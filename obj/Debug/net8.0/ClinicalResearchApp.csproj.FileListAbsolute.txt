@@ -66,3 +66,4 @@ C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\refint\ClinicalResearchAp
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.pdb
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
+c:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.sourcelink.json

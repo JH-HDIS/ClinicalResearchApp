@@ -1,72 +1,600 @@
-@model ClinicalResearchApp.Models.ResearchData
+@model ClinicalResearchApp.Models.UserResponse
 
-<h2>Edit Research Data</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Tiers Calculator</title>
 
-<form asp-action="Update">
-    <div class="form-group">
-        <label>Study Name</label>
-        <input asp-for="StudyName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Principal Investigator</label>
-        <input asp-for="PrincipalInvestigator" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Principal Investigator First Name</label>
-        <input asp-for="PI_First_Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Principal Investigator Last Name</label>
-        <input asp-for="PI_Last_Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Status</label>
-        <input asp-for="Status" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Start Date</label>
-        <input asp-for="StartDate" class="form-control" type="date" />
-    </div>
-    <div class="form-group">
-        <label>End Date</label>
-        <input asp-for="EndDate" class="form-control" type="date" />
-    </div>
-    <div class="form-group">
-        <label>PI JHED ID</label>
-        <input asp-for="PI_JHED" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>PI Email Address</label>
-        <input asp-for="PI_Email_Address" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label>Study Contact First Name</label>
-        <input asp-for="Study_Contact_First_Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contact Last Name</label>
-        <input asp-for="Study_Contact_Last_name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contact JHED</label>
-        <input asp-for="Study_Contact_JHED" class="form-control" />
-    </div>
-        <div class="form-group">
-        <label>Study Contact Email Address</label>
-        <input asp-for="Study_Contact_Email_Address" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contains Sensitive Health Information</label>
-        <input asp-for="Sensitive_Health_Info" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Expected Enrollee Count</label>
-        <input asp-for="Expected_Enroll_Count" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label>Covered By Consent</label>
-        <input asp-for="Covered_By_Consent" class="form-control" />
-    </div>
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Update" class="btn btn-success" />
-</form>
+    <!-- Link to your custom styles.css file -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Additional custom styles specific to this page -->
+    <style>
+        .form-section {
+            margin-bottom: 20px;
+        }
+        
+        .form-section label {
+            font-weight: bold;
+        }
+        
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-decoration: underline;
+        }
+        
+        .form-check-label {
+            margin-left: 10px;
+        }
+        
+        /* Added styles for wider form */
+        .form-container {
+            max-width: 90%; /* Set the form to take up 90% of the screen width */
+            margin: 0 auto; /* Center the form on the page */
+        }
+        
+        /* Ensure input fields take full width of their container */
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            box-sizing: border-box; /* Include padding and border in the element's width */
+        .form-check-label {
+    display: inline-block;
+    width: auto; /* Ensures the label takes up only as much width as it needs */
+    white-space: normal; /* Allows wrapping of the text if needed */
+}
+   /* Sticky note styles */
+        #risk-level-note {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: yellow;
+            text-align: center;
+            padding: 10px;
+            font-size: 20px; /* Adjust the font size here */
+            font-weight: bold; /* Make it bold for more visibility */
+            z-index: 1000; /* Ensure it stays on top */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Risk Tiers Calculator</h1>
+        <form asp-action="Index" method="post">
+            <div class="form-section">
+                <label asp-for="RTCCompletionDate">RTC Completion Date</label>
+                <input asp-for="RTCCompletionDate" class="form-control" type="date" />
+                <span asp-validation-for="RTCCompletionDate" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="IRBApplicationNumber">IRB Application Number</label>
+                <input asp-for="IRBApplicationNumber" class="form-control" />
+                <span asp-validation-for="IRBApplicationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIFirstName">PI First Name</label>
+                <input asp-for="PIFirstName" class="form-control" />
+                <span asp-validation-for="PIFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PILastName">PI Last Name</label>
+                <input asp-for="PILastName" class="form-control" />
+                <span asp-validation-for="PILastName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIJHED">PI JHED</label>
+                <input asp-for="PIJHED" class="form-control" />
+                <span asp-validation-for="PIJHED" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIEmailAddress">PI Email Address</label>
+                <input asp-for="PIEmailAddress" class="form-control" />
+                <span asp-validation-for="PIEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactFirstName">Study Contact First Name (optional)</label>
+                <input asp-for="StudyContactFirstName" class="form-control" />
+                <span asp-validation-for="StudyContactFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactLastName">Study Contact Last Name (optional)</label>
+                <input asp-for="StudyContactLastName" class="form-control" />
+                <span asp-validation-for="StudyContactLastName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactJHED">Study Contact JHED (optional)</label>
+                <input asp-for="StudyContactJHED" class="form-control" />
+                <span asp-validation-for="StudyContactJHED" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactEmailAddress">Study Contact Email Address (optional)</label>
+                <input asp-for="StudyContactEmailAddress" class="form-control" />
+                <span asp-validation-for="StudyContactEmailAddress" class="text-danger"></span>
+            </div>
+
+            <div class="section-title" style="color: red; text-align: center;">
+                Section 1: Data Characteristics and Data Access
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InvolvesSensitiveHealthInfo">1A. My study will involve storage or use of sensitive health information...</label>
+                <div class="form-check">
+                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="true" id="InvolvesSensitiveHealthInfoYes" />
+                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="false" id="InvolvesSensitiveHealthInfoNo" />
+                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoNo">No</label>
+                </div>
+                <span asp-validation-for="InvolvesSensitiveHealthInfo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NumberOfPeopleOrRecords">1B. Number of people to be enrolled or records to be reviewed...</label>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="0" id="NumberOfPeopleOrRecords1" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords1">1-499</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="1" id="NumberOfPeopleOrRecords2" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords2">500-9,999</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="2" id="NumberOfPeopleOrRecords3" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords3">10,000 or more</label>
+                </div>
+                <span asp-validation-for="NumberOfPeopleOrRecords" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HumanDataSharingLevel">1C. What (if any) human data will be copied, moved, or shared...</label>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="0" id="HumanDataSharingLevel1" />
+                    <label class="form-check-label" for="HumanDataSharingLevel1">Directly identifiable data</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="1" id="HumanDataSharingLevel2" />
+                    <label class="form-check-label" for="HumanDataSharingLevel2">LDS</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="2" id="HumanDataSharingLevel3" />
+                    <label class="form-check-label" for="HumanDataSharingLevel3">Person-level data with No PHI or PII</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="3" id="HumanDataSharingLevel4" />
+                    <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts &#41;</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="4" id="HumanDataSharingLevel5" />
+                    <label class="form-check-label" for="HumanDataSharingLevel5">Data will not be copied, moved, or shared</label>
+                </div>
+                <span asp-validation-for="HumanDataSharingLevel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AllActivitiesCoveredByConsent">1D. Are all activities (including any use or disclosure) covered by consent?</label>
+                <div class="form-check">
+                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="true" id="AllActivitiesCoveredByConsentYes" />
+                    <label class="form-check-label" for="AllActivitiesCoveredByConsentYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="false" id="AllActivitiesCoveredByConsentNo" />
+                    <label class="form-check-label" for="AllActivitiesCoveredByConsentNo">No</label>
+                </div>
+                <span asp-validation-for="AllActivitiesCoveredByConsent" class="text-danger"></span>
+            </div>
+            
+            <div class="section-title" style="color: red; text-align: center;">
+    Section 2: Data Storage
+</div>
+<p style="text-align: center;"><strong>• In each of the 4 field groups below, indicate where data will be stored or analyzed (select all that apply).</strong></p>
+
+            <div class="mt-5">
+    <h2>Data Table</h2>
+            @if (Model.DataClassifications != null && Model.DataClassifications.Any())
+            {
+                <table class="table table-striped">
+                   <thead>
+    <tr>
+        <th>Option</th>
+        <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
+        <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
+        <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
+        <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
+        <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
+        <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
+    </tr>
+</thead>
+                    <tbody>
+                        <!-- (P) Preferred Data Storage Options Section -->
+                        <tr>
+                            <td colspan="8" style="font-weight: bold; text-align: left;">
+                                (P) Preferred Data Storage Options - 
+                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                                </a>
+                            </td>
+                        </tr>
+                         <tr>
+        <td>2.P.1 <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFER</a> or <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFE Desktop</a></td>
+        <td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C1" value="TextPHI" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C2" value="PHIgtLDS" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C3" value="LDS" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C4" value="PHIButNoPII" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C5" value="NoPHIPII" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C6" value="Aggregate" /></td>
+<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C7" value="NotUsed" /></td>
+
+    <tr>
+    <td>2.P.2 <a href="https://ictr.johnshopkins.edu/service/informatics/pmap/" target="_blank">JH PMAP</a></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.3 <a href="https://ictr.johnshopkins.edu/service/informatics/openspecimen/" target="_blank">JHU OpenSpecimen</a></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.4 <a href="https://uis.jhu.edu/qualtrics/" target="_blank">JHU Qualtrics</a></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.5 <a href="https://redcap.jhu.edu/" target="_blank">JHU/ACH REDCap</a></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.6 <a href="https://researchit.jhu.edu/safe-stor/" target="_blank">SAFESTOR</a></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.7 <a href="https://researchit.jhu.edu/research-hpc/" target="_blank">Discovery HPC</a></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.8 <a href="https://researchit.jhu.edu/" target="_blank">Enterprise Network Storage (NAS)</a></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.P.9 IT@JH RIT-managed Azure or AWS subscription</td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C7" value="NotUsed" /></td>
+</tr>
+                        
+                        <!-- (J) Justifiable Data Storage Options Section -->
+                        <tr>
+                            <td colspan="8" style="font-weight: bold; text-align: left;">
+                                (J) Justifiable Data Storage Options - (Requiring JHED Authenticated Network Access)
+                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                                </a>
+                            </td>
+                        </tr>
+<tr>
+    <td>2.J.1 JH OneDrive / SharePoint / Teams</td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td title="For computers NOT managed by IT@JH, see Section R (below)">
+        2.J.2 Local Computer <span style="text-decoration: underline; cursor: pointer; color: blue; font-weight: bold;">(both JH owned and IT@JH managed)</span>
+    </td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C7" value="NotUsed" /></td>
+</tr>
+                        
+                        <!-- (E) External Data Storage Tools Section -->
+                        <tr>
+                            <td colspan="8" style="font-weight: bold; text-align: left;">
+                                (E) External Data Storage Tools
+                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                                </a>
+                            </td>
+                        </tr>
+<tr class="section-e-option">
+    <td>2.E.1 Non-JHU REDCap</td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr class="section-e-option">
+    <td>2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)</td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C7" value="NotUsed" /></td>
+</tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No data available.</p>
+            }
+        </div>
+
+        <!-- Insert the Question between Section E and Section R -->
+        <div class="mt-4"id="ora-jhura-question" style="display: none;">
+                <p><strong>Is the sharing of data via this external tool included in an agreement handled by 
+                <a href="https://ora.jhmi.edu/" target="_blank">ORA</a> or 
+                <a href="https://jhura.jhu.edu/" target="_blank">JHURA</a>? 
+            (Yes/No)</strong></p>
+            <!-- Add radio buttons for Yes/No -->
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="DataSharingAgreement" value="Yes" id="DataSharingYes">
+                <label class="form-check-label" for="DataSharingYes">Yes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="DataSharingAgreement" value="No" id="DataSharingNo">
+                <label class="form-check-label" for="DataSharingNo">No</label>
+            </div>
+        </div>
+
+        <!-- (R) Data Storage Options Requiring Review Section -->
+        <div class="mt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       <th>Option</th>
+        <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
+        <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
+        <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
+        <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
+        <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
+        <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" style="font-weight: bold; text-align: left;">
+                            (R) Data Storage Options Requiring Review
+                            <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                            </a>
+                        </td>
+                    </tr>
+<tr>
+    <td>2.R.1 Department Server (not managed by IT@JH)</td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.R.2 Other computer(s) or Device(s) owned and managed by study team members</td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.R.3 USB/Portable Data Storage Device</td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.R.4 <a href="https://jhpce.jhu.edu/" target="_blank">Joint High Performance Computing Exchange (JHPCE)</a></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.R.5 <a href="https://www.arch.jhu.edu/" target="_blank">JHU ARCH (formerly MARCC)</a></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C7" value="NotUsed" /></td>
+</tr>
+<tr>
+    <td>2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)</td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C1" value="TextPHI" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C2" value="PHIgtLDS" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C3" value="LDS" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C4" value="PHIButNoPII" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C5" value="NoPHIPII" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C6" value="Aggregate" /></td>
+    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C7" value="NotUsed" /></td>
+</tr>
+                </tbody>
+            </table>
+        </div>
+         <div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const question = document.getElementById("ora-jhura-question");
+
+        // Function to check if any radio button in Section E is selected (excluding Not Used)
+        function checkSectionE() {
+            const sectionERadios = document.querySelectorAll('input[name^="NonJHU_REDCap"], input[name^="NonJHUSystem"]');
+            let isAnySelected = false;
+            sectionERadios.forEach(radio => {
+                if (radio.checked && radio.value !== 'NotUsed') {
+                    isAnySelected = true;
+                }
+            });
+
+            if (isAnySelected) {
+                question.style.display = "block";  // Show the question
+            } else {
+                question.style.display = "none";   // Hide the question
+            }
+        }
+
+        // Add event listener for all radio buttons
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                // Check Section E whenever a radio button changes
+                checkSectionE();
+            });
+        });
+        radioButtons.forEach(radio => {
+            radio.addEventListener('click', function() {
+                if (this.checked) {
+                    if (this.previousValue === 'checked') {
+                        this.checked = false;  // Deselect the radio button
+                        this.previousValue = '';  // Reset previous value
+                    } else {
+                        this.previousValue = 'checked';  // Store the state as checked
+                    }
+                }
+                checkSectionE();
+            });
+        });
+        // Initial check in case there are already selected radios in Section E on page load
+        checkSectionE();
+    });
+</script>
+ <script>
+        function updateRiskLevel() {
+            const riskNote = document.getElementById('risk-level-note');
+            let riskLevel = 'Need to answer more questions to determine risk level.'; // Default message
+
+            // You can insert logic here to calculate the risk based on user inputs
+            // Example: if all fields are filled or based on specific conditions, change the message
+            let calculatedRiskLevel = calculateRiskLevel(); // Placeholder for your risk level calculation function
+
+            if (calculatedRiskLevel === 'Preferred') {
+                riskLevel = 'Your risk level is: Preferred';
+            } else if (calculatedRiskLevel === 'Justifiable') {
+                riskLevel = 'Your risk level is: Justifiable';
+            } else if (calculatedRiskLevel === 'External Tools') {
+                riskLevel = 'Your risk level is: External Tools';
+            } else if (calculatedRiskLevel === 'Requires Review') {
+                riskLevel = 'Your risk level is: Requires Review';
+            }
+
+            // Update the content of the sticky note
+            riskNote.innerHTML = riskLevel;
+        }
+
+        // Placeholder function to determine risk level
+        function calculateRiskLevel() {
+            // Insert logic here to determine risk level based on user input
+            // For now, return "Preferred" as an example
+            return 'Preferred'; 
+        }
+
+        // Example event listener to trigger risk level calculation when an input changes
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('change', updateRiskLevel);
+        });
+
+        // Ensure sticky note stays at the bottom of the screen when scrolling
+        window.addEventListener('scroll', function () {
+            const riskNote = document.getElementById('risk-level-note');
+            riskNote.style.position = 'fixed';
+            riskNote.style.bottom = '0';
+        });
+    </script>
+
+
+<!-- Load jQuery first -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Load Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Load your custom JavaScript last -->
+<script src="~/js/logic.js"></script>
+@section Scripts {
+    <script src="~/logic.js"></script>
+}
+
+</body>
+</html>

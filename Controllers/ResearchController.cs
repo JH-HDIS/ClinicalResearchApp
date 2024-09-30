@@ -29,7 +29,8 @@ namespace ClinicalResearchApp.Controllers
         public IActionResult Edit(string id)
         {
             //var data = _repository.GetResearchData("Normal").FirstOrDefault(x => x.Id == id);
-            var data = _repository.GetResearchDataDetails(id);
+           // var data = _repository.GetResearchDataDetails(id);
+            var data = _repository.GetUserResponseDetails(id);
             return View(data);
         }
 

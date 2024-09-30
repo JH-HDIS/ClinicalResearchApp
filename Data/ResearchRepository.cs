@@ -92,6 +92,80 @@ namespace ClinicalResearchApp.Data
 
         }
 
+public UserResponse GetUserResponseDetails(string irbNum)
+       {
+            UserResponse researchData = new UserResponse();
+           
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_slct_Risk_Tier_Calculation", conn)) // Assume the stored procedure is GetResearchDetailsById
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IRB_Application_Number", irbNum);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                           {
+                            researchData = new UserResponse
+                            {
+                                Id = (string)reader["IRB_Application_Number"],
+                                IRBApplicationNumber = reader["IRB_Application_Number"].ToString(),
+                                //StudyName = reader["IRB_Application_Number"].ToString() + " Study Name",
+                                //PrincipalInvestigator = reader["PI_Last_Name"].ToString() + ", " + reader["PI_First_Name"].ToString(),
+                                PIFirstName = reader["PI_First_Name"].ToString(),
+                                PILastName = reader["PI_Last_Name"].ToString(),
+                                //Status = reader["tier_calculator_completed_yn?"].ToString(),
+                                RTCCompletionDate = (DateTime)reader["RTC_Completion_Date"],
+                                //EndDate = (DateTime)reader["RTC_Completion_Date"],
+                                PIJHED = reader["PI_JHED"].ToString(),
+                                PIEmailAddress = reader["PI_Email_Address"].ToString(),
+                                StudyContactFirstName = reader["Study_Contact_First_Name"].ToString(),
+                                StudyContactLastName = reader["Study_Contact_Last_name"].ToString(),
+                                StudyContactJHED = reader["Study_Contact_JHED"].ToString(),
+                                StudyContactEmailAddress = reader["Study_Contact_Email_Address"].ToString(),
+                                InvolvesSensitiveHealthInfo = (reader["sensitive_health_information_required_yn?"].ToString() == "Y") ? true : false,
+                                //NumberOfPeopleOrRecords = reader["expected_enrollee_count"].ToString(),
+                                AllActivitiesCoveredByConsent = (reader["covered_by_consent_yn?"].ToString() =="Y") ? true : false
+
+                            };
+                            if (reader["expected_enrollee_count"].ToString() == "1-499") {researchData.NumberOfPeopleOrRecords = 0;}
+                            else if (reader["expected_enrollee_count"].ToString() == "500-9,999") {researchData.NumberOfPeopleOrRecords = 1;}
+                            else if (reader["expected_enrollee_count"].ToString() == "> 10,000") {researchData.NumberOfPeopleOrRecords = 2;}
+                        }
+                                
+                    }
+                }
+            }
+           
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_slct_Data_Location_and_Identification", conn)) // Assume the stored procedure is GetResearchDetailsById
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IRB_Application_Number", irbNum);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                           {
+                            string dataloc = (string)reader["Storage_Location"];
+                            {
+                            //    if (dataloc == "JHU Qualtrics") {researchData.DataClassifications[0].JHUQualtrics = true;}
+                            }
+                           
+                        }
+                                
+                    }
+                }
+           
+            }
+            researchData.DataClassifications.Add(new DataClassification { JHUQualtrics = true });
+            return researchData ?? new UserResponse();
+        }
+
         public void UpdateResearchData(ResearchData data)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))

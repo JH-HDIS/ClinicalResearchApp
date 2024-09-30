@@ -1,0 +1,72 @@
+@model ClinicalResearchApp.Models.ResearchData
+
+<h2>Edit Research Data</h2>
+
+<form asp-action="Update">
+    <div class="form-group">
+        <label>Study Name</label>
+        <input asp-for="StudyName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Principal Investigator</label>
+        <input asp-for="PrincipalInvestigator" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Principal Investigator First Name</label>
+        <input asp-for="PI_First_Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Principal Investigator Last Name</label>
+        <input asp-for="PI_Last_Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Status</label>
+        <input asp-for="Status" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Start Date</label>
+        <input asp-for="StartDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <input asp-for="EndDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label>PI JHED ID</label>
+        <input asp-for="PI_JHED" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>PI Email Address</label>
+        <input asp-for="PI_Email_Address" class="form-control" />
+    </div>
+     <div class="form-group">
+        <label>Study Contact First Name</label>
+        <input asp-for="Study_Contact_First_Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Study Contact Last Name</label>
+        <input asp-for="Study_Contact_Last_name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Study Contact JHED</label>
+        <input asp-for="Study_Contact_JHED" class="form-control" />
+    </div>
+        <div class="form-group">
+        <label>Study Contact Email Address</label>
+        <input asp-for="Study_Contact_Email_Address" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Study Contains Sensitive Health Information</label>
+        <input asp-for="Sensitive_Health_Info" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Expected Enrollee Count</label>
+        <input asp-for="Expected_Enroll_Count" class="form-control" />
+    </div>
+     <div class="form-group">
+        <label>Covered By Consent</label>
+        <input asp-for="Covered_By_Consent" class="form-control" />
+    </div>
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Update" class="btn btn-success" />
+</form>
