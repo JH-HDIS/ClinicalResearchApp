@@ -34,6 +34,14 @@ namespace ClinicalResearchApp.Controllers
             return View(data);
         }
 
+        // This action returns the dynamic message as plain text
+        public JsonResult GetDynamicMessage()
+        {
+            string message = "This is a dynamic message that appears on scroll!";
+            return Json(message);
+        }
+
+
         [HttpPost]
         public IActionResult Update(ResearchData researchData)
         {

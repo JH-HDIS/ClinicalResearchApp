@@ -67,3 +67,13 @@ C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.pdb
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
 c:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.sourcelink.json
+C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\web.config
+C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\ClinicalResearchApp.deps.json
+C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\ClinicalResearchApp.runtimeconfig.json
+c:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\publish\web.config
+c:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\publish\appsettings.Development.json
+c:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\publish\appsettings.json
+c:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\publish\ClinicalResearchApp.deps.json
+c:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\publish\publish\ClinicalResearchApp.runtimeconfig.json

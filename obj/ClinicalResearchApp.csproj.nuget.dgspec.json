@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
+    "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
   },
   "projects": {
-    "c:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
+    "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "projectUniqueName": "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
         "projectName": "ClinicalResearchApp",
-        "projectPath": "c:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "projectPath": "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
         "packagesPath": "C:\\Users\\lelliot1\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\lelliot1\\ClinicalResearchApp\\obj\\",
+        "outputPath": "C:\\Users\\lelliot1\\ClinicalResearchApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lelliot1\\AppData\\Roaming\\NuGet\\NuGet.Config",

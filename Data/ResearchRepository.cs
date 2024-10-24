@@ -153,7 +153,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
                            {
                             string dataloc = (string)reader["Storage_Location"];
                             {
-                            //    if (dataloc == "JHU Qualtrics") {researchData.DataClassifications[0].JHUQualtrics = true;}
+                                //if (dataloc == "JHU Qualtrics") {researchData.DataClassifications[0].JHUQualtrics = true;}
                             }
                            
                         }
