@@ -9,55 +9,55 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ClinicalResearchApp
 build_property.RootNamespace = ClinicalResearchApp
-build_property.ProjectDir = C:\Users\lelliot1\ClinicalResearchApp\
+build_property.ProjectDir = c:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\lelliot1\ClinicalResearchApp
+build_property.MSBuildProjectDirectory = c:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Home/Index.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Home/Privacy.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Research/Edit copy 2.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Research/Edit copy 2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZWFyY2hcRWRpdCBjb3B5IDIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Research/Edit copy.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Research/Edit copy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZWFyY2hcRWRpdCBjb3B5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Research/Edit.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Research/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZWFyY2hcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Research/Index.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Research/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZWFyY2hcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Shared/Error.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/_ViewImports.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/_ViewStart.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lelliot1/ClinicalResearchApp/Views/Shared/_Layout.cshtml]
+[c:/Users/bsharm12/Documents/GitHub/ClinicalResearchApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-r9hbcknoxx
