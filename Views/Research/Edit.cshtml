@@ -85,7 +85,7 @@
         <h1>Risk Tiers Calculator</h1>
         <form asp-action="Index" method="post">
             <div class="form-section">
-                <label asp-for="RTCCompletionDate">RTC Completion Date</label>
+                <label asp-for="RTCCompletionDate">RTC Completion Date (yyyy-mm-dd)</label>
                 <input asp-for="RTCCompletionDate" class="form-control" type="date" />
                 <span asp-validation-for="RTCCompletionDate" class="text-danger"></span>
             </div>
@@ -113,6 +113,11 @@
                 <label asp-for="PIEmailAddress">PI Email Address</label>
                 <input asp-for="PIEmailAddress" class="form-control" />
                 <span asp-validation-for="PIEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyName">Study Name</label>
+                <input asp-for="StudyName" class="form-control" />
+                <span asp-validation-for="StudyName" class="text-danger"></span>
             </div>
             <div class="form-section">
                 <label asp-for="StudyContactFirstName">Study Contact First Name (optional)</label>
@@ -821,6 +826,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const piLastName = document.getElementById("PILastName")?.value || "N/A";
         const piJHED = document.getElementById("PIJHED")?.value || "N/A";
         const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
+        const studyName = document.getElementById("StudyName")?.value || "N/A";
         const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
         const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
         const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
@@ -832,7 +838,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set the color of the user responses to blue
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);  // Labels remain black
-        doc.text("RTC Completion Date: ", 10, 20);
+        doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, 20);
         doc.setTextColor(0, 102, 204);  // Change the color to blue for responses
         doc.text(rtcCompletionDate, 70, 20);  // User response
         doc.setTextColor(0, 0, 0); // Switch back to black for labels
@@ -857,6 +863,10 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.text(piEmailAddress, 70, 70);
 
         // Study Contact Info Section
+        doc.setTextColor(0, 0, 0); // Black for label
+        doc.text("Study Name: ", 10, 70); // Position at the top of the section
+        doc.setTextColor(0, 102, 204); // Blue for user response
+        doc.text(studyName, 70, 70); // Display the study name value
         doc.setTextColor(0, 0, 0);
         doc.text("Study Contact First Name: ", 10, 80);
         doc.setTextColor(0, 102, 204);
@@ -1020,75 +1030,82 @@ document.addEventListener("DOMContentLoaded", function () {
     const piLastName = document.getElementById("PILastName")?.value || "N/A";
     const piJHED = document.getElementById("PIJHED")?.value || "N/A";
     const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
+    const studyName = document.getElementById("StudyName")?.value || "N/A";
     const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
     const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
     const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
     const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
 
       // Start PDF content
-    doc.setFontSize(16);
-    doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
+doc.setFontSize(16);
+doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
 
-    // Initialize vertical position tracker
-    let nextY = 20; // Start after the title
+// Initialize vertical position tracker
+let nextY = 20; // Start after the title
 
-    // RTC and IRB Application Information
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0); // Black for labels
-    doc.text("RTC Completion Date: ", 10, nextY);
-    doc.setTextColor(0, 102, 204); // Blue for user data
-    doc.text(rtcCompletionDate, 70, nextY);
+// RTC and IRB Application Information
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0); // Black for labels
+doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, nextY);
+doc.setTextColor(0, 102, 204); // Blue for user data
+doc.text(rtcCompletionDate, 85, nextY);
 
-    nextY += 10; // Add spacing for the next line
-    doc.setTextColor(0, 0, 0);
-    doc.text("IRB Application Number: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(irbApplicationNumber, 70, nextY);
+doc.setTextColor(0, 0, 0);
+doc.text("IRB Application Number: ", 10, nextY + 10);
+doc.setTextColor(0, 102, 204);
+doc.text(irbApplicationNumber, 70, nextY + 10);
 
-    // PI and Study Contact Information (side by side)
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("PI First Name: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(piFirstName, 70, nextY);
+doc.setTextColor(0, 0, 0);
+doc.text("Study Name: ", 150, nextY + 10); // Align Study Name to the right of IRB Application Number
+doc.setTextColor(0, 102, 204);
+doc.text(studyName, 210, nextY + 10);
 
-    doc.setTextColor(0, 0, 0);
-    doc.text("Study Contact First Name: ", 150, nextY); // Align to the right
-    doc.setTextColor(0, 102, 204);
-    doc.text(studyContactFirstName, 210, nextY);
+// Increment nextY for the next section
+nextY += 20;
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("PI Last Name: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(piLastName, 70, nextY);
+// PI and Study Contact Information (side by side)
+doc.setTextColor(0, 0, 0);
+doc.text("PI First Name: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piFirstName, 70, nextY);
 
-    doc.setTextColor(0, 0, 0);
-    doc.text("Study Contact Last Name: ", 150, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(studyContactLastName, 210, nextY);
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact First Name: ", 150, nextY); // Align Study Contact First Name to the right
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactFirstName, 210, nextY);
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("PI JHED: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(piJHED, 70, nextY);
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI Last Name: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piLastName, 70, nextY);
 
-    doc.setTextColor(0, 0, 0);
-    doc.text("Study Contact JHED: ", 150, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(studyContactJHED, 210, nextY);
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact Last Name: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactLastName, 210, nextY);
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("PI Email Address: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(piEmailAddress, 70, nextY);
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI JHED: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piJHED, 70, nextY);
 
-    doc.setTextColor(0, 0, 0);
-    doc.text("Study Contact Email Address: ", 150, nextY);
-    doc.setTextColor(0, 102, 204);
-    doc.text(studyContactEmailAddress, 210, nextY);
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact JHED: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactJHED, 210, nextY);
+
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI Email Address: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piEmailAddress, 70, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact Email Address: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactEmailAddress, 210, nextY);
 
     // Section 1: Data Characteristics and Data Access
     nextY += 15; // Small spacing before Section 1
