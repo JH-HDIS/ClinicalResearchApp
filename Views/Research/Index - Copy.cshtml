@@ -1,0 +1,47 @@
+@model IEnumerable<ClinicalResearchApp.Models.ResearchData>
+
+<!-- Banner Section -->
+<p>Welcome, @ViewBag.UserName</p>
+
+ @if (User.Identity.IsAuthenticated)
+    {
+        <!--
+        <p>Hi, @ViewBag.UserName! You are logged in.</p>
+        <a href="/Home/Logout">Logout</a>
+        -->
+    }
+    else
+    {
+        <!--
+        <p>Welcome, Guest! Please log in to access more features.</p>
+        <a href="/Home/Login">Login with Auth0</a>
+        -->
+    }
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Study Name</th>
+            <th>Principal Investigator</th>
+            <th>Calculation Complete?</th>
+            <th>RTC Completion Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudyName</td>
+                <td>@item.PrincipalInvestigator</td>
+                <td>@item.Status</td>
+                <td>@item.StartDate</td>
+                <td>
+                    <form method="post" asp-action="Edit">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+2024-11-29 14:28:43.118 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-11-29 14:28:43.180 -05:00 [INF] Now listening on: http://localhost:5189
+2024-11-29 14:28:43.180 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-29 14:28:43.180 -05:00 [INF] Hosting environment: Development
+2024-11-29 14:28:43.181 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-11-29 14:29:48.407 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-11-29 14:29:48.413 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-11-29 14:29:48.514 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-11-29 14:29:48.901 -05:00 [INF] AuthenticationScheme: OpenIdConnect was challenged.
+2024-11-29 14:29:48.906 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 502.0803ms

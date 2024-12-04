@@ -1,11 +1,6 @@
 C:\Users\lelliot1\ClinicalResearchApp\publish\ClinicalResearchApp.exe
-C:\Users\lelliot1\ClinicalResearchApp\publish\publish\web.config
 C:\Users\lelliot1\ClinicalResearchApp\publish\appsettings.Development.json
 C:\Users\lelliot1\ClinicalResearchApp\publish\appsettings.json
-C:\Users\lelliot1\ClinicalResearchApp\publish\publish\appsettings.Development.json
-C:\Users\lelliot1\ClinicalResearchApp\publish\publish\appsettings.json
-C:\Users\lelliot1\ClinicalResearchApp\publish\publish\ClinicalResearchApp.deps.json
-C:\Users\lelliot1\ClinicalResearchApp\publish\publish\ClinicalResearchApp.runtimeconfig.json
 C:\Users\lelliot1\ClinicalResearchApp\publish\ClinicalResearchApp.dll
 C:\Users\lelliot1\ClinicalResearchApp\publish\ClinicalResearchApp.deps.json
 C:\Users\lelliot1\ClinicalResearchApp\publish\ClinicalResearchApp.runtimeconfig.json

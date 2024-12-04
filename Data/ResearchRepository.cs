@@ -2,6 +2,7 @@ using ClinicalResearchApp.Models;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
+using Serilog;
 
 namespace ClinicalResearchApp.Data
 {
@@ -33,10 +34,10 @@ namespace ClinicalResearchApp.Data
                             ResearchData researchData = new()
                             {
                                 Id = reader["IRB_Application_Number"].ToString(),
-                                StudyName = reader["IRB_Application_Number"].ToString() + " Study Name",
+                                StudyName = reader["IRB_Application_Number"].ToString(),
                                 PrincipalInvestigator = reader["PI_Last_Name"].ToString() + ", " + reader["PI_First_Name"].ToString(),
                                 Status = reader["tier_calculator_completed_yn?"].ToString(),
-                                StartDate = (DateTime)reader["RTC_Completion_Date"],
+                                StartDate = (DateTime)reader["RTC_Completion_Date"]
                                 //EndDate = (DateTime)reader["EndDate"]
                             };
                             researchDataList.Add(researchData);
@@ -47,13 +48,14 @@ namespace ClinicalResearchApp.Data
             return researchDataList;
         }
 
-        public ResearchData GetResearchDataDetails(string irbNum)
+        public List<ResearchTableData> GetResearchDataDetails(string irbNum)
         {
-            ResearchData researchData = new ResearchData();
+            List<ResearchTableData> researchTableDataList = new ();
+            
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("usp_slct_Risk_Tier_Calculation", conn)) // Assume the stored procedure is GetResearchDetailsById
+                using (SqlCommand cmd = new SqlCommand("usp_slct_Data_Location_and_Identification", conn)) // Assume the stored procedure is GetResearchDetailsById
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IRB_Application_Number", irbNum);
@@ -61,41 +63,36 @@ namespace ClinicalResearchApp.Data
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
-                           {
-                            researchData = new ResearchData
+                         while (reader.Read())
+                        {
+                            ResearchTableData researchTableData = new()
                             {
-                                Id = (string)reader["IRB_Application_Number"],
-                                StudyName = reader["IRB_Application_Number"].ToString() + " Study Name",
-                                PrincipalInvestigator = reader["PI_Last_Name"].ToString() + ", " + reader["PI_First_Name"].ToString(),
-                                PI_First_Name = reader["PI_First_Name"].ToString(),
-                                PI_Last_Name = reader["PI_Last_Name"].ToString(),
-                                Status = reader["tier_calculator_completed_yn?"].ToString(),
-                                StartDate = (DateTime)reader["RTC_Completion_Date"],
-                                EndDate = (DateTime)reader["RTC_Completion_Date"],
-                                PI_JHED = reader["PI_JHED"].ToString(),
-                                PI_Email_Address = reader["PI_Email_Address"].ToString(),
-                                Study_Contact_First_Name = reader["Study_Contact_First_Name"].ToString(),
-                                Study_Contact_Last_name = reader["Study_Contact_Last_name"].ToString(),
-                                Study_Contact_JHED = reader["Study_Contact_JHED"].ToString(),
-                                Study_Contact_Email_Address = reader["Study_Contact_Email_Address"].ToString(),
-                                Sensitive_Health_Info = reader["sensitive_health_information_required_yn?"].ToString(),
-                                Expected_Enroll_Count = reader["expected_enrollee_count"].ToString(),
-                                Covered_By_Consent = reader["covered_by_consent_yn?"].ToString()
-
+                                IRBNumber = (string)reader["IRB_Application_Number"],
+                                Storage_Location = (string)reader["Storge_Location"],
+                                Storage_Type = (string)reader["storage_type"],
+                                Managed_by_JHIT = (string)reader["Managed_by_JHIT_yn"],
+                                RequiredReview = (string)reader["RequiredReview_yn"],
+                                Sharing_Handled_ORA_JHURA = (string)reader["sharing_handled_by_ora_or_jhura_ym"],
+                                Text_PHI = (string)reader["Text_PHI_yn"],
+                                PHI_Grtr_LDS = (string)reader["PHI_grtr_LDS_yn"],
+                                LDS = (string)reader["LDS_yn"],
+                                PHI_no_PII = (string)reader["PHI_no_PII_yn"],
+                                PersonalData_noPHIPII = (string)reader["Prsnl_data_noPHI_orPII_yn"]
                             };
+                            researchTableDataList.Add(researchTableData);
                         }
                     }
                 }
             }
-            return researchData ?? new ResearchData();
+            return researchTableDataList;
 
         }
 
 public UserResponse GetUserResponseDetails(string irbNum)
        {
             UserResponse researchData = new UserResponse();
-           
+            DataClassification dataOption = new DataClassification();
+            List<DataClassification> dataClassifications = new();
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("usp_slct_Risk_Tier_Calculation", conn)) // Assume the stored procedure is GetResearchDetailsById
@@ -127,18 +124,96 @@ public UserResponse GetUserResponseDetails(string irbNum)
                                 StudyContactEmailAddress = reader["Study_Contact_Email_Address"].ToString(),
                                 InvolvesSensitiveHealthInfo = (reader["sensitive_health_information_required_yn?"].ToString() == "Y") ? true : false,
                                 //NumberOfPeopleOrRecords = reader["expected_enrollee_count"].ToString(),
-                                AllActivitiesCoveredByConsent = (reader["covered_by_consent_yn?"].ToString() =="Y") ? true : false
+                                AllActivitiesCoveredByConsent = (reader["covered_by_consent_yn?"].ToString() =="Y") ? true : false, 
+                                    
 
                             };
                             if (reader["expected_enrollee_count"].ToString() == "1-499") {researchData.NumberOfPeopleOrRecords = 0;}
                             else if (reader["expected_enrollee_count"].ToString() == "500-9,999") {researchData.NumberOfPeopleOrRecords = 1;}
                             else if (reader["expected_enrollee_count"].ToString() == "> 10,000") {researchData.NumberOfPeopleOrRecords = 2;}
+                        
+                            if (reader["human_data_cms"].ToString() == "Directly identifiable data") {researchData.HumanDataSharingLevel = 0;}
+                            else if (reader["human_data_cms"].ToString() == "LDS") {researchData.HumanDataSharingLevel = 1;}
+                            else if (reader["human_data_cms"].ToString() == "Person-level data with No PHI or PII") {researchData.HumanDataSharingLevel = 2;}
+                            else if (reader["human_data_cms"].ToString() == "Aggregate (counts)") {researchData.HumanDataSharingLevel= 3;}
+                            else if (reader["human_data_cms"].ToString() == "Data will not be copied, moved, or shared") {researchData.HumanDataSharingLevel = 4;}
+
+                            reader.Close();
+                            using (SqlCommand innerCmd = new SqlCommand("usp_slct_Data_Location_and_Identification", conn)) // Assume the stored procedure is GetResearchDetailsById
+                                {
+                                    innerCmd.CommandType = CommandType.StoredProcedure;
+                                    innerCmd.Parameters.AddWithValue("@IRB_Application_Number", irbNum);
+
+                                    using (SqlDataReader innerReader = innerCmd.ExecuteReader())
+                                    {
+                                        
+                                        while (innerReader.Read())
+                                        {
+                                             dataOption = new DataClassification  {
+                                                Option = (string)innerReader["Storage_Location"]
+                                             };
+                                             if (dataOption.Option == "SAFERorSAFEDesktop") { dataOption.Option = "2.P.1"; }
+                                             if (dataOption.Option == "JHPMAP") { dataOption.Option = "2.P.2"; }
+                                             if (dataOption.Option == "JHUOpenSpecimen") { dataOption.Option = "2.P.3"; }
+                                             if (dataOption.Option == "JHUQualtrics") { dataOption.Option = "2.P.4"; }
+                                             if (dataOption.Option == "JHUACHREDCap") { dataOption.Option = "2.P.5"; }
+                                            if (dataOption.Option == "SAFESTOR") { dataOption.Option = "2.P.6"; }
+                                            if (dataOption.Option == "DiscoveryHPC") { dataOption.Option = "2.P.7"; }
+                                            if (dataOption.Option == "EnterpriseNetworkStorageNAS") { dataOption.Option = "2.P.8"; }
+                                            if (dataOption.Option == "ITJHRITManagedAzureAWS") { dataOption.Option = "2.P.9"; }
+                                            if (dataOption.Option == "OneDrive") { dataOption.Option = "2.J.1"; }
+                                            if (dataOption.Option == "LocalComputer") { dataOption.Option = "2.J.2"; }
+                                            if (dataOption.Option == "NonJHU_REDCap") { dataOption.Option = "2.E.1"; }
+                                            if (dataOption.Option == "DepartmentServer") { dataOption.Option = "2.R.1"; }
+                                            if (dataOption.Option == "OtherComputers") { dataOption.Option = "2.R.2"; }
+                                            if (dataOption.Option == "USB") { dataOption.Option = "2.R.4"; }
+                                            if (dataOption.Option == "JHUARCH") { dataOption.Option = "2.R.5"; }
+                                            if (dataOption.Option == "OtherSolutions") { dataOption.Option = "2.R.6"; }
+                                            if (dataOption.Option == "Other") { dataOption.Option = "2.R.7"; }
+
+
+                                             
+                                             dataOption.Column = "C7";
+                                            string dataloc = (string)innerReader["Text_PHI_yn"];
+                                            if (dataloc == "Y") {
+                                                    dataOption.Column = "C1";
+                                                    dataOption.Selected = true;}
+                
+                                            dataloc = (string)innerReader["PHI_grtr_LDS_yn"];
+                                            if (dataloc == "Y") {
+                                                    dataOption.Column = "C2";
+                                                    dataOption.Selected = true;}
+                                            dataloc = (string)innerReader["LDS_yn"];
+                                            if (dataloc == "Y") {
+                                                dataOption.Column = "C3";
+                                                dataOption.Selected = true;}
+                                             dataloc = (string)innerReader["PHI_no_PII_yn"];
+                                            if (dataloc == "Y") {
+                                                dataOption.Column = "C4";
+                                                dataOption.Selected = true;}
+                                            dataloc = (string)innerReader["Prsnl_data_noPHI_orPII_yn"];
+                                            if (dataloc == "Y") {
+                                                dataOption.Column = "C5";
+                                                dataOption.Selected = true;}
+                                            dataloc = (string)innerReader["Aggregate_Counts_yn"];
+                                            if (dataloc == "Y") {
+                                                dataOption.Column = "C6";
+                                                dataOption.Selected = true;}
+                                            dataClassifications.Add(dataOption);
+                                        
+                                         researchData.Sharing_Handled_ORA_JHURA =  (innerReader["sharing_handled_by_ora_or_jhura_yn?"].ToString() == "Y") ? "Yes" : "No";    
+                                        }
+                                                
+                                    }
+                                }
+                            researchData.DataClassifications = dataClassifications;
                         }
                                 
                     }
                 }
             }
            
+           /*
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("usp_slct_Data_Location_and_Identification", conn)) // Assume the stored procedure is GetResearchDetailsById
@@ -153,7 +228,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
                            {
                             string dataloc = (string)reader["Storage_Location"];
                             {
-                                //if (dataloc == "JHU Qualtrics") {researchData.DataClassifications[0].JHUQualtrics = true;}
+                                if (dataloc == "JH_PMAP") {researchData.DataClassifications[0].JHPMAP = true;}
                             }
                            
                         }
@@ -162,7 +237,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
                 }
            
             }
-            researchData.DataClassifications.Add(new DataClassification { JHUQualtrics = true });
+            */
             return researchData ?? new UserResponse();
         }
 
@@ -186,8 +261,93 @@ public UserResponse GetUserResponseDetails(string irbNum)
                     cmd.Parameters.AddWithValue("@expected_enrollee_count", data.Expected_Enroll_Count);
                     cmd.Parameters.AddWithValue("@covered_by_consent_yn", data.Covered_By_Consent);
                     cmd.Parameters.AddWithValue("@tier_calculator_completed_yn", "Y");    
+                    cmd.Parameters.AddWithValue("@tier", "Tier C");
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+         public void UpdateDataStorage(string irbNum, string converedByConsent, string handledByORA, List<DataClassification> data)
+        {
+            Log.Logger.Information("In the UpdateDataStorage function");
+            for (int i = 0; i < data.Count; i++)
+                    {
+                        Log.Logger.Information($"The data option is: {data[i].Option}");
+                        Log.Logger.Information($"The data column is: {data[i].Column}");
+                        Log.Logger.Information($"The data selected is: {data[i].Selected}");
+                    }
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("usp_upsert_Data_Location_and_Identification", conn)) // Assume the stored procedure is UpdateResearchData
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        cmd.Parameters.Clear();
+                        var dataLoc = data[i];
+                        if (dataLoc.Column =="C1")
+                            {
+                                cmd.Parameters.AddWithValue("@Text_PHI_yn", "Y");
+                            }
+                        else {
+                                cmd.Parameters.AddWithValue("@Text_PHI_yn", "N");
+                            }
+                        if (dataLoc.Column =="C2") 
+                            {
+                                cmd.Parameters.AddWithValue("@PHI_grtr_LDS_yn", "Y");
+                            }
+                        else { 
+                                cmd.Parameters.AddWithValue("@PHI_grtr_LDS_yn", "N"); 
+                            }
+                        if (dataLoc.Column =="C3")
+                        {
+                            cmd.Parameters.AddWithValue("@LDS_yn", "Y");
+                        }
+                        else {
+                            cmd.Parameters.AddWithValue("@LDS_yn", "N");
+                        }
+                        if (dataLoc.Column =="C4") 
+                        {
+                            cmd.Parameters.AddWithValue("@PHI_no_PII_yn", "Y");
+                        }
+                        else {
+                            cmd.Parameters.AddWithValue("@PHI_no_PII_yn", "N");                 
+                        }
+                        if (dataLoc.Column =="C5")
+                        {
+                            cmd.Parameters.AddWithValue("@Prsnl_data_noPHI_orPII_yn", "Y");
+                        }
+                        else {
+                            cmd.Parameters.AddWithValue("@Prsnl_data_noPHI_orPII_yn", "N"); 
+                        }
+                        if (dataLoc.Column =="C6")
+                        {
+                            cmd.Parameters.AddWithValue("@Aggregate_Counts_yn", "Y");
+                        }
+                        else {
+                            cmd.Parameters.AddWithValue("@Aggregate_Counts_yn", "N");
+                        }
+                        if (dataLoc.Column =="C7")
+                        {
+                            cmd.Parameters.AddWithValue("@action", "delete");
+                        } else {
+                            cmd.Parameters.AddWithValue("@action", "merge");
+                        }
+                              
+                        cmd.Parameters.AddWithValue("@IRB_Application_Number", irbNum);
+                        cmd.Parameters.AddWithValue("@Storage_Location", dataLoc.Option);
+                        cmd.Parameters.AddWithValue("@Managed_by_JHIT_yn", "N");
+                        cmd.Parameters.AddWithValue("@RequiredReview_yn", "Y");
+                        cmd.Parameters.AddWithValue("@storage_type", "Internal");
+                        cmd.Parameters.AddWithValue("@sharing_handled_by_ora_or_jhura_yn", handledByORA);
+                        cmd.Parameters.AddWithValue("@not_used_yn", "N");   
+                        cmd.Parameters.AddWithValue("@tier_calculator_completed_yn", "Y");   
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }

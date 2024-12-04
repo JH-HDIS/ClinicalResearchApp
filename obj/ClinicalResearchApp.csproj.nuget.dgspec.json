@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
+    "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
   },
   "projects": {
-    "c:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
+    "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "projectUniqueName": "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
         "projectName": "ClinicalResearchApp",
-        "projectPath": "c:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
-        "packagesPath": "C:\\Users\\bsharm12\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\obj\\",
+        "projectPath": "C:\\Users\\lelliot1\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "packagesPath": "C:\\Users\\lelliot1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lelliot1\\ClinicalResearchApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bsharm12\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lelliot1\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -43,9 +43,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.Cookies": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.2.2, )"
+            },
+            "Microsoft.IdentityModel.Protocols.OpenIdConnect": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
             }
           },
           "imports": [
@@ -59,6 +75,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.8, 8.0.8]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.8, 8.0.8]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[8.0.8, 8.0.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -68,6 +98,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

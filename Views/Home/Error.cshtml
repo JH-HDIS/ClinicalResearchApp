@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<h1>Error</h1>
+<p>An error occurred during authentication. Please try again later.</p>
+
+<p><strong>Error Message:</strong> @Model.ErrorMessage</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorDetails))
+{
+    <p><strong>Error Details:</strong></p>
+    <pre>@Model.ErrorDetails</pre>
+}

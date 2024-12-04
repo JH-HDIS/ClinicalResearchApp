@@ -1,14 +1,78 @@
 @model IEnumerable<ClinicalResearchApp.Models.ResearchData>
 
-<h2>Research Data</h2>
+<!-- Banner Section -->
+<p>Welcome, @ViewBag.UserName (@ViewBag.jhed)</p>
 
-<table class="table table-striped">
+ @if (User.Identity.IsAuthenticated)
+    {
+        <!--
+        <p>Hi, @ViewBag.UserName! You are logged in.</p>
+        <a href="/Home/Logout">Logout</a>
+        -->
+    }
+    else
+    {
+        <!--
+        <p>Welcome, Guest! Please log in to access more features.</p>
+        <a href="/Home/Login">Login with Auth0</a>
+        -->
+    }
+</p>
+<head>
+<style>
+    /* Table Styling */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 14px;
+        text-align: left;
+    }
+    
+    .styled-table th, .styled-table td {
+        padding: 10px 10px;
+        border: 1px solid #ddd;
+    }
+
+    .styled-table th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .styled-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .styled-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Button Styling */
+    .styled-table .btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 5px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .styled-table .btn:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+
+</head>
+<table class="table table-striped styled-table">
     <thead>
         <tr>
-            <th>Study Name</th>
+            <th>IRB Number</th> 
             <th>Principal Investigator</th>
             <th>Calculation Complete?</th>
-            <th>RTC Completion Date</th>
+            <th>RTC Last Updated</th>
             <th>Actions</th>
         </tr>
     </thead>

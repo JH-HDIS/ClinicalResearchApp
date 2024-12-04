@@ -35,6 +35,8 @@ namespace ClinicalResearchApp.Models
         public int? HumanDataSharingLevel { get; set; }
         public bool? AllActivitiesCoveredByConsent { get; set; }
 
+         public string? Sharing_Handled_ORA_JHURA { get; set; }
+
         // List of DataClassifications (not required)
         public List<DataClassification> DataClassifications { get; set; } = new List<DataClassification>();
     }

@@ -1,0 +1,23 @@
+2024-12-03 10:58:39.882 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-03 10:58:39.984 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-03 10:58:39.985 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-03 10:58:39.985 -05:00 [INF] Hosting environment: Development
+2024-12-03 10:58:39.986 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-03 11:01:52.224 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-03 11:01:52.319 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-03 11:01:52.320 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-03 11:01:52.320 -05:00 [INF] Hosting environment: Development
+2024-12-03 11:01:52.320 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-03 11:02:04.515 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-03 11:02:04.522 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-03 11:02:04.669 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-03 11:02:05.106 -05:00 [INF] OnRedirectToIdentity Provider Event!! Redirecting to Identity Provider. Request: https://login.jh.edu/idp/profile/oidc/authorize?client_id=https%3A%2F%2Fesmhdisccdev01.win.ad.jhu.edu%2F&redirect_uri=http%3A%2F%2Flocalhost%3A5189%2Fsignin-oidc&response_type=code&scope=openid%20profile%20email&nonce=638688385250962895.NmVmMWYzYjMtOWI0ZS00NWY0LWJkMmUtYjk0OWMyMjk0YjM2N2JlMGE0YTMtYTk0My00MTEyLWFiZTYtMmUwMGRjMmVkYmM4&x-client-SKU=ID_NET8_0&x-client-ver=8.2.1.0
+2024-12-03 11:02:05.111 -05:00 [INF] AuthenticationScheme: OpenIdConnect was challenged.
+2024-12-03 11:02:05.119 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 607.5448ms
+2024-12-03 11:02:05.699 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-03 11:02:05.709 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-03 11:02:05.710 -05:00 [INF] OnRedirectToIdentity Provider Event!! Redirecting to Identity Provider. Request: https://login.jh.edu/idp/profile/oidc/authorize?client_id=https%3A%2F%2Fesmhdisccdev01.win.ad.jhu.edu%2F&redirect_uri=http%3A%2F%2Flocalhost%3A5189%2Fsignin-oidc&response_type=code&scope=openid%20profile%20email&nonce=638688385257105005.N2ZlZTkxYTYtOGNlOS00YzcyLThmOTMtYjU3NTVjNjFiYzg4YmRjYmVlNjItZGFjNC00MjZkLWE3N2MtOWE5OWUzMWMwMzNi&x-client-SKU=ID_NET8_0&x-client-ver=8.2.1.0
+2024-12-03 11:02:05.711 -05:00 [INF] AuthenticationScheme: OpenIdConnect was challenged.
+2024-12-03 11:02:05.711 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 12.2064ms

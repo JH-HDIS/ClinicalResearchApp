@@ -67,8 +67,3 @@ C:\Users\lelliot1\ClinicalResearchApp\obj\Release\net8.0\refint\ClinicalResearch
 C:\Users\lelliot1\ClinicalResearchApp\obj\Release\net8.0\ClinicalResearchApp.pdb
 C:\Users\lelliot1\ClinicalResearchApp\obj\Release\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\lelliot1\ClinicalResearchApp\obj\Release\net8.0\ref\ClinicalResearchApp.dll
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\publish\web.config
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\publish\appsettings.Development.json
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\publish\appsettings.json
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\publish\ClinicalResearchApp.deps.json
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\publish\ClinicalResearchApp.runtimeconfig.json

@@ -10,6 +10,7 @@
 </head>
 <body>
     <header>
+        <!--
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ClinicalResearchApp</a>
@@ -29,6 +30,13 @@
                 </div>
             </div>
         </nav>
+        -->
+        <div style="display: flex; background-color: #0c3275; padding: 20px; border-bottom: 2px solid #ddd; align-items: center;">
+    <img src="@Url.Content("~/logo.png")" alt="Banner Image" style="height: 50px; margin-right: 20px;" />
+    <img src="@Url.Content("~/RiskTierA.png")" alt="Banner Image" style="height: 75px; margin-left: 100px;" />
+    <h1 style="margin-left: 50px; font-size: 20px; color: white; text-align: center;">Risk Tiers Calculator</h1>
+    
+</div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -38,7 +46,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - ClinicalResearchApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Risk Tiers Calculator
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

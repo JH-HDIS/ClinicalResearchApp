@@ -2,6 +2,7 @@ using ClinicalResearchApp.Models;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
+using Serilog;
 
 namespace ClinicalResearchApp.Data
 {
@@ -24,12 +25,13 @@ namespace ClinicalResearchApp.Data
             string hDataSharingLevel = humanDataSharingLevel;
             string involvesSensitiveHealth = involvesSensitiveHealthInfo;
             string dataSharing = dataSharingAgreement;
-            Console.WriteLine($"The dataLeavingJHM is: {dataLeaving}"); 
-            Console.WriteLine($"The involvesSensitiveHealthInfo is: {involvesSensitiveHealth}");
-            Console.WriteLine($"The numRecords is: {numRec}");
-            Console.WriteLine($"The consentYN is: {consent}");
-            Console.WriteLine($"The humanDataSharingLevel is: {hDataSharingLevel}");   
-            Console.WriteLine($"The dataSharing is: {dataSharing}");   
+            Log.Logger.Information("In the CalculateTier function");
+            Log.Logger.Information($"The dataLeavingJHM is: {dataLeaving}"); 
+            Log.Logger.Information($"The involvesSensitiveHealthInfo is: {involvesSensitiveHealth}");
+            Log.Logger.Information($"The numRecords is: {numRec}");
+            Log.Logger.Information($"The consentYN is: {consent}");
+            Log.Logger.Information($"The humanDataSharingLevel is: {hDataSharingLevel}");   
+            Log.Logger.Information($"The dataSharing is: {dataSharing}");   
 
 
             List<string> tiers = new List<string>();
@@ -49,11 +51,11 @@ namespace ClinicalResearchApp.Data
                     if (j == 0) {
                         toolType = array[i, j].Substring(2,1); // Add the element to the row sum
                         rowId = array[i, j];
-                        Console.WriteLine($"The toolType is: {toolType}");
+                        Log.Logger.Information($"The toolType is: {toolType}");
                     }
                     if (j == 1) {
                         colPos = array[i, j]; // Add the element to the row sum
-                        Console.WriteLine($"The colPos is: {colPos}");
+                        Log.Logger.Information($"The colPos is: {colPos}");
                     
                         // Calculate Tier for the row
                         if ((toolType == "P") && (colPos != "C7")) 
@@ -132,16 +134,16 @@ namespace ClinicalResearchApp.Data
                         }
                         if ((toolType == "E") && (colPos != "C7")) 
                         {  
-                            Console.WriteLine($"ToolType is E"); 
-                             Console.WriteLine($"The dataSharing is: {dataSharing}"); 
-                            if (dataSharing == "N")
+                            Log.Logger.Information($"ToolType is E"); 
+                             Log.Logger.Information($"The dataSharing is: {dataSharing}"); 
+                            if (dataSharing == "Y")
                             {
                                 tiers.Add("Tier C");
-                                Console.WriteLine($"Adding Tier C to the list");
+                                Log.Logger.Information($"Adding Tier C to the list");
                             }
                             else {
                                 tiers.Add("Tier X");
-                                Console.WriteLine($"Adding Tier X to the list");
+                                Log.Logger.Information($"Adding Tier X to the list");
                                 }
 
                         }
@@ -153,6 +155,9 @@ namespace ClinicalResearchApp.Data
             // Loop over each row sum to find the lowest score
             for (int i = 0; i < tiers.Count; i++)
                 {
+                    Log.Logger.Information($"Tiers[i]: {tiers[i]}");
+                   Log.Logger.Information($"Lowest Tier: {lowestTier}");
+                     
                     if ((tiers[i] == "Tier X") && (lowestTier == "Tier C" || lowestTier == "Tier B" || lowestTier == "Tier A" || lowestTier == "")) {
                         lowestTier = "Tier X";
                     }

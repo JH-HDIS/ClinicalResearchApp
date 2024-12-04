@@ -1,12 +1,13 @@
 @model ClinicalResearchApp.Models.UserResponse
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
     <title>Risk Tiers Calculator</title>
-
+    -->
+    
     <!-- Link to your custom styles.css file -->
     <link rel="stylesheet" href="styles.css">
 
@@ -72,7 +73,7 @@
         padding: 10px;
         font-size: 20px;
         font-weight: bold; /* Make text bold */
-        color: rgb(250, 107, 0); /* Change the text color to red */
+        color: rgb(244, 233, 10); /* Change the text color to red */
         z-index: 1000;
         white-space: nowrap; /* Prevents the text from wrapping onto a new line */
         box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1); /* Optional: Adds a subtle shadow */
@@ -83,9 +84,10 @@
 <body>
     <div class="container">
         <h1>Risk Tiers Calculator</h1>
-        <form asp-action="Index" method="post">
+        <!-- <form asp-action="Index" method="post"> -->
+         <form   asp-action="SaveDataClassifications" asp-controller="Research" method="post">
             <div class="form-section">
-                <label asp-for="RTCCompletionDate">RTC Completion Date (yyyy-mm-dd)</label>
+                <label asp-for="RTCCompletionDate">RTC Completion Date</label>
                 <input asp-for="RTCCompletionDate" class="form-control" type="date" />
                 <span asp-validation-for="RTCCompletionDate" class="text-danger"></span>
             </div>
@@ -115,11 +117,6 @@
                 <span asp-validation-for="PIEmailAddress" class="text-danger"></span>
             </div>
             <div class="form-section">
-                <label asp-for="StudyName">Study Name</label>
-                <input asp-for="StudyName" class="form-control" />
-                <span asp-validation-for="StudyName" class="text-danger"></span>
-            </div>
-            <div class="form-section">
                 <label asp-for="StudyContactFirstName">Study Contact First Name (optional)</label>
                 <input asp-for="StudyContactFirstName" class="form-control" />
                 <span asp-validation-for="StudyContactFirstName" class="text-danger"></span>
@@ -139,7 +136,7 @@
                 <input asp-for="StudyContactEmailAddress" class="form-control" />
                 <span asp-validation-for="StudyContactEmailAddress" class="text-danger"></span>
             </div>
-
+        
             <div class="section-title" style="color: red; text-align: center;">
                 Section 1: Data Characteristics and Data Access
             </div>
@@ -228,7 +225,7 @@
         <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
         <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
         <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
-        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII but no PHI</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
         <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
         <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
         <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
@@ -244,127 +241,146 @@
                                 </a>
                             </td>
                         </tr>
-                         <tr>
+        <tr>
         <td>2.P.1 <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFER</a> or <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFE Desktop</a></td>
-        <td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C1" value="TextPHI" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C2" value="PHIgtLDS" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C3" value="LDS" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C4" value="PIIButNoPHI" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C5" value="NoPHIPII" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C6" value="Aggregate" /></td>
-<td><input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="C7" value="NotUsed" checked/></td>
-
-    <tr>
-    <td>2.P.2 <a href="https://ictr.johnshopkins.edu/service/informatics/pmap/" target="_blank">JH PMAP</a></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHPMAP" data-option="2.P.2" data-column="C7" value="NotUsed" checked/></td>
-</tr>
-<tr>
+         @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+                {
+                    <td>
+                        <input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="@column" value="@column"
+                               @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.1" && dc.Selected) ? "checked" : "")
+                               @(Model.DataClassifications.All(dc => dc.Option != "2.P.1") && column == "C7" ? "checked" : "") />
+                    </td>
+                }
+        <tr>
+        <td>2.P.2 <a href="https://ictr.johnshopkins.edu/service/informatics/pmap/" target="_blank">JH PMAP</a></td>
+        @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHPMAP" data-option="2.P.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+    </tr>
     <td>2.P.3 <a href="https://ictr.johnshopkins.edu/service/informatics/openspecimen/" target="_blank">JHU OpenSpecimen</a></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.3" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.3" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.3") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.P.4 <a href="https://uis.jhu.edu/qualtrics/" target="_blank">JHU Qualtrics</a></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.4" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.4" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.4") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.P.5 <a href="https://redcap.jhu.edu/" target="_blank">JHU/ACH REDCap</a></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.5" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.5" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.5") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.P.6 <a href="https://researchit.jhu.edu/safe-stor/" target="_blank">SAFESTOR</a></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.6" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.6" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.6") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.P.7 <a href="https://researchit.jhu.edu/research-hpc/" target="_blank">Discovery HPC</a></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.7" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.7" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.7") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.P.8 <a href="https://researchit.jhu.edu/" target="_blank">Enterprise Network Storage (NAS)</a></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.8" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.8" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.8") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
-    <td>2.P.9 IT@JH RIT-managed system for PHI (e.g. Azure or AWS)</td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="C7" value="NotUsed" checked/></td>
+    <td>2.P.9 IT@JH RIT-managed Azure or AWS subscription</td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.9" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.9" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.9") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
                         
-                        <!-- (J) Justifiable Data Storage Options Section -->
-                        <tr>
-                            <td colspan="8" style="font-weight: bold; text-align: left;">
-                                (J) Justifiable Data Storage Options - (Requiring JHED Authenticated Network Access)
-                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
-                                (Click here for more information on "Levels of Identification")
-                                </a>
-                            </td>
-                        </tr>
+            <!-- (J) Justifiable Data Storage Options Section -->
+            <tr>
+                <td colspan="8" style="font-weight: bold; text-align: left;">
+                    (J) Justifiable Data Storage Options - (Requiring JHED Authenticated Network Access)
+                    <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                    (Click here for more information on "Levels of Identification")
+                    </a>
+                </td>
+            </tr>
 <tr>
     <td>2.J.1 JH OneDrive / SharePoint / Teams</td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="OneDrive" data-option="2.J.1" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OneDrive" data-option="2.J.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.J.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.J.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.J.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td title="For computers NOT managed by IT@JH, see Section R (below)">
         2.J.2 Local Computer <span style="text-decoration: underline; cursor: pointer; color: blue; font-weight: bold;">(both JH owned and IT@JH managed)</span>
     </td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="LocalComputer" data-option="2.J.2" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="LocalComputer" data-option="2.J.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.J.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.J.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.J.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
                         
                         <!-- (E) External Data Storage Tools Section -->
@@ -378,23 +394,27 @@
                         </tr>
 <tr class="section-e-option">
     <td>2.E.1 Non-JHU REDCap</td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="C7" value="NotUsed" checked/></td>
+      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.E.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.E.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.E.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr class="section-e-option">
     <td>2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)</td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.E.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.E.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.E.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
                     </tbody>
                 </table>
@@ -406,21 +426,31 @@
         </div>
 
         <!-- Insert the Question between Section E and Section R -->
-        <div class="mt-4"id="ora-jhura-question" style="display: none;">
-                <p><strong>Is the sharing of data via this external tool included in an agreement handled by 
-                <a href="https://ora.jhmi.edu/" target="_blank">ORA</a> or 
-                <a href="https://jhura.jhu.edu/" target="_blank">JHURA</a>? 
-            (Yes/No)</strong></p>
-            <!-- Add radio buttons for Yes/No -->
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="DataSharingAgreement" value="Yes" id="DataSharingYes">
-                <label class="form-check-label" for="DataSharingYes">Yes</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="DataSharingAgreement" value="No" id="DataSharingNo">
-                <label class="form-check-label" for="DataSharingNo">No</label>
-            </div>
-        </div>
+        <div class="mt-4" id="ora-jhura-question" style="display: none;">
+    <p><strong>Is the sharing of data via this external tool included in an agreement handled by 
+        <a href="https://ora.jhmi.edu/" target="_blank">ORA</a> or 
+        <a href="https://jhura.jhu.edu/" target="_blank">JHURA</a>? 
+    (Yes/No)</strong></p>
+    <!-- Add radio buttons for Yes/No -->
+    <div class="form-check">
+        <input class="form-check-input" 
+               type="radio" 
+               name="DataSharingAgreement" 
+               value="Yes" 
+               id="DataSharingYes" 
+               @(Model.Sharing_Handled_ORA_JHURA == "Yes" ? "checked" : "")>
+        <label class="form-check-label" for="DataSharingYes">Yes</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" 
+               type="radio" 
+               name="DataSharingAgreement" 
+               value="No" 
+               id="DataSharingNo" 
+               @(Model.Sharing_Handled_ORA_JHURA == "No" ? "checked" : "")>
+        <label class="form-check-label" for="DataSharingNo">No</label>
+    </div>
+</div>
 
         <!-- (R) Data Storage Options Requiring Review Section -->
         <div class="mt-5">
@@ -431,7 +461,7 @@
         <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
         <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
         <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
-        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII But No PHI</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
         <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
         <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
         <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
@@ -448,63 +478,75 @@
                     </tr>
 <tr>
     <td>2.R.1 Department Server (not managed by IT@JH)</td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.R.2 Other computer(s) or Device(s) owned and managed by study team members</td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="OtherComputers" data-option="2.R.2" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OtherComputers" data-option="2.R.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.R.3 USB/Portable Data Storage Device</td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="USB" data-option="2.R.3" data-column="C7" value="NotUsed" checked/></td>
+      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="USB" data-option="2.R.3" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.3" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.3" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.3") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.R.4 <a href="https://jhpce.jhu.edu/" target="_blank">Joint High Performance Computing Exchange (JHPCE)</a></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHPCE" data-option="2.R.4" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHPCE" data-option="2.R.4" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.4" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.4" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.4") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.R.5 <a href="https://www.arch.jhu.edu/" target="_blank">JHU ARCH (formerly MARCC)</a></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="JHUARCH" data-option="2.R.5" data-column="C7" value="NotUsed" checked/></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUARCH" data-option="2.R.5" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.5" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.5" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.5") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
 <tr>
     <td>2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)</td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C1" value="TextPHI" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C2" value="PHIgtLDS" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C3" value="LDS" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C4" value="PIIButNoPHI" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C5" value="NoPHIPII" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C6" value="Aggregate" /></td>
-    <td><input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="C7" value="NotUsed" checked/></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.6" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.6" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.6") && column == "C7" ? "checked" : "") />
+            </td>
+        }
 </tr>
                 </tbody>
             </table>
@@ -531,10 +573,12 @@
 
     </div>
   </div>
+      <!-- Hidden input for risk-level-note -->
+    <!-- <input type="hidden" id="risk-level-note" name="RiskLevelNote" />  -->
 </div>
-    <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
-    <button id="generateTemplatePdf">Download Template PDF</button>
-    
+     <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+       
         <div class="container"><div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
         
         <div id="version-info" style="font-weight: bold; margin-top: 20px; margin-bottom: 20px;">
@@ -758,9 +802,11 @@
             // Handle the response from the server
             const result = await response.text();
             console.log('Received result from server:', result);
-
+            
             // Display the calculated tier in the console
             document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
+            //const riskLevelNoteElement = document.getElementById('risk-level-note');
+            //riskLevelNoteElement.value = result; 
         } catch (error) {
             console.error('Error while sending data to server:', error);
         }
@@ -1445,15 +1491,12 @@ doc.text(studyContactEmailAddress, 210, nextY);
         });
     </script>
 
-
 <!-- Load jQuery first -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
 <!-- Load Bootstrap JS -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 <!-- Load your custom JavaScript last -->
 <script src="~/js/logic.js"></script>
 @section Scripts {

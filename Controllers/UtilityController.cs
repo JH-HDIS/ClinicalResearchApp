@@ -43,7 +43,7 @@ namespace ClinicalResearchApp.Controllers
                     string tier = Utility.CalculateTier(array, dataLeavingJHM, numRecords, consentYN, humanDataSharingLevel, involvesSensitiveHealthInfo, dataSharingAgreement);
                     if (tier == null)
                     {
-                        return "Not enough info to calculate Tier";
+                        return "UtilityController - Not enough info to calculate Tier";
                     } else {
                         return tier;
                     }

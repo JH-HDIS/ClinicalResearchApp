@@ -25,7 +25,26 @@ namespace ClinicalResearchApp.Models
 
         public string? Expected_Enroll_Count {get; set;}
 
+        public string? Human_data_cms {get; set;}
         public string? Covered_By_Consent {get; set;}
+
+        public string? Sharing_Handled_ORA_JHURA { get; set; }
+        public string? tier { get; set; }
+    }
+
+    public class ResearchTableData {
+        public string? IRBNumber { get; set; } 
+        public string? Storage_Location { get; set; }
+        public string? Storage_Type { get; set; }  
+        public string? Managed_by_JHIT { get; set; }
+        public string? RequiredReview { get; set; }  
+        public string? Sharing_Handled_ORA_JHURA { get; set; }
+        public string? Text_PHI { get; set; }
+        public string? PHI_Grtr_LDS { get; set; }
+        public string? LDS { get; set; }
+        public string? PHI_no_PII { get; set; }     
+        public string? PersonalData_noPHIPII { get; set; }
+        public string? tier { get; set; }
 
     }
 }
