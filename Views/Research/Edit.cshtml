@@ -73,7 +73,7 @@
         padding: 10px;
         font-size: 20px;
         font-weight: bold; /* Make text bold */
-        color: rgb(244, 233, 10); /* Change the text color to red */
+        color: rgb(255, 165, 0); /* Change the text color to red */
         z-index: 1000;
         white-space: nowrap; /* Prevents the text from wrapping onto a new line */
         box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1); /* Optional: Adds a subtle shadow */
@@ -95,6 +95,11 @@
                 <label asp-for="IRBApplicationNumber">IRB Application Number</label>
                 <input asp-for="IRBApplicationNumber" class="form-control" />
                 <span asp-validation-for="IRBApplicationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyName">Study Name</label>
+                <input asp-for="StudyName" class="form-control" />
+                <span asp-validation-for="StudyName" class="text-danger"></span>
             </div>
             <div class="form-section">
                 <label asp-for="PIFirstName">PI First Name</label>
@@ -216,8 +221,6 @@
 
             <div class="mt-5">
     <h2>Data Table</h2>
-            @if (Model.DataClassifications != null && Model.DataClassifications.Any())
-            {
                 <table class="table table-striped">
                    <thead>
     <tr>
@@ -225,13 +228,13 @@
         <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
         <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
         <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
-        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII but no PHI</th>
         <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
         <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
         <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
     </tr>
 </thead>
-                    <tbody>
+        <tbody>
                         <!-- (P) Preferred Data Storage Options Section -->
                         <tr>
                             <td colspan="8" style="font-weight: bold; text-align: left;">
@@ -243,6 +246,7 @@
                         </tr>
         <tr>
         <td>2.P.1 <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFER</a> or <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFE Desktop</a></td>
+         
          @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
                 {
                     <td>
@@ -335,7 +339,7 @@
         }
 </tr>
 <tr>
-    <td>2.P.9 IT@JH RIT-managed Azure or AWS subscription</td>
+    <td>2.P.9 IT@JH RIT-managed System for PHI (e.g. Azure or AWS)</td>
      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
         {
             <td>
@@ -418,11 +422,7 @@
 </tr>
                     </tbody>
                 </table>
-            }
-            else
-            {
-                <p>No data available.</p>
-            }
+            
         </div>
 
         <!-- Insert the Question between Section E and Section R -->
@@ -461,7 +461,7 @@
         <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
         <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
         <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
-        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PHI but no PII</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII but no PHI</th>
         <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
         <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
         <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
@@ -573,10 +573,13 @@
 
     </div>
   </div>
-      <!-- Hidden input for risk-level-note -->
-    <!-- <input type="hidden" id="risk-level-note" name="RiskLevelNote" />  -->
+      <!-- Hidden input for risk-level-note 
+     <input type="hidden" id="risk-level-note" name="RiskLevelNote" />  
+     -->
 </div>
+    <input type="hidden" id="hidden-risk-level" name="riskLevel" value="">
      <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
+     <button id="generateTemplatePdf">Download Template PDF</button>
       <button type="submit" class="btn btn-primary">Save</button>
        
         <div class="container"><div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
@@ -588,7 +591,7 @@
         
     </form>
 </div>
-<<script>
+<script>
    var globalsection1A = "";
    var globalsection1B = "";
    var globalsection1C = "";
@@ -804,6 +807,7 @@
             console.log('Received result from server:', result);
             
             // Display the calculated tier in the console
+            document.getElementById('hidden-risk-level').value = result;
             document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
             //const riskLevelNoteElement = document.getElementById('risk-level-note');
             //riskLevelNoteElement.value = result; 
@@ -1145,10 +1149,14 @@ nextY += 20; // Add extra spacing before the next section
 
         nextY = doc.lastAutoTable.finalY + 20;
 
+        doc.addPage();
+
+        nextY = 20;
+
         // Section J: Justifiable Data Storage Options
         doc.setFontSize(12);
         doc.text("Justifiable Data Storage Options (J):", 10, nextY);
-        nextY += 10;
+        nextY += 12;
 
         doc.autoTable({
             startY: nextY,
@@ -1439,28 +1447,20 @@ doc.text(studyContactEmailAddress, 210, nextY);
         function checkSectionE() {
             const sectionERadios = document.querySelectorAll('input[name^="NonJHU_REDCap"], input[name^="NonJHUSystem"]');
             let isAnySelected = false;
+
             sectionERadios.forEach(radio => {
-                if (radio.checked && radio.value !== 'NotUsed') {
+                if (radio.checked && radio.getAttribute("data-column") !== "C7") {
                     isAnySelected = true;
                 }
             });
 
-            if (isAnySelected) {
-                question.style.display = "block";  // Show the question
-            } else {
-                question.style.display = "none";   // Hide the question
-            }
+            // Show or hide the question based on the selection
+            question.style.display = isAnySelected ? "block" : "none";
         }
 
-        // Add event listener for all radio buttons
+        // Add click event listener for all radio buttons
         radioButtons.forEach(radio => {
-            radio.addEventListener('change', function () {
-                // Check Section E whenever a radio button changes
-                checkSectionE();
-            });
-        });
-        radioButtons.forEach(radio => {
-            radio.addEventListener('click', function() {
+            radio.addEventListener('click', function () {
                 if (this.checked) {
                     if (this.previousValue === 'checked') {
                         this.checked = false;  // Deselect the radio button
@@ -1469,13 +1469,15 @@ doc.text(studyContactEmailAddress, 210, nextY);
                         this.previousValue = 'checked';  // Store the state as checked
                     }
                 }
-                checkSectionE();
+                checkSectionE(); // Check Section E after toggling
             });
         });
+
         // Initial check in case there are already selected radios in Section E on page load
         checkSectionE();
     });
 </script>
+
  <script>
         
         // Example event listener to trigger risk level calculation when an input changes

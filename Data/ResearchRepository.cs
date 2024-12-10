@@ -15,9 +15,12 @@ namespace ClinicalResearchApp.Data
             _connectionString = connectionString;
         }
 
-        public List<ResearchData> GetResearchData(string userRole)
+        public List<ResearchData> GetResearchData(string userJHED)
         {
             List<ResearchData> researchDataList = new();
+            string piJhed = "";
+            string contactJhed = "";
+            string adminFlag = GetUserRole(userJHED);
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -34,19 +37,60 @@ namespace ClinicalResearchApp.Data
                             ResearchData researchData = new()
                             {
                                 Id = reader["IRB_Application_Number"].ToString(),
-                                StudyName = reader["IRB_Application_Number"].ToString(),
+                                StudyName = reader["Study_Name"].ToString(),
                                 PrincipalInvestigator = reader["PI_Last_Name"].ToString() + ", " + reader["PI_First_Name"].ToString(),
                                 Status = reader["tier_calculator_completed_yn?"].ToString(),
-                                StartDate = (DateTime)reader["RTC_Completion_Date"]
+                                StartDate = (DateTime)reader["RTC_Completion_Date"],
+                                Tier = reader["tier"].ToString()
                                 //EndDate = (DateTime)reader["EndDate"]
                             };
-                            researchDataList.Add(researchData);
+                            piJhed = reader["PI_JHED"].ToString();
+                            contactJhed = reader["Study_Contact_JHED"].ToString();
+                            researchData.AdminFlag = adminFlag;
+                            if (adminFlag == "Y") { researchDataList.Add(researchData); }
+                            else if (piJhed == userJHED) { researchDataList.Add(researchData); }
+                            else if (contactJhed == userJHED) {researchDataList.Add(researchData); }
+                            Log.Logger.Information($"In SQL select....StudeName is {researchData.StudyName}");
+                
                         }
                     }
                 }
             }
             return researchDataList;
         }
+        
+        private string GetUserRole(string userJHED)
+        {
+           string adminFlag = "N";
+           string role = "";
+           string defaultView = "Researcher";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_slct_user_role", conn)) // Assume the stored procedure is GetResearchData
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@jhed", userJHED);
+                    
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            role = reader["Role"].ToString();
+                            defaultView = reader["DefaultView"].ToString();
+                            if (role == "Admin") { adminFlag = "Y"; }
+                            else { adminFlag = "N"; }
+                        
+                        };
+                            
+                
+                    }
+                }
+            }
+            return adminFlag;
+        }
+
 
         public List<ResearchTableData> GetResearchDataDetails(string irbNum)
         {
@@ -92,7 +136,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
        {
             UserResponse researchData = new UserResponse();
             DataClassification dataOption = new DataClassification();
-            List<DataClassification> dataClassifications = new();
+            List<DataClassification> dataClassifications = new List<DataClassification>();
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("usp_slct_Risk_Tier_Calculation", conn)) // Assume the stored procedure is GetResearchDetailsById
@@ -109,7 +153,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
                             {
                                 Id = (string)reader["IRB_Application_Number"],
                                 IRBApplicationNumber = reader["IRB_Application_Number"].ToString(),
-                                //StudyName = reader["IRB_Application_Number"].ToString() + " Study Name",
+                                StudyName = reader["Study_Name"].ToString(),
                                 //PrincipalInvestigator = reader["PI_Last_Name"].ToString() + ", " + reader["PI_First_Name"].ToString(),
                                 PIFirstName = reader["PI_First_Name"].ToString(),
                                 PILastName = reader["PI_Last_Name"].ToString(),
@@ -125,6 +169,7 @@ public UserResponse GetUserResponseDetails(string irbNum)
                                 InvolvesSensitiveHealthInfo = (reader["sensitive_health_information_required_yn?"].ToString() == "Y") ? true : false,
                                 //NumberOfPeopleOrRecords = reader["expected_enrollee_count"].ToString(),
                                 AllActivitiesCoveredByConsent = (reader["covered_by_consent_yn?"].ToString() =="Y") ? true : false, 
+                                Tier = reader["tier"].ToString()
                                     
 
                             };
@@ -261,7 +306,8 @@ public UserResponse GetUserResponseDetails(string irbNum)
                     cmd.Parameters.AddWithValue("@expected_enrollee_count", data.Expected_Enroll_Count);
                     cmd.Parameters.AddWithValue("@covered_by_consent_yn", data.Covered_By_Consent);
                     cmd.Parameters.AddWithValue("@tier_calculator_completed_yn", "Y");    
-                    cmd.Parameters.AddWithValue("@tier", "Tier C");
+                    cmd.Parameters.AddWithValue("@tier", data.Tier);
+                    cmd.Parameters.AddWithValue("@Study_Name", data.StudyName);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }

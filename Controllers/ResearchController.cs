@@ -24,14 +24,110 @@ namespace ClinicalResearchApp.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(string role)
-        {
-            var data = _repository.GetResearchData(role);
-            string userName = User.Identity.IsAuthenticated? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value: "Guest";
-            ViewBag.Username = userName;
-            ViewBag.jhed = User.Identity.IsAuthenticated? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value: "Guest";
-            return View(data);
-        }
+    public IActionResult Index(
+    string role, 
+    string sortOrder, 
+    string irbFilter, 
+    string studyFilter,
+    string investigatorFilter, 
+    string statusFilter, 
+    string dateFilter, 
+    string tierFilter)
+            {
+
+                // Retrieve the username and jhed value
+                string userName = User.Identity.IsAuthenticated 
+                    ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
+                    : "Guest";
+                ViewBag.Username = userName;
+                ViewBag.jhed = User.Identity.IsAuthenticated 
+                    ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
+                    : "Guest";
+
+                // Handle sorting
+                ViewData["CurrentSort"] = sortOrder; // Track the current sort column
+                ViewData["IRBNumberSort"] = sortOrder == "irb" ? "irb_desc" : "irb";
+                ViewData["StudyNameSort"] = sortOrder == "study" ? "study_desc" : "study";
+                ViewData["InvestigatorSort"] = sortOrder == "investigator" ? "investigator_desc" : "investigator";
+                ViewData["StatusSort"] = sortOrder == "status" ? "status_desc" : "status";
+                ViewData["UpdatedSort"] = sortOrder == "updated" ? "updated_desc" : "updated";
+                ViewData["TierSort"] = sortOrder == "tier" ? "tier_desc" : "tier";
+
+                // Preserve filter values for the view
+                ViewData["IRBFilter"] = irbFilter;
+                ViewData["StudyFilter"] = studyFilter;
+                ViewData["InvestigatorFilter"] = investigatorFilter;
+                ViewData["StatusFilter"] = statusFilter;
+                ViewData["DateFilter"] = dateFilter;
+                ViewData["TierFilter"] = tierFilter;
+
+                // Get data from repository
+                IEnumerable<ResearchData> data = _repository.GetResearchData(ViewBag.jhed);
+                
+                 Log.Logger.Information($"In RESEARCHCONTROLLER Index..");
+                 foreach (var item in data) {
+                        Log.Logger.Information($"The IRB Number is: {item.Id}");
+                        Log.Logger.Information($"The Study Name is: {item.StudyName}");
+                        Log.Logger.Information($"The Principal Investigator is: {item.PrincipalInvestigator}");
+                        Log.Logger.Information($"The Status is: {item.Status}");
+                        Log.Logger.Information($"The Start Date is: {item.StartDate}");
+                        Log.Logger.Information($"The Tier is: {item.Tier}");
+                 }
+                // Apply filters
+                if (!string.IsNullOrEmpty(irbFilter))
+                {
+                    data = data.Where(r => r.Id != null && r.Id.Contains(irbFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                 if (!string.IsNullOrEmpty(studyFilter))
+                {
+                    data = data.Where(r => r.StudyName != null && r.StudyName.Contains(studyFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                if (!string.IsNullOrEmpty(investigatorFilter))
+                {
+                    data = data.Where(r => r.PrincipalInvestigator != null && r.PrincipalInvestigator.Contains(investigatorFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                if (!string.IsNullOrEmpty(statusFilter))
+                {
+                    data = data.Where(r => r.Status != null && r.Status.Contains(statusFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                if (!string.IsNullOrEmpty(dateFilter) && DateTime.TryParse(dateFilter, out var parsedDate))
+                {
+                    data = data.Where(r => r.StartDate != null && r.StartDate.Date == parsedDate.Date).ToList();
+                }
+                if (!string.IsNullOrEmpty(tierFilter))
+                {
+                    data = data.Where(r => r.Tier != null && r.Tier.Contains(tierFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+
+                // Apply sorting
+                data = sortOrder switch
+                {
+                    "irb" => data.OrderBy(r => r.Id).ToList(),
+                    "irb_desc" => data.OrderByDescending(r => r.Id).ToList(),
+                     "study" => data.OrderBy(r => r.StudyName).ToList(),
+                    "study_desc" => data.OrderByDescending(r => r.StudyName).ToList(),
+                    "investigator" => data.OrderBy(r => r.PrincipalInvestigator).ToList(),
+                    "investigator_desc" => data.OrderByDescending(r => r.PrincipalInvestigator).ToList(),
+                    "status" => data.OrderBy(r => r.Status).ToList(),
+                    "status_desc" => data.OrderByDescending(r => r.Status).ToList(),
+                    "updated" => data.OrderBy(r => r.StartDate).ToList(),
+                    "updated_desc" => data.OrderByDescending(r => r.StartDate).ToList(),
+                    "tier" => data.OrderBy(r => r.Tier).ToList(),
+                    "tier_desc" => data.OrderByDescending(r => r.Tier).ToList(),
+                    _ => data.OrderBy(r => r.Id).ToList() // Default sort
+                };
+
+            
+                string adminFlag = data.FirstOrDefault()?.AdminFlag.ToString();
+                if (adminFlag == "Y") {
+                    ViewBag.Admin = "Admin";
+                } else {
+                    ViewBag.Admin = "Non-Admin";
+                }
+                
+                // Return the view with the sorted and filtered data
+                return View(data);
+}
 
         [HttpPost]
         public IActionResult Edit(string id)
@@ -63,8 +159,7 @@ namespace ClinicalResearchApp.Controllers
         {
             var updatedDataClassifications = new List<DataClassification>();
             var researchData = new ResearchData();
-            var riskTier = "";
-
+            
             // Loop through form keys to find selected options
             foreach (var key in form.Keys)
             {
@@ -148,7 +243,7 @@ namespace ClinicalResearchApp.Controllers
                     researchData.Sharing_Handled_ORA_JHURA = form["DataSharingAgreement"] == "Yes" ? "Y" : "N";
 
                     //riskTier = form["risk-level-note"];
-                    //researchData.tier =  riskTier.Substring(riskTier.Length - 6);
+                    researchData.Tier = form["riskLevel"];
 
                     
                 }

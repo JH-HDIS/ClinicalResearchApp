@@ -14,7 +14,6 @@ namespace ClinicalResearchApp.Models
         // Only the IRBApplicationNumber is required
         [Required]
         public string? IRBApplicationNumber { get; set; }
-
         // All other fields are not required
         public string? PIFirstName { get; set; }
         public string? PILastName { get; set; }
@@ -36,6 +35,8 @@ namespace ClinicalResearchApp.Models
         public bool? AllActivitiesCoveredByConsent { get; set; }
 
          public string? Sharing_Handled_ORA_JHURA { get; set; }
+
+         public string? Tier { get; set; }
 
         // List of DataClassifications (not required)
         public List<DataClassification> DataClassifications { get; set; } = new List<DataClassification>();

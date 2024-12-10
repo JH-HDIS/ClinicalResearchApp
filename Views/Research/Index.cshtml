@@ -1,23 +1,17 @@
 @model IEnumerable<ClinicalResearchApp.Models.ResearchData>
 
 <!-- Banner Section -->
-<p>Welcome, @ViewBag.UserName (@ViewBag.jhed)</p>
+<p>Welcome, @ViewBag.UserName (@ViewBag.jhed) Role: (@ViewBag.Admin)</p>
 
- @if (User.Identity.IsAuthenticated)
-    {
-        <!--
-        <p>Hi, @ViewBag.UserName! You are logged in.</p>
-        <a href="/Home/Logout">Logout</a>
-        -->
-    }
-    else
-    {
-        <!--
-        <p>Welcome, Guest! Please log in to access more features.</p>
-        <a href="/Home/Login">Login with Auth0</a>
-        -->
-    }
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <!-- Add authenticated user actions here if needed -->
+}
+else
+{
+    <!-- Add guest actions here if needed -->
+}
+
 <head>
 <style>
     /* Table Styling */
@@ -61,36 +55,149 @@
     .styled-table .btn:hover {
         background-color: #0056b3;
     }
-
+    /* Symbol Styling */
+    .sort-symbol {
+        font-size: 12px;
+        margin-left: 5px;
+        color: gray;
+    }
 </style>
-
-
 </head>
-<table class="table table-striped styled-table">
-    <thead>
-        <tr>
-            <th>IRB Number</th> 
-            <th>Principal Investigator</th>
-            <th>Calculation Complete?</th>
-            <th>RTC Last Updated</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<!-- Filtering Form -->
+<form method="get" asp-action="Index">
+    <table class="table table-striped styled-table">
+        <thead>
             <tr>
-                <td>@item.StudyName</td>
-                <td>@item.PrincipalInvestigator</td>
-                <td>@item.Status</td>
-                <td>@item.StartDate</td>
-                <td>
-                    <form method="post" asp-action="Edit">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <input type="submit" value="Edit" class="btn btn-primary" />
-                    </form>
-                </td>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["IRBNumberSort"]">IRB Number
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("irb"))
+                        {
+                            <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "irb_desc" ? "↓" : "↑")
+                            </span>
+                        }
+                    </a>
+                </th>
+                  <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["StudyNameSort"]">Study Name
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("study"))
+                        {
+                            <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "study_desc" ? "↓" : "↑")
+                            </span>
+                        }
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["InvestigatorSort"]">Principal Investigator
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("investigator"))
+                        {
+                            <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "investigator_desc" ? "↓" : "↑")
+                            </span>
+                       }
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSort"]">Calculation Complete?
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("status"))
+                        {
+                             <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "status_desc" ? "↓" : "↑")
+                            </span>
+                         }
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["UpdatedSort"]">RTC Last Updated
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("updated"))
+                        {
+                            <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "updated_desc" ? "↓" : "↑")
+                            </span>
+                         }
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["TierSort"]">Tier
+                        @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("tier"))
+                        {
+                            <span class="sort-symbol">
+                                @((string)ViewData["CurrentSort"] == "tier_desc" ? "↓" : "↑")
+                            </span>                            
+                        }
+                    </a>
+                </th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+            
+            <tr>
+                <th>
+                    <input type="text" name="irbFilter" value="@ViewData["IRBFilter"]" placeholder="Filter by IRB Number" />
+                </th>
+                 <th>
+                    <input type="text" name="studyFilter" value="@ViewData["StudyFilter"]" placeholder="Filter by Study Name" />
+                </th>
+                <th>
+                    <input type="text" name="investigatorFilter" value="@ViewData["InvestigatorFilter"]" placeholder="Filter by Investigator" />
+                </th>
+                <th>
+                    <input type="text" name="statusFilter" value="@ViewData["StatusFilter"]" placeholder="Filter by Status" />
+                </th>
+                <th>
+                    <input type="text" name="dateFilter" value="@ViewData["DateFilter"]" placeholder="Filter by Date" />
+                </th>
+                 <th>
+                    <input type="text" name="tierFilter" value="@ViewData["TierFilter"]" placeholder="Filter by Tier" />
+                </th>
+                <th>
+                    <button type="submit" name="filterAction" value="applyFilters" class="btn btn-primary">Apply Filters</button>
+                </th>
+            </tr>
+    
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                 <tr>
+                    <td>@item.Id</td>
+                    <td>@item.StudyName</td>
+                    <td>@item.PrincipalInvestigator</td>
+                    <td>@item.Status</td>
+                    <td>@item.StartDate</td>
+                    <td>@item.Tier</td>
+                       <!-- #region   
+                        <td>
+                                           
+                            <form method="post" asp-action="Edit">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" name="editAction" value="edit" class="btn btn-primary">Edit</button>
+                        </form>
+                        </td>
+                        -->
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="postEdit('@item.Id')">Edit</button>
+                        </td>
+  
+                </tr>
+            }
+        </tbody>
+    </table>
+   <script>
+    function postEdit(id) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/Research/Edit';
+
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'id';
+        hiddenField.value = id;
+
+        form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</form>

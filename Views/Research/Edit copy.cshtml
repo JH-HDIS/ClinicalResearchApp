@@ -1,72 +1,1504 @@
-@model ClinicalResearchApp.Models.ResearchData
+@model ClinicalResearchApp.Models.UserResponse
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+    <title>Risk Tiers Calculator</title>
+    -->
+    
+    <!-- Link to your custom styles.css file -->
+    <link rel="stylesheet" href="styles.css">
 
-<h2>Edit Research Data</h2>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<form asp-action="Update">
-    <div class="form-group">
-        <label>IRB Number</label>
-        <input asp-for="StudyName" class="form-control" />
+     <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+   
+    <!-- Include the jsPDF AutoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Additional custom styles specific to this page -->
+    <style>
+    .form-section {
+        margin-bottom: 20px;
+    }
+
+    .form-section label {
+        font-weight: bold;
+    }
+
+    .section-title {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-decoration: underline;
+    }
+
+    .form-check-label {
+        margin-left: 10px;
+    }
+
+    /* Added styles for wider form */
+    .form-container {
+        max-width: 90%; /* Set the form to take up 90% of the screen width */
+        margin: 0 auto; /* Center the form on the page */
+    }
+
+    /* Ensure input fields take full width of their container */
+    .form-container input,
+    .form-container select,
+    .form-container textarea {
+        width: 100%;
+        box-sizing: border-box; /* Include padding and border in the element's width */
+    }
+
+    .form-check-label {
+        display: inline-block;
+        width: auto; /* Ensures the label takes up only as much width as it needs */
+        white-space: normal; /* Allows wrapping of the text if needed */
+    }
+
+    /* Sticky note styles */
+    #risk-level-note {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%; /* Full width across the page */
+        background-color: #5a9ee2; /* Dark blue background */
+        text-align: center; /* Center the text */
+        padding: 10px;
+        font-size: 20px;
+        font-weight: bold; /* Make text bold */
+        color: rgb(255, 165, 0); /* Change the text color to red */
+        z-index: 1000;
+        white-space: nowrap; /* Prevents the text from wrapping onto a new line */
+        box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1); /* Optional: Adds a subtle shadow */
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Risk Tiers Calculator</h1>
+        <!-- <form asp-action="Index" method="post"> -->
+         <form   asp-action="SaveDataClassifications" asp-controller="Research" method="post">
+            <div class="form-section">
+                <label asp-for="RTCCompletionDate">RTC Completion Date</label>
+                <input asp-for="RTCCompletionDate" class="form-control" type="date" />
+                <span asp-validation-for="RTCCompletionDate" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="IRBApplicationNumber">IRB Application Number</label>
+                <input asp-for="IRBApplicationNumber" class="form-control" />
+                <span asp-validation-for="IRBApplicationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyName">Study Name</label>
+                <input asp-for="StudyName" class="form-control" />
+                <span asp-validation-for="StudyName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIFirstName">PI First Name</label>
+                <input asp-for="PIFirstName" class="form-control" />
+                <span asp-validation-for="PIFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PILastName">PI Last Name</label>
+                <input asp-for="PILastName" class="form-control" />
+                <span asp-validation-for="PILastName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIJHED">PI JHED</label>
+                <input asp-for="PIJHED" class="form-control" />
+                <span asp-validation-for="PIJHED" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="PIEmailAddress">PI Email Address</label>
+                <input asp-for="PIEmailAddress" class="form-control" />
+                <span asp-validation-for="PIEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactFirstName">Study Contact First Name (optional)</label>
+                <input asp-for="StudyContactFirstName" class="form-control" />
+                <span asp-validation-for="StudyContactFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactLastName">Study Contact Last Name (optional)</label>
+                <input asp-for="StudyContactLastName" class="form-control" />
+                <span asp-validation-for="StudyContactLastName" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactJHED">Study Contact JHED (optional)</label>
+                <input asp-for="StudyContactJHED" class="form-control" />
+                <span asp-validation-for="StudyContactJHED" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+                <label asp-for="StudyContactEmailAddress">Study Contact Email Address (optional)</label>
+                <input asp-for="StudyContactEmailAddress" class="form-control" />
+                <span asp-validation-for="StudyContactEmailAddress" class="text-danger"></span>
+            </div>
+        
+            <div class="section-title" style="color: red; text-align: center;">
+                Section 1: Data Characteristics and Data Access
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InvolvesSensitiveHealthInfo">1A. My study will involve storage or use of sensitive health information...</label>
+                <div class="form-check">
+                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="true" id="InvolvesSensitiveHealthInfoYes" />
+                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="false" id="InvolvesSensitiveHealthInfoNo" />
+                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoNo">No</label>
+                </div>
+                <span asp-validation-for="InvolvesSensitiveHealthInfo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NumberOfPeopleOrRecords">1B. Number of people to be enrolled or records to be reviewed...</label>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="0" id="NumberOfPeopleOrRecords1" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords1">1-499</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="1" id="NumberOfPeopleOrRecords2" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords2">500-9,999</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="2" id="NumberOfPeopleOrRecords3" />
+                    <label class="form-check-label" for="NumberOfPeopleOrRecords3">10,000 or more</label>
+                </div>
+                <span asp-validation-for="NumberOfPeopleOrRecords" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HumanDataSharingLevel">1C. What (if any) human data will be copied, moved, or shared...</label>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="0" id="HumanDataSharingLevel1" />
+                    <label class="form-check-label" for="HumanDataSharingLevel1">Directly identifiable data</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="1" id="HumanDataSharingLevel2" />
+                    <label class="form-check-label" for="HumanDataSharingLevel2">LDS</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="2" id="HumanDataSharingLevel3" />
+                    <label class="form-check-label" for="HumanDataSharingLevel3">Person-level data with No PHI or PII</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="3" id="HumanDataSharingLevel4" />
+                    <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts &#41;</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="4" id="HumanDataSharingLevel5" />
+                    <label class="form-check-label" for="HumanDataSharingLevel5">Data will not be copied, moved, or shared</label>
+                </div>
+                <span asp-validation-for="HumanDataSharingLevel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AllActivitiesCoveredByConsent">1D. Are all activities (including any use or disclosure) covered by consent?</label>
+                <div class="form-check">
+                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="true" id="AllActivitiesCoveredByConsentYes" />
+                    <label class="form-check-label" for="AllActivitiesCoveredByConsentYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="false" id="AllActivitiesCoveredByConsentNo" />
+                    <label class="form-check-label" for="AllActivitiesCoveredByConsentNo">No</label>
+                </div>
+                <span asp-validation-for="AllActivitiesCoveredByConsent" class="text-danger"></span>
+            </div>
+            
+            <div class="section-title" style="color: red; text-align: center;">
+    Section 2: Data Storage
+</div>
+<p style="text-align: center;"><strong>• In each of the 4 field groups below, indicate where data will be stored or analyzed (select all that apply).</strong></p>
+
+            <div class="mt-5">
+    <h2>Data Table</h2>
+                <table class="table table-striped">
+                   <thead>
+    <tr>
+        <th>Option</th>
+        <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
+        <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
+        <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII but no PHI</th>
+        <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
+        <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
+        <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
+    </tr>
+</thead>
+        <tbody>
+                        <!-- (P) Preferred Data Storage Options Section -->
+                        <tr>
+                            <td colspan="8" style="font-weight: bold; text-align: left;">
+                                (P) Preferred Data Storage Options - 
+                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                                </a>
+                            </td>
+                        </tr>
+        <tr>
+        <td>2.P.1 <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFER</a> or <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFE Desktop</a></td>
+         
+         @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+                {
+                    <td>
+                        <input type="radio" name="SAFERorSAFEDesktop" data-option="2.P.1" data-column="@column" value="@column"
+                               @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.1" && dc.Selected) ? "checked" : "")
+                               @(Model.DataClassifications.All(dc => dc.Option != "2.P.1") && column == "C7" ? "checked" : "") />
+                    </td>
+                }
+        <tr>
+        <td>2.P.2 <a href="https://ictr.johnshopkins.edu/service/informatics/pmap/" target="_blank">JH PMAP</a></td>
+        @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHPMAP" data-option="2.P.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+    </tr>
+    <td>2.P.3 <a href="https://ictr.johnshopkins.edu/service/informatics/openspecimen/" target="_blank">JHU OpenSpecimen</a></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUOpenSpecimen" data-option="2.P.3" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.3" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.3" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.3") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.4 <a href="https://uis.jhu.edu/qualtrics/" target="_blank">JHU Qualtrics</a></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUQualtrics" data-option="2.P.4" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.4" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.4" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.4") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.5 <a href="https://redcap.jhu.edu/" target="_blank">JHU/ACH REDCap</a></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUACHREDCap" data-option="2.P.5" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.5" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.5" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.5") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.6 <a href="https://researchit.jhu.edu/safe-stor/" target="_blank">SAFESTOR</a></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="SAFESTOR" data-option="2.P.6" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.6" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.6" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.6") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.7 <a href="https://researchit.jhu.edu/research-hpc/" target="_blank">Discovery HPC</a></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="DiscoveryHPC" data-option="2.P.7" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.7" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.7" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.7") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.8 <a href="https://researchit.jhu.edu/" target="_blank">Enterprise Network Storage (NAS)</a></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="EnterpriseNetworkStorageNAS" data-option="2.P.8" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.8" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.8" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.8") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.P.9 IT@JH RIT-managed System for PHI (e.g. Azure or AWS)</td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="ITJHRITManagedAzureAWS" data-option="2.P.9" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.P.9" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.P.9" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.P.9") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+                        
+            <!-- (J) Justifiable Data Storage Options Section -->
+            <tr>
+                <td colspan="8" style="font-weight: bold; text-align: left;">
+                    (J) Justifiable Data Storage Options - (Requiring JHED Authenticated Network Access)
+                    <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                    (Click here for more information on "Levels of Identification")
+                    </a>
+                </td>
+            </tr>
+<tr>
+    <td>2.J.1 JH OneDrive / SharePoint / Teams</td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OneDrive" data-option="2.J.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.J.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.J.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.J.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td title="For computers NOT managed by IT@JH, see Section R (below)">
+        2.J.2 Local Computer <span style="text-decoration: underline; cursor: pointer; color: blue; font-weight: bold;">(both JH owned and IT@JH managed)</span>
+    </td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="LocalComputer" data-option="2.J.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.J.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.J.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.J.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+                        
+                        <!-- (E) External Data Storage Tools Section -->
+                        <tr>
+                            <td colspan="8" style="font-weight: bold; text-align: left;">
+                                (E) External Data Storage Tools
+                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                                </a>
+                            </td>
+                        </tr>
+<tr class="section-e-option">
+    <td>2.E.1 Non-JHU REDCap</td>
+      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="NonJHU_REDCap" data-option="2.E.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.E.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.E.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.E.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr class="section-e-option">
+    <td>2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)</td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="NonJHUSystem" data-option="2.E.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.E.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.E.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.E.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+                    </tbody>
+                </table>
+            
+        </div>
+
+        <!-- Insert the Question between Section E and Section R -->
+        <div class="mt-4" id="ora-jhura-question" style="display: none;">
+    <p><strong>Is the sharing of data via this external tool included in an agreement handled by 
+        <a href="https://ora.jhmi.edu/" target="_blank">ORA</a> or 
+        <a href="https://jhura.jhu.edu/" target="_blank">JHURA</a>? 
+    (Yes/No)</strong></p>
+    <!-- Add radio buttons for Yes/No -->
+    <div class="form-check">
+        <input class="form-check-input" 
+               type="radio" 
+               name="DataSharingAgreement" 
+               value="Yes" 
+               id="DataSharingYes" 
+               @(Model.Sharing_Handled_ORA_JHURA == "Yes" ? "checked" : "")>
+        <label class="form-check-label" for="DataSharingYes">Yes</label>
     </div>
-    <div class="form-group">
-        <label>Principal Investigator</label>
-        <input asp-for="PrincipalInvestigator" class="form-control" />
+    <div class="form-check">
+        <input class="form-check-input" 
+               type="radio" 
+               name="DataSharingAgreement" 
+               value="No" 
+               id="DataSharingNo" 
+               @(Model.Sharing_Handled_ORA_JHURA == "No" ? "checked" : "")>
+        <label class="form-check-label" for="DataSharingNo">No</label>
     </div>
-    <div class="form-group">
-        <label>Principal Investigator First Name</label>
-        <input asp-for="PI_First_Name" class="form-control" />
+</div>
+
+        <!-- (R) Data Storage Options Requiring Review Section -->
+        <div class="mt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       <th>Option</th>
+        <th title="Text Protected Health Information" data-column="C1">Text PHI</th>
+        <th title="Protected Health Information greater than a Limited Dataset" data-column="C2">PHI > LDS</th>
+        <th title="Limited Dataset. See footnote 1 for definition." data-column="C3">LDS</th>
+        <th title="Protected Health Information but no Personally Identifiable Information" data-column="C4">PII but no PHI</th>
+        <th title="No Protected Health Information or Personally Identifiable Information" data-column="C5">No PHI/PII</th>
+        <th title="Summary data in aggregate form" data-column="C6">Aggregate (Counts)</th>
+        <th title="This option is not selected or applicable" data-column="C7">Not Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" style="font-weight: bold; text-align: left;">
+                            (R) Data Storage Options Requiring Review
+                            <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                                (Click here for more information on "Levels of Identification")
+                            </a>
+                        </td>
+                    </tr>
+<tr>
+    <td>2.R.1 Department Server (not managed by IT@JH)</td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="DepartmentServer" data-option="2.R.1" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.1" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.1" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.1") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.R.2 Other computer(s) or Device(s) owned and managed by study team members</td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OtherComputers" data-option="2.R.2" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.2" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.2" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.2") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.R.3 USB/Portable Data Storage Device</td>
+      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="USB" data-option="2.R.3" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.3" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.3" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.3") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.R.4 <a href="https://jhpce.jhu.edu/" target="_blank">Joint High Performance Computing Exchange (JHPCE)</a></td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHPCE" data-option="2.R.4" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.4" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.4" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.4") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.R.5 <a href="https://www.arch.jhu.edu/" target="_blank">JHU ARCH (formerly MARCC)</a></td>
+    @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="JHUARCH" data-option="2.R.5" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.5" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.5" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.5") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+<tr>
+    <td>2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)</td>
+     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
+        {
+            <td>
+                <input type="radio" name="OtherSolutions" data-option="2.R.6" data-column="@column" value="@column"
+                        @(Model.DataClassifications.Any(dc => dc.Column == column && dc.Option == "2.R.6" && dc.Selected) ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option == "2.R.6" && dc.Column != column) && column == "C7" ? "checked" : "")
+                        @(Model.DataClassifications.All(dc => dc.Option != "2.R.6") && column == "C7" ? "checked" : "") />
+            </td>
+        }
+</tr>
+                </tbody>
+            </table>
+        </div>
+         
+<!-- Modal for Email Input -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailModalLabel">Do you want a copy of the PDF?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="userEmail">Enter your email address:</label>
+        <input type="email" id="userEmail" class="form-control" placeholder="name@example.com">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="skipBtn">Display PDF</button>
+        <button type="button" class="btn btn-primary" id="sendEmailBtn">Yes, I'd like a copy</button>
+      </div>
+
     </div>
-    <div class="form-group">
-        <label>Principal Investigator Last Name</label>
-        <input asp-for="PI_Last_Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Status</label>
-        <input asp-for="Status" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Start Date</label>
-        <input asp-for="StartDate" class="form-control" type="date" />
-    </div>
-    <div class="form-group">
-        <label>End Date</label>
-        <input asp-for="EndDate" class="form-control" type="date" />
-    </div>
-    <div class="form-group">
-        <label>PI JHED ID</label>
-        <input asp-for="PI_JHED" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>PI Email Address</label>
-        <input asp-for="PI_Email_Address" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label>Study Contact First Name</label>
-        <input asp-for="Study_Contact_First_Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contact Last Name</label>
-        <input asp-for="Study_Contact_Last_name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contact JHED</label>
-        <input asp-for="Study_Contact_JHED" class="form-control" />
-    </div>
-        <div class="form-group">
-        <label>Study Contact Email Address</label>
-        <input asp-for="Study_Contact_Email_Address" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Study Contains Sensitive Health Information</label>
-        <input asp-for="Sensitive_Health_Info" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Expected Enrollee Count</label>
-        <input asp-for="Expected_Enroll_Count" class="form-control" />
-    </div>
-     <div class="form-group">
-        <label>Covered By Consent</label>
-        <input asp-for="Covered_By_Consent" class="form-control" />
-    </div>
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Update" class="btn btn-success" />
-</form>
+  </div>
+      <!-- Hidden input for risk-level-note 
+     <input type="hidden" id="risk-level-note" name="RiskLevelNote" />  
+     -->
+</div>
+    <input type="hidden" id="hidden-risk-level" name="riskLevel" value="">
+     <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+       
+        <div class="container"><div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
+        
+        <div id="version-info" style="font-weight: bold; margin-top: 20px; margin-bottom: 20px;">
+        Version: <span id="version-number">1.0</span>
+        </div>
+</div>
+        
+    </form>
+</div>
+<script>
+   var globalsection1A = "";
+   var globalsection1B = "";
+   var globalsection1C = "";
+   var globalsection1D = "";
+   var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // References to Data Table radio buttons
+        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+
+        // Section 1 inputs (1A-1D) references using their id's or asp-for
+        const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
+        const section1B = document.querySelectorAll('input[name="NumberOfPeopleOrRecords"]');
+        const section1C = document.querySelectorAll('input[name="HumanDataSharingLevel"]');
+        const section1D = document.querySelectorAll('input[name="AllActivitiesCoveredByConsent"]');
+
+        // ORA/JHURA conditional question references
+        const oraJhuraYes = document.getElementById('DataSharingYes');
+        const oraJhuraNo = document.getElementById('DataSharingNo');
+
+        // Function to collect Section 1 answers and return as individual parameters
+        function collectSection1Answers() {
+            let section1Answers = {};
+
+            // Get the selected answer for 1A
+            section1A.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1A = radio.value;
+                }
+            });
+
+            // Get the selected answer for 1B
+            section1B.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1B = radio.value;
+                }
+            });
+
+            // Get the selected answer for 1C
+            section1C.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1C = radio.value;
+                }
+            });
+
+            // Get the selected answer for 1D
+            section1D.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1D = radio.value;
+                }
+            });
+
+            return section1Answers;
+        }
+
+        // Function to collect Data Table radio button selections and return as an array of arrays
+        function collectDataTableSelections() {
+            let dataTableAnswers = [];
+
+            dataTableRadioButtons.forEach(radio => {
+                if (radio.checked) {
+                    dataTableAnswers.push([
+                        radio.getAttribute('data-option'),
+                        radio.getAttribute('data-column')
+                    ]);
+                }
+            });
+
+            return dataTableAnswers; // This will now return an array like [["2.P.7", "C2"], ...]
+        }
+
+        // Function to collect ORA/JHURA agreement answer
+        function collectOraJhuraAnswer() {
+            let oraJhuraAnswer = null;
+
+            if (oraJhuraYes.checked) {
+                oraJhuraAnswer = 'Yes';
+            } else if (oraJhuraNo.checked) {
+                oraJhuraAnswer = 'No';
+            }
+
+            globalOraJhuraAnswer = oraJhuraAnswer; // Store the value in a global variable
+            return oraJhuraAnswer;
+        }
+
+        // Main function to send parameters and array to the calculation function
+        function updateSelectedOptions() {
+            // Collect answers from Section 1 as individual parameters
+            const section1Answers = collectSection1Answers();
+            globalsection1A = section1Answers.section1A;
+            globalsection1B = section1Answers.section1B;
+            globalsection1C = section1Answers.section1C;
+            globalsection1D = section1Answers.section1D;
+
+            // Collect answers from Data Table as an array of arrays
+            const dataTableSelections = collectDataTableSelections();
+
+            // Collect ORA/JHURA agreement as a parameter
+            const oraJhuraAnswer = collectOraJhuraAnswer();
+
+            // Log the values for testing (you can see them in the browser's console)
+            console.log('Section 1 Answers:', section1Answers);
+            console.log('Data Table Selections (array):', dataTableSelections);
+            console.log('ORA/JHURA Answer:', oraJhuraAnswer);
+
+            // Send the data to your calculation function
+            sendToServer(
+                globalsection1A,
+                globalsection1B,
+                globalsection1C,
+                globalsection1D,
+                oraJhuraAnswer,
+                dataTableSelections
+            );
+        }
+
+        // Attach event listeners to Section 1 radio buttons
+        [...section1A, ...section1B, ...section1C, ...section1D].forEach(radio => {
+            radio.addEventListener('change', updateSelectedOptions);
+        });
+
+        // Attach event listeners to all Data Table radio buttons
+        dataTableRadioButtons.forEach(radio => {
+            radio.addEventListener('change', updateSelectedOptions);
+        });
+
+        // Attach event listeners to ORA/JHURA radio buttons
+        oraJhuraYes.addEventListener('change', updateSelectedOptions);
+        oraJhuraNo.addEventListener('change', updateSelectedOptions);
+
+        // Initial check in case there are already selected radios on page load
+        updateSelectedOptions();
+    });
+
+    async function sendToServer(
+        involvesSensitiveHealthInfo,
+        numRecords,
+        humanDataSharingLevel,
+        consentYN,
+        oraJhuraAnswer,
+        dataTableSelections
+    ) {
+        try {
+            // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.
+            involvesSensitiveHealthInfo = involvesSensitiveHealthInfo === "true" ? "Y" : "N";
+            consentYN = consentYN === "true" ? "Y" : "N";
+            oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";  // For ORA question
+
+            // Map 1B: Number of people or records
+            switch (numRecords) {
+                case "0": // 1-499
+                    numRecords = "0";  // 1-499 maps to "0"
+                    break;
+                case "1": // 500-9,999
+                    numRecords = "1";  // 500-9,999 maps to "1"
+                    break;
+                case "2": // 10,000 or more
+                    numRecords = "2";  // 10,000 or more maps to "2"
+                    break;
+                default:
+                    numRecords = "0"; // Default to 1-499 if no input is provided
+            }
+
+            // Map 1C: Human data sharing level
+            switch (humanDataSharingLevel) {
+                case "0": // "Directly identifiable data"
+                    humanDataSharingLevel = "0";  // Map to "0"
+                    break;
+                case "1": // "LDS"
+                    humanDataSharingLevel = "1";  // Map to "1"
+                    break;
+                case "2": // "Person-level data with No PHI or PII"
+                    humanDataSharingLevel = "2";  // Map to "2"
+                    break;
+                case "3": // "Aggregate (counts)"
+                    humanDataSharingLevel = "3";  // Map to "3"
+                    break;
+                case "4": // "Data will not be copied, moved, or shared"
+                    humanDataSharingLevel = "4";  // Map to "4"
+                    break;
+                default:
+                    humanDataSharingLevel = "4"; // Default to "Data will not be copied, moved, or shared"
+            }
+
+            // Send the collected data
+            const dataToSend = {
+                tierArray: dataTableSelections,  // 2D array [["2.P.7", "C2"], ...]
+                dataLeavingJHM: oraJhuraAnswer,  // "Y" or "N"
+                numRecords: numRecords,          // 0, 1, or 2
+                consentYN: consentYN,            // "Y" or "N"
+                humanDataSharingLevel: humanDataSharingLevel, // 0, 1, 2, 3, or 4
+                involvesSensitiveHealthInfo: involvesSensitiveHealthInfo, // "Y" or "N"
+                dataSharingAgreement: oraJhuraAnswer  // "Y" or "N"
+            };
+
+            console.log("Sending data to server:", dataToSend);
+
+            // Make the API call to the server
+            const response = await fetch('/Utility/GetTierLevel', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Handle the response from the server
+            const result = await response.text();
+            console.log('Received result from server:', result);
+            
+            // Display the calculated tier in the console
+            document.getElementById('hidden-risk-level').value = result;
+            document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
+            //const riskLevelNoteElement = document.getElementById('risk-level-note');
+            //riskLevelNoteElement.value = result; 
+        } catch (error) {
+            console.error('Error while sending data to server:', error);
+        }
+    }
+
+    // Event listener to trigger risk level calculation when an input changes
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', updateSelectedOptions);
+    });
+
+    // Ensure sticky note stays at the bottom of the screen when scrolling
+    window.addEventListener('scroll', function () {
+        const riskNote = document.getElementById('risk-level-note');
+        riskNote.style.position = 'fixed';
+        riskNote.style.bottom = '0';
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const versionNumber = "Version 1.0"; // Define the version number once here
+
+    // Display version number on the webpage
+    document.getElementById("version-number").textContent = versionNumber;
+document.addEventListener("DOMContentLoaded", function () {
+    const generatePdfButton = document.getElementById("generatePdfButton");
+    const sendEmailBtn = document.getElementById("sendEmailBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const userEmailInput = document.getElementById("userEmail");
+
+    // Handle the case where the user skips the email
+    skipBtn.addEventListener("click", function () {
+        const doc = generatePdf();
+        const pdfBlob = doc.output("blob");
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        window.open(blobUrl, "_blank");
+        $("#emailModal").modal("hide");
+    });
+
+    sendEmailBtn.addEventListener("click", function () {
+        const email = userEmailInput.value;
+        if (email) {
+            console.log("Send PDF to email:", email);
+            alert("A copy of the PDF will be sent to " + email);
+            $("#emailModal").modal("hide");
+        } else {
+            alert("Please enter a valid email address.");
+        }
+    });
+
+    generatePdfButton.addEventListener("click", function () {
+        $("#emailModal").modal("show");
+    });
+
+    // PDF Generation function
+    function generatePdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
+        const tableData = collectDataTableSelections();
+        const versionNumber = "1.0"; // Specify the version number here
+
+        const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
+        const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
+        const piFirstName = document.getElementById("PIFirstName")?.value || "N/A";
+        const piLastName = document.getElementById("PILastName")?.value || "N/A";
+        const piJHED = document.getElementById("PIJHED")?.value || "N/A";
+        const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
+        const studyName = document.getElementById("StudyName")?.value || "N/A";
+        const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
+        const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
+        const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
+        const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
+
+        doc.setFontSize(16);
+        doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
+
+        // Set the color of the user responses to blue
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);  // Labels remain black
+        doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, 20);
+        doc.setTextColor(0, 102, 204);  // Change the color to blue for responses
+        doc.text(rtcCompletionDate, 70, 20);  // User response
+        doc.setTextColor(0, 0, 0); // Switch back to black for labels
+        doc.text("IRB Application Number: ", 10, 30);
+        doc.setTextColor(0, 102, 204);  // Change the color to blue for responses
+        doc.text(irbApplicationNumber, 70, 30);  // User response
+        doc.setTextColor(0, 0, 0); 
+        doc.text("PI First Name: ", 10, 40);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piFirstName, 70, 40); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI Last Name: ", 10, 50);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piLastName, 70, 50); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI JHED: ", 10, 60);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piJHED, 70, 60); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI Email Address: ", 10, 70);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piEmailAddress, 70, 70);
+
+        // Study Contact Info Section
+        doc.setTextColor(0, 0, 0); // Black for label
+        doc.text("Study Name: ", 10, 70); // Position at the top of the section
+        doc.setTextColor(0, 102, 204); // Blue for user response
+        doc.text(studyName, 70, 70); // Display the study name value
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact First Name: ", 10, 80);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactFirstName, 70, 80); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact Last Name: ", 10, 90);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactLastName, 70, 90); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact JHED: ", 10, 100);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactJHED, 70, 100); 
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact Email Address: ", 10, 110);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactEmailAddress, 70, 110);
+
+// Calculate dynamic position for Section 1
+let nextY = 70; // Last line of Study Contact section
+nextY += 5; // Add a small padding (e.g., 10 units)
+        
+        // Section 1: Data Characteristics and Data Access
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);  // Black for the section header
+        doc.text("Section 1: Data Characteristics and Data Access", 10, 115);
+        doc.setFontSize(12);
+
+        doc.text("1A. Involves Sensitive Health Info: ", 10, 130);
+        doc.setTextColor(0, 102, 204);
+        const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(involvesSensitiveHealthInfo, 120, 130); 
+
+        doc.setTextColor(0, 0, 0); 
+        doc.text("1B. Number of People/Records: ", 10, 140);
+        doc.setTextColor(0, 102, 204);
+        const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(numberOfPeopleOrRecords, 120, 140);  
+
+        doc.setTextColor(0, 0, 0); 
+        doc.text("1C. Human Data Sharing Level: ", 10, 150);
+        doc.setTextColor(0, 102, 204);
+        const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(humanDataSharingLevel, 120, 150); 
+
+        doc.setTextColor(0, 0, 0); 
+        doc.text("1D. All Activities Covered By Consent: ", 10, 160);
+        doc.setTextColor(0, 102, 204);
+        const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(allActivitiesCoveredByConsent, 120, 160);
+
+        // Start new page for Section 2
+        doc.addPage();
+        doc.setTextColor(0, 0, 0); 
+        doc.setFontSize(14);
+        doc.text("Section 2: Data Storage", 10, 10);
+
+        // Add the Data Table
+        doc.autoTable({
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: tableData.map((row) => [
+                row.optionWithDescription,  // Include the option with its description
+                row.columns.includes("C1") ? "x" : "",
+                row.columns.includes("C2") ? "x" : "",
+                row.columns.includes("C3") ? "x" : "",
+                row.columns.includes("C4") ? "x" : "",
+                row.columns.includes("C5") ? "x" : "",
+                row.columns.includes("C6") ? "x" : "",
+            ]),
+            startY: 20,
+        });
+
+        // Add the ORA/JHURA question and risk level below the table, in light blue for user response
+        doc.setTextColor(0, 0, 0);  // Set black for label
+        doc.text("Is data sharing covered by an ORA/JHURA agreement: ", 10, doc.lastAutoTable.finalY + 10);
+        doc.setTextColor(0, 102, 204);  // Set light blue for the user response
+        const dataSharingAgreement = document.querySelector('input[name="DataSharingAgreement"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(dataSharingAgreement, 140, doc.lastAutoTable.finalY + 10); // User response in light blue
+
+        // Add Risk Level below ORA/JHURA
+        doc.setTextColor(0, 0, 0);
+        doc.text("Risk Level: ", 10, doc.lastAutoTable.finalY + 20);
+        doc.setTextColor(0, 102, 204);
+        const riskLevel = document.getElementById('risk-level-note').innerText || "Risk level not calculated";
+        doc.text(riskLevel, 60, doc.lastAutoTable.finalY + 20);  // Response in light blue
+
+        // Add version number below Risk Level
+        doc.setTextColor(0, 0, 0);  // Back to black for the version number
+        doc.text("Version: " + versionNumber, 10, doc.lastAutoTable.finalY + 30);  // Version number at the bottom
+
+        return doc;
+    }
+
+    function collectDataTableSelections() {
+        const dataTableSelections = [];
+        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+
+        dataTableRadioButtons.forEach((radio) => {
+            if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
+                const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
+                const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
+                const optionDescription = radio.closest("tr").querySelector("td").textContent.trim(); // Get the description text from the first cell in the row
+
+                let existing = dataTableSelections.find((entry) => entry.option === option);
+                if (existing) {
+                    existing.columns.push(column);
+                } else {
+                    dataTableSelections.push({
+                        option: option,
+                        columns: [column],
+                        optionWithDescription: `${option} ${optionDescription}`, // Add both the option number and its description
+                    });
+                }
+            }
+        });
+
+        return dataTableSelections;
+    }
+});
+</script>
+<button id="generateTemplatePdf">Download Template PDF</button>
+<script>
+    document.getElementById("generateTemplatePdf").addEventListener("click", function () {
+        const { jsPDF } = window.jspdf;
+
+        const doc = new jsPDF({ orientation: "portrait" });
+        let nextY = 10;
+
+        // Title
+        doc.setFontSize(16);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Risk Tiers Calculator - Template PDF", 10, nextY);
+
+        nextY += 10;
+
+        // Section 1: Data Characteristics and Data Access
+        doc.setFontSize(14);
+        doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
+
+        nextY += 10;
+
+        
+// Question 1A
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0);
+doc.text("1A. Involves Sensitive Health Info:", 10, nextY);
+nextY += 6;
+doc.setFontSize(10);
+doc.setTextColor(100, 100, 100); // Gray for options
+doc.text("• Yes", 15, nextY);
+nextY += 6;
+doc.text("• No", 15, nextY);
+
+nextY += 10; // Add spacing before next question
+
+// Question 1B
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0);
+doc.text("1B. Number of People/Records:", 10, nextY);
+nextY += 6;
+doc.setFontSize(10);
+doc.setTextColor(100, 100, 100); // Gray for options
+doc.text("• 1-499", 15, nextY);
+nextY += 6;
+doc.text("• 500-9,999", 15, nextY);
+nextY += 6;
+doc.text("• 10,000 or more", 15, nextY);
+
+nextY += 10; // Add spacing before next question
+
+// Question 1C
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0);
+doc.text("1C. Human Data Sharing Level:", 10, nextY);
+nextY += 6;
+doc.setFontSize(10);
+doc.setTextColor(100, 100, 100); // Gray for options
+doc.text("• Directly identifiable data", 15, nextY);
+nextY += 6;
+doc.text("• LDS", 15, nextY);
+nextY += 6;
+doc.text("• Person-level data with No PHI or PII", 15, nextY);
+nextY += 6;
+doc.text("• Aggregate (Counts)", 15, nextY);
+nextY += 6;
+doc.text("• Data will not be copied, moved, or shared", 15, nextY);
+
+nextY += 10; // Add spacing before next question
+
+// Question 1D
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0);
+doc.text("1D. All Activities Covered By Consent:", 10, nextY);
+nextY += 6;
+doc.setFontSize(10);
+doc.setTextColor(100, 100, 100); // Gray for options
+doc.text("• Yes", 15, nextY);
+nextY += 6;
+doc.text("• No", 15, nextY);
+
+nextY += 20; // Add extra spacing before the next section
+
+        // Section Header for Section P
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Section 2: Data Storage", 10, nextY);
+
+        nextY += 10;
+
+        doc.setFontSize(12);
+        doc.text("Preferred Data Storage Options (P):", 10, nextY);
+        nextY += 10;
+
+        // Data Table for Section P
+        doc.autoTable({
+            startY: nextY,
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: [
+                ["2.P.1 SAFER or SAFE Desktop", "", "", "", "", "", "", ""],
+                ["2.P.2 JH PMAP", "", "", "", "", "", "", ""],
+                ["2.P.3 JHU OpenSpecimen", "", "", "", "", "", "", ""],
+                ["2.P.4 JHU Qualtrics", "", "", "", "", "", "", ""],
+                ["2.P.5 JHU/ACH REDCap", "", "", "", "", "", "", ""],
+                ["2.P.6 SAFESTOR", "", "", "", "", "", "", ""],
+                ["2.P.7 Discovery HPC", "", "", "", "", "", "", ""],
+                ["2.P.8 Enterprise Network Storage (NAS)", "", "", "", "", "", "", ""],
+                ["2.P.9 IT@JH RIT-managed system for PHI (e.g., Azure or AWS)", "", "", "", "", "", "", ""],
+            ],
+        });
+
+        nextY = doc.lastAutoTable.finalY + 20;
+
+        // Section J: Justifiable Data Storage Options
+        doc.setFontSize(12);
+        doc.text("Justifiable Data Storage Options (J):", 10, nextY);
+        nextY += 10;
+
+        doc.autoTable({
+            startY: nextY,
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: [
+                ["2.J.1 JH OneDrive / SharePoint / Teams", "", "", "", "", "", "", ""],
+                ["2.J.2 Local Computer (JH-owned and IT@JH managed)", "", "", "", "", "", "", ""],
+            ],
+        });
+
+        nextY = doc.lastAutoTable.finalY + 20;
+
+        // Section E: External Data Storage Tools
+        doc.setFontSize(12);
+        doc.text("External Data Storage Tools (E):", 10, nextY);
+        nextY += 10;
+
+        doc.autoTable({
+            startY: nextY,
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: [
+                ["2.E.1 Non-JHU REDCap", "", "", "", "", "", "", ""],
+                ["2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)", "", "", "", "", "", "", ""],
+            ],
+        });
+
+        nextY = doc.lastAutoTable.finalY + 20;
+
+        // Section R: Data Storage Options Requiring Review
+        doc.setFontSize(12);
+        doc.text("Data Storage Options Requiring Review (R):", 10, nextY);
+        nextY += 10;
+
+        doc.autoTable({
+            startY: nextY,
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: [
+                ["2.R.1 Department Server (not managed by IT@JH)", "", "", "", "", "", "", ""],
+                ["2.R.2 Other computer(s) or Device(s) owned and managed by study team members", "", "", "", "", "", "", ""],
+                ["2.R.3 USB/Portable Data Storage Device", "", "", "", "", "", "", ""],
+                ["2.R.4 Joint High Performance Computing Exchange (JHPCE)", "", "", "", "", "", "", ""],
+                ["2.R.5 JHU ARCH (formerly MARCC)", "", "", "", "", "", "", ""],
+                ["2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)", "", "", "", "", "", "", ""],
+            ],
+        });
+
+        nextY = doc.lastAutoTable.finalY + 20;
+
+        // Save and open in a new window
+        const pdfBlob = doc.output("blob");
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        const newWindow = window.open();
+        newWindow.location = blobUrl;
+    });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const generatePdfButton = document.getElementById("generatePdfButton");
+    const sendEmailBtn = document.getElementById("sendEmailBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const userEmailInput = document.getElementById("userEmail");
+
+    // Handle the case where the user skips the email
+    skipBtn.addEventListener("click", function () {
+        const doc = generatePdf();
+        const pdfBlob = doc.output("blob");
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        window.open(blobUrl, "_blank");
+        $("#emailModal").modal("hide");
+    });
+
+    sendEmailBtn.addEventListener("click", function () {
+        const email = userEmailInput.value;
+        if (email) {
+            console.log("Send PDF to email:", email);
+            alert("A copy of the PDF will be sent to " + email);
+            $("#emailModal").modal("hide");
+        } else {
+            alert("Please enter a valid email address.");
+        }
+    });
+
+    generatePdfButton.addEventListener("click", function () {
+        $("#emailModal").modal("show");
+    });
+
+    // PDF Generation function
+    function generatePdf() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
+    const tableData = collectDataTableSelections();
+    const versionNumber = "Version 1.0"; // Specify the version number here
+
+    const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
+    const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
+    const piFirstName = document.getElementById("PIFirstName")?.value || "N/A";
+    const piLastName = document.getElementById("PILastName")?.value || "N/A";
+    const piJHED = document.getElementById("PIJHED")?.value || "N/A";
+    const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
+    const studyName = document.getElementById("StudyName")?.value || "N/A";
+    const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
+    const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
+    const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
+    const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
+
+      // Start PDF content
+doc.setFontSize(16);
+doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
+
+// Initialize vertical position tracker
+let nextY = 20; // Start after the title
+
+// RTC and IRB Application Information
+doc.setFontSize(12);
+doc.setTextColor(0, 0, 0); // Black for labels
+doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, nextY);
+doc.setTextColor(0, 102, 204); // Blue for user data
+doc.text(rtcCompletionDate, 85, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("IRB Application Number: ", 10, nextY + 10);
+doc.setTextColor(0, 102, 204);
+doc.text(irbApplicationNumber, 70, nextY + 10);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Name: ", 150, nextY + 10); // Align Study Name to the right of IRB Application Number
+doc.setTextColor(0, 102, 204);
+doc.text(studyName, 210, nextY + 10);
+
+// Increment nextY for the next section
+nextY += 20;
+
+// PI and Study Contact Information (side by side)
+doc.setTextColor(0, 0, 0);
+doc.text("PI First Name: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piFirstName, 70, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact First Name: ", 150, nextY); // Align Study Contact First Name to the right
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactFirstName, 210, nextY);
+
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI Last Name: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piLastName, 70, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact Last Name: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactLastName, 210, nextY);
+
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI JHED: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piJHED, 70, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact JHED: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactJHED, 210, nextY);
+
+nextY += 10; // Increment Y for the next line
+doc.setTextColor(0, 0, 0);
+doc.text("PI Email Address: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(piEmailAddress, 70, nextY);
+
+doc.setTextColor(0, 0, 0);
+doc.text("Study Contact Email Address: ", 150, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(studyContactEmailAddress, 210, nextY);
+
+    // Section 1: Data Characteristics and Data Access
+    nextY += 15; // Small spacing before Section 1
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0); // Black for the section header
+    doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
+
+  nextY += 10;
+    doc.setFontSize(12);
+    doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
+    doc.setTextColor(0, 102, 204);
+    const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
+    doc.text(involvesSensitiveHealthInfo, 120, nextY);
+
+    nextY += 10;
+    doc.setTextColor(0, 0, 0);
+    doc.text("1B. Number of People/Records: ", 10, nextY);
+    doc.setTextColor(0, 102, 204);
+    const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
+    doc.text(numberOfPeopleOrRecords, 120, nextY);
+
+    nextY += 10;
+    doc.setTextColor(0, 0, 0);
+    doc.text("1C. Human Data Sharing Level: ", 10, nextY);
+    doc.setTextColor(0, 102, 204);
+    const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
+    doc.text(humanDataSharingLevel, 120, nextY);
+
+    nextY += 10;
+    doc.setTextColor(0, 0, 0);
+    doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
+    doc.setTextColor(0, 102, 204);
+    const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
+    doc.text(allActivitiesCoveredByConsent, 120, nextY);
+
+        // Start new page for Section 2
+        doc.addPage();
+        doc.setTextColor(0, 0, 0); 
+        doc.setFontSize(14);
+        doc.text("Section 2: Data Storage", 10, 10);
+
+        // Add the Data Table
+        doc.autoTable({
+            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            body: tableData.map((row) => [
+                row.optionWithDescription,  // Include the option with its description
+                row.columns.includes("C1") ? "x" : "",
+                row.columns.includes("C2") ? "x" : "",
+                row.columns.includes("C3") ? "x" : "",
+                row.columns.includes("C4") ? "x" : "",
+                row.columns.includes("C5") ? "x" : "",
+                row.columns.includes("C6") ? "x" : "",
+            ]),
+            startY: 20,
+        });
+
+        // Add the ORA/JHURA question and risk level below the table, in light blue for user response
+        doc.setTextColor(0, 0, 0);  // Set black for label
+        doc.text("Is data sharing covered by an ORA/JHURA agreement: ", 10, doc.lastAutoTable.finalY + 10);
+        doc.setTextColor(0, 102, 204);  // Set light blue for the user response
+        const dataSharingAgreement = document.querySelector('input[name="DataSharingAgreement"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(dataSharingAgreement, 140, doc.lastAutoTable.finalY + 10); // User response in light blue
+
+        // Add Risk Level below ORA/JHURA
+        doc.setTextColor(0, 0, 0);
+        doc.text("Risk Level: ", 10, doc.lastAutoTable.finalY + 20);
+        doc.setTextColor(0, 102, 204);
+        const riskLevel = document.getElementById('risk-level-note').innerText || "Risk level not calculated";
+        doc.text(riskLevel, 60, doc.lastAutoTable.finalY + 20);  // Response in light blue
+
+        // Add version number below Risk Level
+        doc.setTextColor(0, 0, 0);  // Back to black for the version number
+        doc.text("Version: " + versionNumber, 10, doc.lastAutoTable.finalY + 30);  // Version number at the bottom
+
+        return doc;
+    }
+
+    function collectDataTableSelections() {
+        const dataTableSelections = [];
+        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+
+        dataTableRadioButtons.forEach((radio) => {
+            if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
+                const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
+                const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
+                const optionDescription = radio.closest("tr").querySelector("td").textContent.trim(); // Get the description text from the first cell in the row
+
+                let existing = dataTableSelections.find((entry) => entry.option === option);
+                if (existing) {
+                    existing.columns.push(column);
+                } else {
+                    dataTableSelections.push({
+                        option: option,
+                        columns: [column],
+                        optionWithDescription: `${option} ${optionDescription}`, // Add both the option number and its description
+                    });
+                }
+            }
+        });
+
+        return dataTableSelections;
+    }
+});
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const question = document.getElementById("ora-jhura-question");
+
+        // Function to check if any radio button in Section E is selected (excluding Not Used)
+        function checkSectionE() {
+            const sectionERadios = document.querySelectorAll('input[name^="NonJHU_REDCap"], input[name^="NonJHUSystem"]');
+            let isAnySelected = false;
+
+            sectionERadios.forEach(radio => {
+                if (radio.checked && radio.getAttribute("data-column") !== "C7") {
+                    isAnySelected = true;
+                }
+            });
+
+            // Show or hide the question based on the selection
+            question.style.display = isAnySelected ? "block" : "none";
+        }
+
+        // Add click event listener for all radio buttons
+        radioButtons.forEach(radio => {
+            radio.addEventListener('click', function () {
+                if (this.checked) {
+                    if (this.previousValue === 'checked') {
+                        this.checked = false;  // Deselect the radio button
+                        this.previousValue = '';  // Reset previous value
+                    } else {
+                        this.previousValue = 'checked';  // Store the state as checked
+                    }
+                }
+                checkSectionE(); // Check Section E after toggling
+            });
+        });
+
+        // Initial check in case there are already selected radios in Section E on page load
+        checkSectionE();
+    });
+</script>
+
+ <script>
+        
+        // Example event listener to trigger risk level calculation when an input changes
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('change', updateRiskLevel);
+        });
+
+        // Ensure sticky note stays at the bottom of the screen when scrolling
+        window.addEventListener('scroll', function () {
+            const riskNote = document.getElementById('risk-level-note');
+            riskNote.style.position = 'fixed';
+            riskNote.style.bottom = '0';
+        });
+    </script>
+
+<!-- Load jQuery first -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Load Bootstrap JS -->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Load your custom JavaScript last -->
+<script src="~/js/logic.js"></script>
+@section Scripts {
+    <script src="~/logic.js"></script>
+}
+
+</body>
+</html>

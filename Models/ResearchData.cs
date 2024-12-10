@@ -29,7 +29,9 @@ namespace ClinicalResearchApp.Models
         public string? Covered_By_Consent {get; set;}
 
         public string? Sharing_Handled_ORA_JHURA { get; set; }
-        public string? tier { get; set; }
+        public string? Tier { get; set; }
+
+        public string? AdminFlag { get; set; }
     }
 
     public class ResearchTableData {
@@ -44,7 +46,7 @@ namespace ClinicalResearchApp.Models
         public string? LDS { get; set; }
         public string? PHI_no_PII { get; set; }     
         public string? PersonalData_noPHIPII { get; set; }
-        public string? tier { get; set; }
+        public string? Tier { get; set; }
 
     }
 }
