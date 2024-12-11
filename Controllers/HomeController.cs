@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ClinicalResearchApp.Models;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Security.Claims;
 
 
 namespace ClinicalResearchApp.Controllers;
@@ -51,6 +52,23 @@ public class HomeController : Controller
        return SignOut("Cookies", "OpenIdConnect");
     }
 
+    public IActionResult LocalLogin()
+    {
+        // Simulate login for testing
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, "Test User"),
+            new Claim(ClaimTypes.Email, "testuser@example.com")
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+
+        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+        return RedirectToAction("Edit", "Research");
+    }
+    
      public IActionResult Error()
         {
             // Retrieve error details from HttpContext.Items

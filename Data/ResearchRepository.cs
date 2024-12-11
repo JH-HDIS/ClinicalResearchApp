@@ -64,7 +64,7 @@ namespace ClinicalResearchApp.Data
            string adminFlag = "N";
            string role = "";
            string defaultView = "Researcher";
-
+           if (userJHED is not null) {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("usp_slct_user_role", conn)) // Assume the stored procedure is GetResearchData
@@ -88,6 +88,8 @@ namespace ClinicalResearchApp.Data
                     }
                 }
             }
+           } else {
+               adminFlag = "Y";}
             return adminFlag;
         }
 

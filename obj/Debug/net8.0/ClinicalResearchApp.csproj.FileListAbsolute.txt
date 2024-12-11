@@ -124,6 +124,15 @@ c:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\Clinical
 c:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 c:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
 >>>>>>> 207ff74c4d3358b886395959f2b92fded731ebbc
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.csproj.AssemblyReference.cache
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.AssemblyInfoInputs.cache
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.AssemblyInfo.cs
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.csproj.CoreCompileInputs.cache
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.RazorAssemblyInfo.cache
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.RazorAssemblyInfo.cs
+C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.sourcelink.json
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\appsettings.json
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\ClinicalResearchApp.staticwebassets.runtime.json
@@ -180,15 +189,6 @@ C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win-arm64\native
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.csproj.AssemblyReference.cache
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.AssemblyInfoInputs.cache
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.AssemblyInfo.cs
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.csproj.CoreCompileInputs.cache
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.RazorAssemblyInfo.cache
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.RazorAssemblyInfo.cs
-C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.sourcelink.json
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\staticwebassets\msbuild.ClinicalResearchApp.Microsoft.AspNetCore.StaticWebAssets.props

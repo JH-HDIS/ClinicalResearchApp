@@ -12,156 +12,75 @@ using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.File("Logs/myapp.log", rollingInterval: RollingInterval.Day)  // Log to a file with daily rolling
+    .WriteTo.File("Logs/myapp.log", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-builder.Host.UseSerilog();  // Integrate Serilog with the ASP.NET Core logging system
+builder.Host.UseSerilog();
 
-// Bypass certificate - temporary for testing only
-ServicePointManager.ServerCertificateValidationCallback = 
-        (sender, certificate, chain, sslPolicyErrors) => true;
+// Bypass certificate validation - temporary for testing only
+ServicePointManager.ServerCertificateValidationCallback =
+    (sender, certificate, chain, sslPolicyErrors) => true;
 
+// Determine if running on localhost
+var isLocalhost = builder.Environment.IsDevelopment() ||
+                  builder.Configuration["ASPNETCORE_URLS"]?.Contains("localhost") == true;
 
-// Bind OpenIdConnect configuration from appsettings.json
-var openIdConnectSettings = builder.Configuration.GetSection("OpenIdConnect");
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.ConfigureApplicationCookie(options =>
+if (isLocalhost)
 {
-    options.Cookie.SameSite = SameSiteMode.None; // Allows cross-origin cookies
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Requires HTTPS
-});
-
-builder.Services.AddLogging(builder =>
+    builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Home/LocalLogin"; // Point to a local test login page
+        });
+    builder.Services.AddAuthorization();
+    builder.Services.AddControllersWithViews();
+}
+else
 {
-    builder.AddConsole();
-    builder.SetMinimumLevel(LogLevel.Debug);
-});
+    var openIdConnectSettings = builder.Configuration.GetSection("OpenIdConnect");
 
-// Configure authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-})
-.AddCookie()
-.AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
-{
-    options.Authority = openIdConnectSettings["Authority"];
-    options.ClientId = openIdConnectSettings["ClientId"];
-    options.ClientSecret = openIdConnectSettings["ClientSecret"];
-    options.ResponseType = "code";
-    options.ResponseMode = "query";
-    options.SaveTokens = true;
-    options.GetClaimsFromUserInfoEndpoint = true;
-    options.UsePkce = false;
-    options.ClaimActions.MapJsonKey("uid", "uid");
-
-    options.TokenValidationParameters = new TokenValidationParameters
+    builder.Services.AddAuthentication(options =>
     {
-        ValidateIssuer = true,
-        ValidIssuer = "https://login.jh.edu/idp/shibboleth"
-    };
-    //options.MetadataAddress = "https://login.jh.edu/idp/shibboleth/.well-known/openid-configuration";
-    options.Scope.Clear();
-    options.Scope.Add("openid");
-    options.Scope.Add("profile");
-    options.Scope.Add("email");
-
-    options.CallbackPath = openIdConnectSettings["CallbackPath"];
-
-
-    // Use JWT Bearer for token validation
-
-    options.Events = new OpenIdConnectEvents
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
     {
-        OnAuthorizationCodeReceived = context =>
-            {
-                Console.WriteLine($"Authorization code received: {context.ProtocolMessage.Code}");
-                Log.Information("OnAuthorizationCodeReceived Event!! ProtocolMessage Code: ", context.ProtocolMessage?.Code);
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                logger.LogDebug("Authorization code received:");
-                logger.LogDebug(context.ProtocolMessage?.Code);
-                return Task.CompletedTask;
-            },
-        OnMessageReceived = context =>
-            {
-                Log.Information("OnMessageReceived Event!! ProtocolMessage: ", context.ProtocolMessage?.ToString());
+        options.Authority = openIdConnectSettings["Authority"];
+        options.ClientId = openIdConnectSettings["ClientId"];
+        options.ClientSecret = openIdConnectSettings["ClientSecret"];
+        options.ResponseType = "code";
+        options.ResponseMode = "query";
+        options.SaveTokens = true;
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.UsePkce = false;
+        options.ClaimActions.MapJsonKey("uid", "uid");
 
-                Console.WriteLine(context.ProtocolMessage?.ToString());
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                logger.LogDebug("Message received from Identity Provider:");
-                logger.LogDebug(context.ProtocolMessage?.ToString());
-                return Task.CompletedTask;
-            },
-        OnRedirectToIdentityProvider = context =>
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            Log.Information("OnRedirectToIdentity Provider Event!! Redirecting to Identity Provider. Request: {RequestUri}", context.ProtocolMessage.CreateAuthenticationRequestUrl());
+            ValidateIssuer = true,
+            ValidIssuer = "https://login.jh.edu/idp/shibboleth"
+        };
 
-            // Bypass certificate validation for testing only
-            HttpClientHandler handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-            };
+        options.Scope.Clear();
+        options.Scope.Add("openid");
+        options.Scope.Add("profile");
+        options.Scope.Add("email");
 
-            context.Options.BackchannelHttpHandler = handler;
-            var requestURI = context.ProtocolMessage.RequestUri;
-            context.HttpContext.Items["RequestURI"] = requestURI;
+        options.CallbackPath = openIdConnectSettings["CallbackPath"];
 
-            return Task.CompletedTask;
-        },
-        OnRemoteFailure = context =>
+        options.Events = new OpenIdConnectEvents
         {
-           Log.Error("OnRemoteFailure Event! Remote Failure in OIDC: {ErrorMessage}. Exception: {Exception}",
-                context.Failure?.Message,
-                context.Failure);
-            // Redirect to custom error page
-            context.Response.Redirect("/Home/Error");
-            context.HandleResponse(); // Suppress default error handling
-            return Task.CompletedTask;
-        },
-       OnAuthenticationFailed = context =>
-        {
-            // Capture detailed error message
-            Log.Error("OnAuthenticationFailed Event! Remote Failure in OIDC: {ErrorMessage}. Exception: {Exception}",
-                context.Exception?.Message,
-                context.Exception?.StackTrace);
-            var errorMessage = context.Exception?.Message ?? "Unknown error";
-            var errorDetails = context.Exception?.StackTrace ?? "No Exception stack trace available";
-            var contextMsg = context.ProtocolMessage?.ToString() ?? "No ProtocolMessage available";
-            var requestURI = context.ProtocolMessage?.RequestUri;
-            context.HttpContext.Items["RequestURI"] = requestURI;
-            // Pass error details to the error page (via query string or context items)
-            context.HttpContext.Items["ErrorMessage"] = errorMessage;
-            context.HttpContext.Items["ErrorDetails"] = errorDetails + contextMsg + requestURI;
-
-            // Redirect to custom error page
-            context.Response.Redirect("/Home/Error");
-            context.HandleResponse(); // Suppress default error handling
-            return Task.CompletedTask;
-        },
-        OnTokenValidated = context =>
-        {
-            var idToken = context.SecurityToken as JwtSecurityToken;
-            Console.WriteLine($"ID Token: {idToken.RawData}");
-            Log.Information("OnTokenValidated Event!!", idToken.ToString);
-            // Optionally decode and log claims
-            foreach (var claim in idToken.Claims)
-            {
-                Log.Information($"Claim Type: {claim.Type}, Value: {claim.Value}");
-            }
-
-            return Task.CompletedTask;
-        }
-    };
-});
+            // Existing event handlers
+        };
+    });
+}
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -173,14 +92,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Enable authentication and authorization middleware
-app.UseAuthentication(); // This adds authentication to the middleware pipeline
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Research}/{action=Index}/{id?}");
 
 app.Run();
-
