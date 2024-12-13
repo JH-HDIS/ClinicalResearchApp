@@ -579,7 +579,7 @@
 </div>
     <input type="hidden" id="hidden-risk-level" name="riskLevel" value="">
      <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
-     <button id="generateTemplatePdf">Download Template PDF</button>
+     <button type="button" class="btn btn-primary" id="generateTemplatePdf">Download Template PDF</button>
       <button type="submit" class="btn btn-primary">Save</button>
        
         <div class="container"><div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
@@ -1037,7 +1037,6 @@ nextY += 5; // Add a small padding (e.g., 10 units)
     }
 });
 </script>
-<button id="generateTemplatePdf">Download Template PDF</button>
 <script>
     document.getElementById("generateTemplatePdf").addEventListener("click", function () {
         const { jsPDF } = window.jspdf;
@@ -1054,86 +1053,99 @@ nextY += 5; // Add a small padding (e.g., 10 units)
 
         // Section 1: Data Characteristics and Data Access
         doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
         doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
 
         nextY += 10;
 
-        
-// Question 1A
-doc.setFontSize(12);
-doc.setTextColor(0, 0, 0);
-doc.text("1A. Involves Sensitive Health Info:", 10, nextY);
-nextY += 6;
-doc.setFontSize(10);
-doc.setTextColor(100, 100, 100); // Gray for options
-doc.text("• Yes", 15, nextY);
-nextY += 6;
-doc.text("• No", 15, nextY);
+        // Question 1A
+        doc.setFontSize(12);
+        doc.text("1A. Involves Sensitive Health Info:", 10, nextY);
+        nextY += 6;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(100, 100, 100);
+        doc.text("• Yes", 15, nextY);
+        nextY += 6;
+        doc.text("• No", 15, nextY);
 
-nextY += 10; // Add spacing before next question
+        nextY += 10;
 
-// Question 1B
-doc.setFontSize(12);
-doc.setTextColor(0, 0, 0);
-doc.text("1B. Number of People/Records:", 10, nextY);
-nextY += 6;
-doc.setFontSize(10);
-doc.setTextColor(100, 100, 100); // Gray for options
-doc.text("• 1-499", 15, nextY);
-nextY += 6;
-doc.text("• 500-9,999", 15, nextY);
-nextY += 6;
-doc.text("• 10,000 or more", 15, nextY);
-
-nextY += 10; // Add spacing before next question
-
-// Question 1C
-doc.setFontSize(12);
-doc.setTextColor(0, 0, 0);
-doc.text("1C. Human Data Sharing Level:", 10, nextY);
-nextY += 6;
-doc.setFontSize(10);
-doc.setTextColor(100, 100, 100); // Gray for options
-doc.text("• Directly identifiable data", 15, nextY);
-nextY += 6;
-doc.text("• LDS", 15, nextY);
-nextY += 6;
-doc.text("• Person-level data with No PHI or PII", 15, nextY);
-nextY += 6;
-doc.text("• Aggregate (Counts)", 15, nextY);
-nextY += 6;
-doc.text("• Data will not be copied, moved, or shared", 15, nextY);
-
-nextY += 10; // Add spacing before next question
-
-// Question 1D
-doc.setFontSize(12);
-doc.setTextColor(0, 0, 0);
-doc.text("1D. All Activities Covered By Consent:", 10, nextY);
-nextY += 6;
-doc.setFontSize(10);
-doc.setTextColor(100, 100, 100); // Gray for options
-doc.text("• Yes", 15, nextY);
-nextY += 6;
-doc.text("• No", 15, nextY);
-
-nextY += 20; // Add extra spacing before the next section
-
-        // Section Header for Section P
-        doc.setFontSize(14);
+        // Question 1B
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
         doc.setTextColor(0, 0, 0);
+        doc.text("1B. Number of People/Records:", 10, nextY);
+        nextY += 6;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        doc.text("• 1-499", 15, nextY);
+        nextY += 6;
+        doc.text("• 500-9,999", 15, nextY);
+        nextY += 6;
+        doc.text("• 10,000 or more", 15, nextY);
+
+        nextY += 10;
+
+        // Question 1C
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(0, 0, 0);
+        doc.text("1C. Human Data Sharing Level:", 10, nextY);
+        nextY += 6;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        doc.text("• Directly identifiable data", 15, nextY);
+        nextY += 6;
+        doc.text("• LDS", 15, nextY);
+        nextY += 6;
+        doc.text("• Person-level data with No PHI or PII", 15, nextY);
+        nextY += 6;
+        doc.text("• Aggregate (Counts)", 15, nextY);
+        nextY += 6;
+        doc.text("• Data will not be copied, moved, or shared", 15, nextY);
+
+        nextY += 10;
+
+        // Question 1D
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.text("1D. All Activities Covered By Consent:", 10, nextY);
+        nextY += 6;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        doc.text("• Yes", 15, nextY);
+        nextY += 6;
+        doc.text("• No", 15, nextY);
+
+        nextY += 15;
+
+        // Section 2: Data Storage
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
         doc.text("Section 2: Data Storage", 10, nextY);
 
         nextY += 10;
 
         doc.setFontSize(12);
         doc.text("Preferred Data Storage Options (P):", 10, nextY);
-        nextY += 10;
+        nextY += 8;
 
         // Data Table for Section P
         doc.autoTable({
             startY: nextY,
-            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            head: [
+                [
+                    "Option",
+                    "Text PHI",
+                    "PHI > LDS",
+                    "LDS",
+                    "PII But No PHI",
+                    "No PHI/PII",
+                    "Aggregate\n(Counts)",
+                    "Not Used",
+                ],
+            ],
             body: [
                 ["2.P.1 SAFER or SAFE Desktop", "", "", "", "", "", "", ""],
                 ["2.P.2 JH PMAP", "", "", "", "", "", "", ""],
@@ -1149,18 +1161,30 @@ nextY += 20; // Add extra spacing before the next section
 
         nextY = doc.lastAutoTable.finalY + 20;
 
+        // Start Section J on a new page
         doc.addPage();
-
-        nextY = 20;
+        nextY = 10;
 
         // Section J: Justifiable Data Storage Options
         doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
         doc.text("Justifiable Data Storage Options (J):", 10, nextY);
-        nextY += 12;
+        nextY += 8;
 
         doc.autoTable({
             startY: nextY,
-            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            head: [
+                [
+                    "Option",
+                    "Text PHI",
+                    "PHI > LDS",
+                    "LDS",
+                    "PII But No PHI",
+                    "No PHI/PII",
+                    "Aggregate\n(Counts)",
+                    "Not Used",
+                ],
+            ],
             body: [
                 ["2.J.1 JH OneDrive / SharePoint / Teams", "", "", "", "", "", "", ""],
                 ["2.J.2 Local Computer (JH-owned and IT@JH managed)", "", "", "", "", "", "", ""],
@@ -1171,12 +1195,24 @@ nextY += 20; // Add extra spacing before the next section
 
         // Section E: External Data Storage Tools
         doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
         doc.text("External Data Storage Tools (E):", 10, nextY);
-        nextY += 10;
+        nextY += 8;
 
         doc.autoTable({
             startY: nextY,
-            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            head: [
+                [
+                    "Option",
+                    "Text PHI",
+                    "PHI > LDS",
+                    "LDS",
+                    "PII But No PHI",
+                    "No PHI/PII",
+                    "Aggregate\n(Counts)",
+                    "Not Used",
+                ],
+            ],
             body: [
                 ["2.E.1 Non-JHU REDCap", "", "", "", "", "", "", ""],
                 ["2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)", "", "", "", "", "", "", ""],
@@ -1185,14 +1221,40 @@ nextY += 20; // Add extra spacing before the next section
 
         nextY = doc.lastAutoTable.finalY + 20;
 
+        // ORA Question
+        doc.setFont(undefined, "bold");
+        doc.text("Is the sharing of data via this external tool included in an agreement", 10, nextY);
+        nextY += 6;
+        doc.text("handled by ORA or JHURA? (Yes/No)", 10, nextY);
+        nextY += 8;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        doc.text("• Yes", 15, nextY);
+        nextY += 6;
+        doc.text("• No", 15, nextY);
+
+        nextY += 15;
+
         // Section R: Data Storage Options Requiring Review
         doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
         doc.text("Data Storage Options Requiring Review (R):", 10, nextY);
-        nextY += 10;
+        nextY += 8;
 
         doc.autoTable({
             startY: nextY,
-            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
+            head: [
+                [
+                    "Option",
+                    "Text PHI",
+                    "PHI > LDS",
+                    "LDS",
+                    "PII But No PHI",
+                    "No PHI/PII",
+                    "Aggregate\n(Counts)",
+                    "Not Used",
+                ],
+            ],
             body: [
                 ["2.R.1 Department Server (not managed by IT@JH)", "", "", "", "", "", "", ""],
                 ["2.R.2 Other computer(s) or Device(s) owned and managed by study team members", "", "", "", "", "", "", ""],
@@ -1203,7 +1265,7 @@ nextY += 20; // Add extra spacing before the next section
             ],
         });
 
-        nextY = doc.lastAutoTable.finalY + 20;
+        nextY = doc.lastAutoTable.finalY + 10;
 
         // Save and open in a new window
         const pdfBlob = doc.output("blob");
@@ -1212,6 +1274,7 @@ nextY += 20; // Add extra spacing before the next section
         newWindow.location = blobUrl;
     });
 </script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
