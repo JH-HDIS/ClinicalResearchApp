@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+ycg4wDBz4o=",
+  "dgSpecHash": "cTemO347Pp0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+  "projectFilePath": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bsharm12\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\bsharm12\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -3325,11 +3325,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+      "projectUniqueName": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
       "projectName": "ClinicalResearchApp",
-      "projectPath": "C:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+      "projectPath": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
       "packagesPath": "C:\\Users\\bsharm12\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\obj\\",
+      "outputPath": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bsharm12\\AppData\\Roaming\\NuGet\\NuGet.Config"
