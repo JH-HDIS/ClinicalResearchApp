@@ -1,0 +1,804 @@
+2024-12-11 15:18:52.712 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:18:52.786 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:18:52.788 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:18:52.788 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:18:52.788 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:19:21.253 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:19:21.259 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 15:19:21.296 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 15:19:21.299 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found. The default schemes can be set using either AddAuthentication(string defaultScheme) or AddAuthentication(Action<AuthenticationOptions> configureOptions).
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.ChallengeAsync(HttpContext context, String scheme, AuthenticationProperties properties)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.<>c__DisplayClass0_0.<<HandleAsync>g__Handle|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-11 15:19:21.358 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 500 null text/html; charset=utf-8 106.5658ms
+2024-12-11 15:19:21.429 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/favicon.ico - null null
+2024-12-11 15:19:21.455 -05:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\favicon.ico'
+2024-12-11 15:19:21.456 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/favicon.ico - 200 5430 image/x-icon 26.3623ms
+2024-12-11 15:22:25.563 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:22:25.608 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:22:25.609 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:22:25.609 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:22:25.609 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:22:41.740 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:22:41.742 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 15:22:41.756 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 15:22:41.757 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found. The default schemes can be set using either AddAuthentication(string defaultScheme) or AddAuthentication(Action<AuthenticationOptions> configureOptions).
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.ChallengeAsync(HttpContext context, String scheme, AuthenticationProperties properties)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.<>c__DisplayClass0_0.<<HandleAsync>g__Handle|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-11 15:22:41.775 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 500 null text/html; charset=utf-8 35.8911ms
+2024-12-11 15:22:42.871 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:22:42.872 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 15:22:42.872 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found. The default schemes can be set using either AddAuthentication(string defaultScheme) or AddAuthentication(Action<AuthenticationOptions> configureOptions).
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.ChallengeAsync(HttpContext context, String scheme, AuthenticationProperties properties)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.<>c__DisplayClass0_0.<<HandleAsync>g__Handle|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-11 15:22:42.874 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 500 null text/html; charset=utf-8 2.734ms
+2024-12-11 15:23:42.295 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:23:42.340 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:23:42.341 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:23:42.341 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:23:42.341 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:24:13.578 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:24:13.585 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 15:24:13.630 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 15:24:13.633 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found. The default schemes can be set using either AddAuthentication(string defaultScheme) or AddAuthentication(Action<AuthenticationOptions> configureOptions).
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.ChallengeAsync(HttpContext context, String scheme, AuthenticationProperties properties)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.<>c__DisplayClass0_0.<<HandleAsync>g__Handle|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-11 15:24:13.680 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 500 null text/html; charset=utf-8 105.756ms
+2024-12-11 15:24:35.950 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:24:36.021 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:24:36.022 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:24:36.022 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:24:36.022 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:25:40.217 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:25:40.354 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:25:40.355 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:25:40.356 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:25:40.356 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:26:46.820 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:26:46.888 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:26:46.890 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:26:46.891 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:26:46.891 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:26:57.586 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:26:57.593 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 15:26:57.603 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Endpoint ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) contains authorization metadata, but a middleware was not found that supports authorization.
+Configure your application startup by adding app.UseAuthorization() in the application startup code. If there are calls to app.UseRouting() and app.UseEndpoints(...), the call to app.UseAuthorization() must go between them.
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.ThrowMissingAuthMiddlewareException(Endpoint endpoint)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-11 15:26:57.678 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 500 null text/html; charset=utf-8 92.4411ms
+2024-12-11 15:26:57.756 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/favicon.ico - null null
+2024-12-11 15:26:57.780 -05:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\favicon.ico'
+2024-12-11 15:26:57.780 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/favicon.ico - 200 5430 image/x-icon 24.8501ms
+2024-12-11 15:38:05.939 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 15:38:06.018 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 15:38:06.018 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 15:38:06.019 -05:00 [INF] Hosting environment: Development
+2024-12-11 15:38:06.019 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 15:38:26.441 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 15:38:26.449 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 15:38:26.566 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 15:38:26.961 -05:00 [INF] OnRedirectToIdentity Provider Event!! Redirecting to Identity Provider. Request: https://login.jh.edu/idp/profile/oidc/authorize?client_id=https%3A%2F%2Fesmhdisccdev01.win.ad.jhu.edu%2F&redirect_uri=http%3A%2F%2Flocalhost%3A5189%2Fsignin-oidc&response_type=code&scope=openid%20profile%20email&nonce=638695463069539922.OWNjMmQyMTMtODRhNy00NDFlLWE3ZDAtMWQ4ODliNDk0N2QyNjAwNzcyMWEtN2JiNy00YmQ4LWJjMzYtNDc1MzU1NDk0YTlh&x-client-SKU=ID_NET8_0&x-client-ver=8.2.1.0
+2024-12-11 15:38:26.965 -05:00 [INF] AuthenticationScheme: OpenIdConnect was challenged.
+2024-12-11 15:38:26.970 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 531.1731ms
+2024-12-11 16:00:23.640 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 16:00:23.741 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 16:00:23.743 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 16:00:23.744 -05:00 [INF] Hosting environment: Development
+2024-12-11 16:00:23.744 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 16:00:33.269 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:00:33.279 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 16:00:33.323 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 16:00:33.337 -05:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-12-11 16:00:33.343 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 76.9881ms
+2024-12-11 16:00:33.358 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - null null
+2024-12-11 16:00:33.389 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:00:33.424 -05:00 [INF] Route matched with {action = "LocalLogin", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LocalLogin() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:00:33.439 -05:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-12-11 16:00:33.449 -05:00 [INF] Executing RedirectResult, redirecting to /Research/Edit.
+2024-12-11 16:00:33.452 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp) in 24.9883ms
+2024-12-11 16:00:33.452 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:00:33.454 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - 302 0 null 95.1972ms
+2024-12-11 16:00:33.457 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/Edit - null null
+2024-12-11 16:00:33.460 -05:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:00:33.460 -05:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:00:33.460 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/Edit - 405 0 null 3.2396ms
+2024-12-11 16:00:34.749 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:00:34.753 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:00:34.755 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:00:34.758 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 16:00:34.759 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 3.2446ms
+2024-12-11 16:00:34.759 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:00:34.759 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 9.8319ms
+2024-12-11 16:00:34.761 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 16:00:34.763 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:00:34.780 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:05:57.721 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 16:05:57.796 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 16:05:57.797 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 16:05:57.798 -05:00 [INF] Hosting environment: Development
+2024-12-11 16:05:57.798 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 16:06:04.622 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:06:04.626 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 16:06:04.651 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:04.667 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:06:04.673 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 16:06:04.676 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 7.1902ms
+2024-12-11 16:06:04.677 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:04.679 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 57.3073ms
+2024-12-11 16:06:04.685 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 16:06:04.691 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:04.699 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:06:37.052 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 16:06:37.113 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 16:06:37.114 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 16:06:37.114 -05:00 [INF] Hosting environment: Development
+2024-12-11 16:06:37.114 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 16:06:41.377 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:06:41.380 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 16:06:41.405 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:41.422 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:06:41.429 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 16:06:41.432 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 7.7374ms
+2024-12-11 16:06:41.433 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:41.435 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 59.0863ms
+2024-12-11 16:06:41.437 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 16:06:41.442 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:06:41.449 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:08:53.478 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 16:08:53.543 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 16:08:53.544 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 16:08:53.544 -05:00 [INF] Hosting environment: Development
+2024-12-11 16:08:53.544 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 16:09:01.181 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:09:01.184 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 16:09:01.207 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:09:01.223 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:09:01.229 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 16:09:01.231 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 6.7058ms
+2024-12-11 16:09:01.232 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:09:01.234 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 53.5285ms
+2024-12-11 16:09:01.240 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 16:09:01.249 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:09:01.254 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:09:01.681 -05:00 [INF] In SQL select....StudeName is Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 16:09:01.682 -05:00 [INF] In SQL select....StudeName is Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 16:09:01.682 -05:00 [INF] In SQL select....StudeName is Stress Management Training of Emergency Medicine Trainees
+2024-12-11 16:09:01.682 -05:00 [INF] In SQL select....StudeName is Vaccination and CIN2-3 (VAC)
+2024-12-11 16:09:01.682 -05:00 [INF] In SQL select....StudeName is Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is Preventing Unplanned Extubations
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is StudyName ABCD
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is StudyName 1234
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is StudyName LMNOP
+2024-12-11 16:09:01.683 -05:00 [INF] In SQL select....StudeName is StudyName 012345
+2024-12-11 16:09:01.688 -05:00 [INF] In RESEARCHCONTROLLER Index..
+2024-12-11 16:09:01.688 -05:00 [INF] The IRB Number is: IRB00289113
+2024-12-11 16:09:01.688 -05:00 [INF] The Study Name is: Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 16:09:01.689 -05:00 [INF] The Principal Investigator is: Ashikaga, Hiroshi
+2024-12-11 16:09:01.689 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.696 -05:00 [INF] The Start Date is: 12/10/2024 2:57:24 PM
+2024-12-11 16:09:01.696 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:09:01.696 -05:00 [INF] The IRB Number is: IRB00326936
+2024-12-11 16:09:01.696 -05:00 [INF] The Study Name is: Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 16:09:01.696 -05:00 [INF] The Principal Investigator is: McLaughlin, Kevin
+2024-12-11 16:09:01.696 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.696 -05:00 [INF] The Start Date is: 12/10/2024 3:06:11 PM
+2024-12-11 16:09:01.696 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:09:01.696 -05:00 [INF] The IRB Number is: IRB00333212
+2024-12-11 16:09:01.696 -05:00 [INF] The Study Name is: Stress Management Training of Emergency Medicine Trainees
+2024-12-11 16:09:01.696 -05:00 [INF] The Principal Investigator is: Ortiz, Daniela
+2024-12-11 16:09:01.696 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/11/2024 7:35:58 AM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier A
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00340168
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: Vaccination and CIN2-3 (VAC)
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Moss, Chailee
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/10/2024 11:51:07 AM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00348085
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Cameron, Andrew
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/11/2024 9:06:22 AM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00374418
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Christopher, Lisa
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: 
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 8:03:10 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00388015
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Zheng, Lei
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: 
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 7:56:59 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00395559
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Gilmore, Maureen
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 7:53:40 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00403840
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Ferrante, Jennifer
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: 
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 8:31:41 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB00406893
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: Preventing Unplanned Extubations
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Bernier, Meghan
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: 
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 8:00:37 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB02345678
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: StudyName ABCD
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Ktest, Larry
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 12:49:49 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier X
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB123
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: StudyName 1234
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: Sh, Bi
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 12:49:59 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB12345679
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: StudyName LMNOP
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: mPitest, KTest
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 12:50:07 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:09:01.697 -05:00 [INF] The IRB Number is: IRB2345678
+2024-12-11 16:09:01.697 -05:00 [INF] The Study Name is: StudyName 012345
+2024-12-11 16:09:01.697 -05:00 [INF] The Principal Investigator is: PLname, Tony
+2024-12-11 16:09:01.697 -05:00 [INF] The Status is: Y
+2024-12-11 16:09:01.697 -05:00 [INF] The Start Date is: 12/9/2024 12:50:35 PM
+2024-12-11 16:09:01.697 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:09:01.711 -05:00 [INF] Executing ViewResult, running view Index.
+2024-12-11 16:09:01.819 -05:00 [INF] Executed ViewResult - view Index executed in 115.2001ms.
+2024-12-11 16:09:01.819 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp) in 564.4059ms
+2024-12-11 16:09:01.819 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:09:01.820 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research - 200 null text/html; charset=utf-8 579.3696ms
+2024-12-11 16:09:01.835 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-12-11 16:09:01.839 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - null null
+2024-12-11 16:09:01.839 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - null null
+2024-12-11 16:09:01.839 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/logo.png - null null
+2024-12-11 16:09:01.844 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/RiskTierA.png - null null
+2024-12-11 16:09:01.857 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2024-12-11 16:09:01.866 -05:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\css\site.css'
+2024-12-11 16:09:01.867 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - 200 362 text/css 27.1696ms
+2024-12-11 16:09:01.872 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - null null
+2024-12-11 16:09:01.879 -05:00 [INF] Sending file. Request path: '/ClinicalResearchApp.styles.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\scopedcss\bundle\ClinicalResearchApp.styles.css'
+2024-12-11 16:09:01.879 -05:00 [INF] Sending file. Request path: '/RiskTierA.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\RiskTierA.png'
+2024-12-11 16:09:01.879 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2024-12-11 16:09:01.879 -05:00 [INF] Sending file. Request path: '/logo.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\logo.png'
+2024-12-11 16:09:01.880 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - 200 1137 text/css 40.9708ms
+2024-12-11 16:09:01.880 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - 200 162720 text/css 45.4476ms
+2024-12-11 16:09:01.880 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/RiskTierA.png - 200 294612 image/png 35.9832ms
+2024-12-11 16:09:01.880 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/logo.png - 200 5124 image/png 40.8685ms
+2024-12-11 16:09:01.881 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2024-12-11 16:09:01.882 -05:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\js\site.js'
+2024-12-11 16:09:01.882 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 0.9463ms
+2024-12-11 16:09:01.885 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+2024-12-11 16:09:01.885 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78468 text/javascript 28.3579ms
+2024-12-11 16:09:01.926 -05:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\jquery\dist\jquery.min.js'
+2024-12-11 16:09:01.926 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - 200 89501 text/javascript 55.5991ms
+2024-12-11 16:09:06.777 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5189/Research/Edit - application/x-www-form-urlencoded 14
+2024-12-11 16:09:06.781 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp)'
+2024-12-11 16:09:06.784 -05:00 [INF] Route matched with {action = "Edit", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:09:16.832 -05:00 [INF] Executing ViewResult, running view Edit.
+2024-12-11 16:09:16.894 -05:00 [INF] Executed ViewResult - view Edit executed in 62.8468ms.
+2024-12-11 16:09:16.894 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp) in 10110.0429ms
+2024-12-11 16:09:16.894 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp)'
+2024-12-11 16:09:16.894 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5189/Research/Edit - 200 null text/html; charset=utf-8 10117.3789ms
+2024-12-11 16:09:16.907 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/styles.css - null null
+2024-12-11 16:09:16.910 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/styles.css - 404 0 null 3.0149ms
+2024-12-11 16:09:16.911 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/Research/styles.css, Response status code: 404
+2024-12-11 16:09:17.198 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/js/logic.js - null null
+2024-12-11 16:09:17.199 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/js/logic.js - 404 0 null 1.1787ms
+2024-12-11 16:09:17.199 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/js/logic.js, Response status code: 404
+2024-12-11 16:09:17.213 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/logic.js - null null
+2024-12-11 16:09:17.214 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/logic.js - 404 0 null 0.3822ms
+2024-12-11 16:09:17.214 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/logic.js, Response status code: 404
+2024-12-11 16:09:17.441 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5189/Utility/GetTierLevel - application/json 443
+2024-12-11 16:09:17.442 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp)'
+2024-12-11 16:09:17.443 -05:00 [INF] Route matched with {action = "GetTierLevel", controller = "Utility"}. Executing controller action with signature System.String GetTierLevel(RequestModel) on controller ClinicalResearchApp.Controllers.UtilityController (ClinicalResearchApp).
+2024-12-11 16:09:19.174 -05:00 [INF] In the CalculateTier function
+2024-12-11 16:09:19.174 -05:00 [INF] The dataLeavingJHM is: Y
+2024-12-11 16:09:19.174 -05:00 [INF] The involvesSensitiveHealthInfo is: N
+2024-12-11 16:09:19.174 -05:00 [INF] The numRecords is: 1
+2024-12-11 16:09:19.174 -05:00 [INF] The consentYN is: N
+2024-12-11 16:09:19.174 -05:00 [INF] The humanDataSharingLevel is: 4
+2024-12-11 16:09:19.174 -05:00 [INF] The dataSharing is: Y
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C2
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C2
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: P
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: J
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C4
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: J
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: E
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: E
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] The toolType is: R
+2024-12-11 16:09:19.175 -05:00 [INF] The colPos is: C7
+2024-12-11 16:09:19.175 -05:00 [INF] Tiers[i]: Tier B
+2024-12-11 16:09:19.175 -05:00 [INF] Lowest Tier: 
+2024-12-11 16:09:19.175 -05:00 [INF] Tiers[i]: Tier B
+2024-12-11 16:09:19.175 -05:00 [INF] Lowest Tier: Tier B
+2024-12-11 16:09:19.175 -05:00 [INF] Tiers[i]: Tier A
+2024-12-11 16:09:19.175 -05:00 [INF] Lowest Tier: Tier B
+2024-12-11 16:09:19.178 -05:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2024-12-11 16:09:19.178 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp) in 1735.1926ms
+2024-12-11 16:09:19.178 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp)'
+2024-12-11 16:09:19.179 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5189/Utility/GetTierLevel - 200 null text/plain; charset=utf-8 1737.3495ms
+2024-12-11 16:59:05.797 -05:00 [INF] User profile is available. Using 'C:\Users\lelliot1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-11 16:59:05.863 -05:00 [INF] Now listening on: http://localhost:5189
+2024-12-11 16:59:05.864 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-11 16:59:05.864 -05:00 [INF] Hosting environment: Development
+2024-12-11 16:59:05.864 -05:00 [INF] Content root path: C:\Users\lelliot1\ClinicalResearchApp
+2024-12-11 16:59:18.854 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:59:18.865 -05:00 [WRN] Failed to determine the https port for redirect.
+2024-12-11 16:59:18.909 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 16:59:18.915 -05:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-12-11 16:59:18.919 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 68.9434ms
+2024-12-11 16:59:18.925 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - null null
+2024-12-11 16:59:18.933 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:18.962 -05:00 [INF] Route matched with {action = "LocalLogin", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LocalLogin() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:59:18.969 -05:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-12-11 16:59:18.976 -05:00 [INF] Executing RedirectResult, redirecting to /Research/Edit.
+2024-12-11 16:59:18.979 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp) in 14.1303ms
+2024-12-11 16:59:18.979 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:18.979 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - 302 0 null 54.1759ms
+2024-12-11 16:59:18.982 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/Edit - null null
+2024-12-11 16:59:18.985 -05:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:18.985 -05:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:18.985 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/Edit - 405 0 null 2.7278ms
+2024-12-11 16:59:32.306 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:59:32.308 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 16:59:32.308 -05:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-12-11 16:59:32.308 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 2.2194ms
+2024-12-11 16:59:32.310 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - null null
+2024-12-11 16:59:32.311 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:32.311 -05:00 [INF] Route matched with {action = "LocalLogin", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LocalLogin() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:59:32.312 -05:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-12-11 16:59:32.312 -05:00 [INF] Executing RedirectResult, redirecting to /Research/Edit.
+2024-12-11 16:59:32.312 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp) in 1.4005ms
+2024-12-11 16:59:32.312 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:32.313 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - 302 0 null 2.7936ms
+2024-12-11 16:59:32.315 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/Edit - null null
+2024-12-11 16:59:32.316 -05:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:32.316 -05:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:32.317 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/Edit - 405 0 null 2.0542ms
+2024-12-11 16:59:33.842 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:59:33.843 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:59:33.844 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:59:33.845 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 16:59:33.845 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 0.9737ms
+2024-12-11 16:59:33.845 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 16:59:33.846 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 3.7827ms
+2024-12-11 16:59:33.847 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 16:59:33.848 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:59:33.853 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:59:34.183 -05:00 [INF] In SQL select....StudeName is Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Stress Management Training of Emergency Medicine Trainees
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Vaccination and CIN2-3 (VAC)
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is Preventing Unplanned Extubations
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is StudyName ABCD
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is StudyName 1234
+2024-12-11 16:59:34.184 -05:00 [INF] In SQL select....StudeName is StudyName LMNOP
+2024-12-11 16:59:34.185 -05:00 [INF] In SQL select....StudeName is StudyName 012345
+2024-12-11 16:59:34.189 -05:00 [INF] In RESEARCHCONTROLLER Index..
+2024-12-11 16:59:34.189 -05:00 [INF] The IRB Number is: IRB00289113
+2024-12-11 16:59:34.189 -05:00 [INF] The Study Name is: Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 16:59:34.189 -05:00 [INF] The Principal Investigator is: Ashikaga, Hiroshi
+2024-12-11 16:59:34.189 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/10/2024 2:57:24 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00326936
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: McLaughlin, Kevin
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/10/2024 3:06:11 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00333212
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Stress Management Training of Emergency Medicine Trainees
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Ortiz, Daniela
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/11/2024 7:35:58 AM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier A
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00340168
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Vaccination and CIN2-3 (VAC)
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Moss, Chailee
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/10/2024 11:51:07 AM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00348085
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Cameron, Andrew
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/11/2024 9:06:22 AM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00374418
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Christopher, Lisa
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: 
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 8:03:10 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00388015
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Zheng, Lei
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: 
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 7:56:59 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00395559
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Gilmore, Maureen
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 7:53:40 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00403840
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Ferrante, Jennifer
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: 
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 8:31:41 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB00406893
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: Preventing Unplanned Extubations
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Bernier, Meghan
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: 
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 8:00:37 PM
+2024-12-11 16:59:34.191 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:59:34.191 -05:00 [INF] The IRB Number is: IRB02345678
+2024-12-11 16:59:34.191 -05:00 [INF] The Study Name is: StudyName ABCD
+2024-12-11 16:59:34.191 -05:00 [INF] The Principal Investigator is: Ktest, Larry
+2024-12-11 16:59:34.191 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.191 -05:00 [INF] The Start Date is: 12/9/2024 12:49:49 PM
+2024-12-11 16:59:34.192 -05:00 [INF] The Tier is: Tier X
+2024-12-11 16:59:34.192 -05:00 [INF] The IRB Number is: IRB123
+2024-12-11 16:59:34.192 -05:00 [INF] The Study Name is: StudyName 1234
+2024-12-11 16:59:34.192 -05:00 [INF] The Principal Investigator is: Sh, Bi
+2024-12-11 16:59:34.192 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.192 -05:00 [INF] The Start Date is: 12/9/2024 12:49:59 PM
+2024-12-11 16:59:34.192 -05:00 [INF] The Tier is: Tier B
+2024-12-11 16:59:34.192 -05:00 [INF] The IRB Number is: IRB12345679
+2024-12-11 16:59:34.192 -05:00 [INF] The Study Name is: StudyName LMNOP
+2024-12-11 16:59:34.192 -05:00 [INF] The Principal Investigator is: mPitest, KTest
+2024-12-11 16:59:34.192 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.192 -05:00 [INF] The Start Date is: 12/9/2024 12:50:07 PM
+2024-12-11 16:59:34.192 -05:00 [INF] The Tier is: Tier C
+2024-12-11 16:59:34.192 -05:00 [INF] The IRB Number is: IRB2345678
+2024-12-11 16:59:34.192 -05:00 [INF] The Study Name is: StudyName 012345
+2024-12-11 16:59:34.192 -05:00 [INF] The Principal Investigator is: PLname, Tony
+2024-12-11 16:59:34.192 -05:00 [INF] The Status is: Y
+2024-12-11 16:59:34.192 -05:00 [INF] The Start Date is: 12/9/2024 12:50:35 PM
+2024-12-11 16:59:34.192 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 16:59:34.197 -05:00 [INF] Executing ViewResult, running view Index.
+2024-12-11 16:59:34.252 -05:00 [INF] Executed ViewResult - view Index executed in 56.7094ms.
+2024-12-11 16:59:34.252 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp) in 399.1484ms
+2024-12-11 16:59:34.252 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 16:59:34.253 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research - 200 null text/html; charset=utf-8 405.3751ms
+2024-12-11 16:59:34.269 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-12-11 16:59:34.277 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - null null
+2024-12-11 16:59:34.279 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - null null
+2024-12-11 16:59:34.279 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/logo.png - null null
+2024-12-11 16:59:34.279 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - null null
+2024-12-11 16:59:34.280 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/RiskTierA.png - null null
+2024-12-11 16:59:34.281 -05:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\css\site.css'
+2024-12-11 16:59:34.281 -05:00 [INF] Sending file. Request path: '/ClinicalResearchApp.styles.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\scopedcss\bundle\ClinicalResearchApp.styles.css'
+2024-12-11 16:59:34.281 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - 200 362 text/css 4.2652ms
+2024-12-11 16:59:34.281 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - 200 1137 text/css 2.2175ms
+2024-12-11 16:59:34.283 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2024-12-11 16:59:34.283 -05:00 [INF] Sending file. Request path: '/logo.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\logo.png'
+2024-12-11 16:59:34.284 -05:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\js\site.js'
+2024-12-11 16:59:34.284 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 1.0685ms
+2024-12-11 16:59:34.284 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/logo.png - 200 5124 image/png 5.2806ms
+2024-12-11 16:59:34.284 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2024-12-11 16:59:34.290 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2024-12-11 16:59:34.290 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - 200 162720 text/css 21.6224ms
+2024-12-11 16:59:34.294 -05:00 [INF] Sending file. Request path: '/RiskTierA.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\RiskTierA.png'
+2024-12-11 16:59:34.294 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/RiskTierA.png - 200 294612 image/png 14.453ms
+2024-12-11 16:59:34.309 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+2024-12-11 16:59:34.309 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78468 text/javascript 24.9113ms
+2024-12-11 16:59:34.344 -05:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\jquery\dist\jquery.min.js'
+2024-12-11 16:59:34.344 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - 200 89501 text/javascript 64.6207ms
+2024-12-11 16:59:41.475 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5189/Research/Edit - application/x-www-form-urlencoded 14
+2024-12-11 16:59:41.476 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp)'
+2024-12-11 16:59:41.478 -05:00 [INF] Route matched with {action = "Edit", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 16:59:41.581 -05:00 [INF] Executing ViewResult, running view Edit.
+2024-12-11 16:59:41.710 -05:00 [INF] Executed ViewResult - view Edit executed in 130.5701ms.
+2024-12-11 16:59:41.710 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp) in 232.2674ms
+2024-12-11 16:59:41.710 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.ResearchController.Edit (ClinicalResearchApp)'
+2024-12-11 16:59:41.710 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5189/Research/Edit - 200 null text/html; charset=utf-8 234.5824ms
+2024-12-11 16:59:41.723 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/styles.css - null null
+2024-12-11 16:59:41.726 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/styles.css - 404 0 null 2.3164ms
+2024-12-11 16:59:41.726 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/Research/styles.css, Response status code: 404
+2024-12-11 16:59:41.727 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/js/logic.js - null null
+2024-12-11 16:59:41.727 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/logic.js - null null
+2024-12-11 16:59:41.727 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/js/logic.js - 404 0 null 0.626ms
+2024-12-11 16:59:41.727 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/logic.js - 404 0 null 0.5624ms
+2024-12-11 16:59:41.727 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/js/logic.js, Response status code: 404
+2024-12-11 16:59:41.727 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5189/logic.js, Response status code: 404
+2024-12-11 16:59:41.950 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5189/Utility/GetTierLevel - application/json 443
+2024-12-11 16:59:41.951 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp)'
+2024-12-11 16:59:41.952 -05:00 [INF] Route matched with {action = "GetTierLevel", controller = "Utility"}. Executing controller action with signature System.String GetTierLevel(RequestModel) on controller ClinicalResearchApp.Controllers.UtilityController (ClinicalResearchApp).
+2024-12-11 16:59:41.996 -05:00 [INF] In the CalculateTier function
+2024-12-11 16:59:41.996 -05:00 [INF] The dataLeavingJHM is: Y
+2024-12-11 16:59:41.996 -05:00 [INF] The involvesSensitiveHealthInfo is: N
+2024-12-11 16:59:41.996 -05:00 [INF] The numRecords is: 1
+2024-12-11 16:59:41.996 -05:00 [INF] The consentYN is: N
+2024-12-11 16:59:41.996 -05:00 [INF] The humanDataSharingLevel is: 4
+2024-12-11 16:59:41.996 -05:00 [INF] The dataSharing is: Y
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C2
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C2
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: P
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: J
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C4
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: J
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: E
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: E
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] The toolType is: R
+2024-12-11 16:59:41.996 -05:00 [INF] The colPos is: C7
+2024-12-11 16:59:41.996 -05:00 [INF] Tiers[i]: Tier B
+2024-12-11 16:59:41.996 -05:00 [INF] Lowest Tier: 
+2024-12-11 16:59:41.996 -05:00 [INF] Tiers[i]: Tier B
+2024-12-11 16:59:41.996 -05:00 [INF] Lowest Tier: Tier B
+2024-12-11 16:59:41.996 -05:00 [INF] Tiers[i]: Tier A
+2024-12-11 16:59:41.996 -05:00 [INF] Lowest Tier: Tier B
+2024-12-11 16:59:41.999 -05:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2024-12-11 16:59:41.999 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp) in 47.417ms
+2024-12-11 16:59:42.000 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.UtilityController.GetTierLevel (ClinicalResearchApp)'
+2024-12-11 16:59:42.000 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5189/Utility/GetTierLevel - 200 null text/plain; charset=utf-8 49.351ms
+2024-12-11 16:59:55.119 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 16:59:55.120 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-12-11 16:59:55.120 -05:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-12-11 16:59:55.120 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 0.6286ms
+2024-12-11 16:59:55.125 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - null null
+2024-12-11 16:59:55.125 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:55.125 -05:00 [INF] Route matched with {action = "LocalLogin", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LocalLogin() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 16:59:55.125 -05:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-12-11 16:59:55.125 -05:00 [INF] Executing RedirectResult, redirecting to /Research/Edit.
+2024-12-11 16:59:55.125 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp) in 0.3689ms
+2024-12-11 16:59:55.125 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.LocalLogin (ClinicalResearchApp)'
+2024-12-11 16:59:55.125 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Home/LocalLogin?ReturnUrl=%2F - 302 0 null 0.7646ms
+2024-12-11 16:59:55.129 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research/Edit - null null
+2024-12-11 16:59:55.129 -05:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:55.129 -05:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-12-11 16:59:55.129 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research/Edit - 405 0 null 0.4293ms
+2024-12-11 17:00:00.551 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ - null null
+2024-12-11 17:00:00.551 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 17:00:00.551 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ClinicalResearchApp.Controllers.HomeController (ClinicalResearchApp).
+2024-12-11 17:00:00.551 -05:00 [INF] Executing RedirectResult, redirecting to /Research.
+2024-12-11 17:00:00.551 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp) in 0.1197ms
+2024-12-11 17:00:00.551 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.HomeController.Index (ClinicalResearchApp)'
+2024-12-11 17:00:00.551 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ - 302 0 null 0.6219ms
+2024-12-11 17:00:00.554 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/Research - null null
+2024-12-11 17:00:00.554 -05:00 [INF] Executing endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 17:00:00.554 -05:00 [INF] Route matched with {action = "Index", controller = "Research"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String, System.String, System.String, System.String, System.String, System.String, System.String, System.String) on controller ClinicalResearchApp.Controllers.ResearchController (ClinicalResearchApp).
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Stress Management Training of Emergency Medicine Trainees
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Vaccination and CIN2-3 (VAC)
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is Preventing Unplanned Extubations
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is StudyName ABCD
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is StudyName 1234
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is StudyName LMNOP
+2024-12-11 17:00:00.614 -05:00 [INF] In SQL select....StudeName is StudyName 012345
+2024-12-11 17:00:00.614 -05:00 [INF] In RESEARCHCONTROLLER Index..
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00289113
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Vein of Marshall Ethanol Infusion for Paroxysmal Atrial Fibrillation
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Ashikaga, Hiroshi
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/10/2024 2:57:24 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier B
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00326936
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Value-Based Rehabilitation for Older Adults After Inpatient Surgery
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: McLaughlin, Kevin
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/10/2024 3:06:11 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier C
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00333212
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Stress Management Training of Emergency Medicine Trainees
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Ortiz, Daniela
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/11/2024 7:35:58 AM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier A
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00340168
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Vaccination and CIN2-3 (VAC)
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Moss, Chailee
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/10/2024 11:51:07 AM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier B
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00348085
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Incidence and outcomes of stroke in solid organ transplantations (kidney, liver, pancreas, kidney/pancreas, small bowel) using UNOS database.
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Cameron, Andrew
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/11/2024 9:06:22 AM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier C
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00374418
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: A Phase 2, Randomized, Double Blind, Placebo Controlled, Efficacy and Safety Study of  Daxdilimab Subcutaneous Injection in Adult Participants with Inadequately Controlled Dermatomyositis or Anti-Synthetase Inflammatory Myositis
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Christopher, Lisa
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: 
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 8:03:10 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00388015
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: J23XXX_Pre-Planning - A Phase II Study of canakinumab and tislelizumab as Neoadjuvant and Adjuvant Treatment for Patients
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Zheng, Lei
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: 
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 7:56:59 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00395559
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Neonatal Sedation Scale Implementation to Facilitate Safe Medication Administration
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Gilmore, Maureen
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 7:53:40 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier C
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00403840
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Reducing Serum Bilirubin Draws from Academic Outpatient Pediatric Clinic with Use of Transcutaneous Bilirubinometer
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Ferrante, Jennifer
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: 
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 8:31:41 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB00406893
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: Preventing Unplanned Extubations
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Bernier, Meghan
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: 
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 8:00:37 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB02345678
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: StudyName ABCD
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Ktest, Larry
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 12:49:49 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier X
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB123
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: StudyName 1234
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: Sh, Bi
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 12:49:59 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier B
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB12345679
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: StudyName LMNOP
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: mPitest, KTest
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 12:50:07 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Tier C
+2024-12-11 17:00:00.614 -05:00 [INF] The IRB Number is: IRB2345678
+2024-12-11 17:00:00.614 -05:00 [INF] The Study Name is: StudyName 012345
+2024-12-11 17:00:00.614 -05:00 [INF] The Principal Investigator is: PLname, Tony
+2024-12-11 17:00:00.614 -05:00 [INF] The Status is: Y
+2024-12-11 17:00:00.614 -05:00 [INF] The Start Date is: 12/9/2024 12:50:35 PM
+2024-12-11 17:00:00.614 -05:00 [INF] The Tier is: Not enough information provided to calculate Tier
+2024-12-11 17:00:00.614 -05:00 [INF] Executing ViewResult, running view Index.
+2024-12-11 17:00:00.615 -05:00 [INF] Executed ViewResult - view Index executed in 1.0442ms.
+2024-12-11 17:00:00.615 -05:00 [INF] Executed action ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp) in 61.6413ms
+2024-12-11 17:00:00.615 -05:00 [INF] Executed endpoint 'ClinicalResearchApp.Controllers.ResearchController.Index (ClinicalResearchApp)'
+2024-12-11 17:00:00.616 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/Research - 200 null text/html; charset=utf-8 61.9385ms
+2024-12-11 17:00:00.631 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-12-11 17:00:00.634 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2024-12-11 17:00:00.634 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - null null
+2024-12-11 17:00:00.634 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/css/bootstrap.min.css - 200 162720 text/css 3.6285ms
+2024-12-11 17:00:00.635 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - null null
+2024-12-11 17:00:00.635 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/logo.png - null null
+2024-12-11 17:00:00.635 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/RiskTierA.png - null null
+2024-12-11 17:00:00.635 -05:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\css\site.css'
+2024-12-11 17:00:00.635 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - 200 362 text/css 0.4625ms
+2024-12-11 17:00:00.635 -05:00 [INF] Sending file. Request path: '/logo.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\logo.png'
+2024-12-11 17:00:00.635 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/logo.png - 200 5124 image/png 0.3901ms
+2024-12-11 17:00:00.635 -05:00 [INF] Sending file. Request path: '/ClinicalResearchApp.styles.css'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\obj\Debug\net8.0\scopedcss\bundle\ClinicalResearchApp.styles.css'
+2024-12-11 17:00:00.635 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/ClinicalResearchApp.styles.css?v=ciPK1nO6-8_IHzx1iTVkEtrlOOUJxjptaW68OQJIWHc - 200 1137 text/css 0.4776ms
+2024-12-11 17:00:00.636 -05:00 [INF] Sending file. Request path: '/RiskTierA.png'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\RiskTierA.png'
+2024-12-11 17:00:00.636 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/RiskTierA.png - 200 294612 image/png 1.2426ms
+2024-12-11 17:00:00.646 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - null null
+2024-12-11 17:00:00.646 -05:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\jquery\dist\jquery.min.js'
+2024-12-11 17:00:00.647 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/jquery/dist/jquery.min.js - 200 89501 text/javascript 0.8039ms
+2024-12-11 17:00:00.647 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2024-12-11 17:00:00.647 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2024-12-11 17:00:00.647 -05:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\js\site.js'
+2024-12-11 17:00:00.647 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 0.2872ms
+2024-12-11 17:00:00.647 -05:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'c:\Users\lelliot1\ClinicalResearchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+2024-12-11 17:00:00.647 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5189/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78468 text/javascript 0.6806ms

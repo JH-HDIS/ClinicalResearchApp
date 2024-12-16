@@ -167,17 +167,20 @@ else
                     <td>@item.Status</td>
                     <td>@item.StartDate</td>
                     <td>@item.Tier</td>
-                       <!-- #region   
+                        <!--
                         <td>
-                                           
-                            <form method="post" asp-action="Edit">
-                            <input type="hidden" name="id" value="@item.Id" />
-                            <button type="submit" name="editAction" value="edit" class="btn btn-primary">Edit</button>
-                        </form>
+                            <button type="button" class="btn btn-primary" onclick="postEdit('@item.Id')">Edit</button>
                         </td>
                         -->
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="postEdit('@item.Id')">Edit</button>
+                            @if (ViewBag.Admin == "Admin")
+                            {
+                                <button type="button" class="btn btn-primary" onclick="postAction('@item.Id', true)">View</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" onclick="postAction('@item.Id', false)">Edit</button>
+                            }
                         </td>
   
                 </tr>
@@ -196,6 +199,26 @@ else
         hiddenField.value = id;
 
         form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    function postAction(id, viewOnly) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/Research/Edit'; // Use the appropriate controller action URL
+
+        const idField = document.createElement('input');
+        idField.type = 'hidden';
+        idField.name = 'id';
+        idField.value = id;
+
+        const viewOnlyField = document.createElement('input');
+        viewOnlyField.type = 'hidden';
+        viewOnlyField.name = 'viewOnly';
+        viewOnlyField.value = viewOnly;
+
+        form.appendChild(idField);
+        form.appendChild(viewOnlyField);
         document.body.appendChild(form);
         form.submit();
     }

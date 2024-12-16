@@ -597,7 +597,7 @@
    var globalsection1C = "";
    var globalsection1D = "";
    var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
-
+   
     document.addEventListener("DOMContentLoaded", function () {
         // References to Data Table radio buttons
         const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
@@ -612,6 +612,13 @@
         const oraJhuraYes = document.getElementById('DataSharingYes');
         const oraJhuraNo = document.getElementById('DataSharingNo');
 
+        const form = document.querySelector('form'); // Ensure 'form' is defined
+        const inputs = form.querySelectorAll('input, textarea, select, button');
+        const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
+
+        if (isViewOnly) {
+            inputs.forEach(input => input.setAttribute('disabled', true));
+        }
         // Function to collect Section 1 answers and return as individual parameters
         function collectSection1Answers() {
             let section1Answers = {};

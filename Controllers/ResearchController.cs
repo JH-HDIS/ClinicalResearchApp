@@ -130,11 +130,16 @@ namespace ClinicalResearchApp.Controllers
 }
 
         [HttpPost]
-        public IActionResult Edit(string id)
+        public IActionResult Edit(string id, bool viewOnly)
         {
             //var data = _repository.GetResearchData("Normal").FirstOrDefault(x => x.Id == id);
            // var data = _repository.GetResearchDataDetails(id);
+    
             var data = _repository.GetUserResponseDetails(id);
+             if (viewOnly)
+            {
+                ViewBag.ViewOnly = true;
+            }
             return View(data);
         }
 
