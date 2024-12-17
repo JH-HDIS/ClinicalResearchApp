@@ -99,6 +99,7 @@ else
                        }
                     </a>
                 </th>
+                <!--
                 <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSort"]">Calculation Complete?
                         @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("status"))
@@ -109,6 +110,7 @@ else
                          }
                     </a>
                 </th>
+                -->
                 <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["UpdatedSort"]">RTC Last Updated
                         @if (((string)(ViewData["CurrentSort"] ?? string.Empty)).StartsWith("updated"))
@@ -142,9 +144,11 @@ else
                 <th>
                     <input type="text" name="investigatorFilter" value="@ViewData["InvestigatorFilter"]" placeholder="Filter by Investigator" />
                 </th>
+                <!--
                 <th>
                     <input type="text" name="statusFilter" value="@ViewData["StatusFilter"]" placeholder="Filter by Status" />
                 </th>
+                -->
                 <th>
                     <input type="text" name="dateFilter" value="@ViewData["DateFilter"]" placeholder="Filter by Date" />
                 </th>
@@ -164,7 +168,9 @@ else
                     <td>@item.Id</td>
                     <td>@item.StudyName</td>
                     <td>@item.PrincipalInvestigator</td>
+                    <!--
                     <td>@item.Status</td>
+                    -->
                     <td>@item.StartDate</td>
                     <td>@item.Tier</td>
                         <!--
