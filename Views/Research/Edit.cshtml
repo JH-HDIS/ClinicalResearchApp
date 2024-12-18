@@ -78,6 +78,10 @@
         white-space: nowrap; /* Prevents the text from wrapping onto a new line */
         box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1); /* Optional: Adds a subtle shadow */
     }
+    body {
+    margin-bottom: 60px; /* Adjust based on the height of the fixed bar */
+}
+
 </style>
 
 </head>
@@ -937,11 +941,18 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.text(piEmailAddress, 70, 70);
 
         // Study Contact Info Section
-        doc.setTextColor(0, 0, 0); // Black for label
-        doc.text("Study Name: ", 10, 70); // Position at the top of the section
-        doc.setTextColor(0, 102, 204); // Blue for user response
-        doc.text(studyName, 70, 70); // Display the study name value
-        doc.setTextColor(0, 0, 0);
+       // Study Name Wrapping Logic
+    let nextY = 80; // Start Y-position for Study Name
+    doc.setTextColor(0, 0, 0);
+    doc.text("Study Name: ", 10, nextY); // Label position
+
+    doc.setTextColor(0, 102, 204);
+    const studyNameWrapped = doc.splitTextToSize(studyName, 150);
+    doc.text(studyNameWrapped, 70, nextY);
+
+    const lineHeight = 6;
+    const studyNameHeight = studyNameWrapped.length * lineHeight;
+    nextY += studyNameHeight + 5;
         doc.text("Study Contact First Name: ", 10, 80);
         doc.setTextColor(0, 102, 204);
         doc.text(studyContactFirstName, 70, 80); 
@@ -1259,36 +1270,36 @@ nextY += 5; // Add a small padding (e.g., 10 units)
         nextY += 15;
 
         // Section R: Data Storage Options Requiring Review
-        doc.setFontSize(12);
-        doc.setFont(undefined, "bold");
-        doc.text("Data Storage Options Requiring Review (R):", 10, nextY);
-        nextY += 8;
+       doc.setFontSize(12);
+doc.setFont(undefined, "bold");
+doc.text("Data Storage Options Requiring Review (R):", 10, nextY);
+nextY += 8;
 
-        doc.autoTable({
-            startY: nextY,
-            head: [
-                [
-                    "Option",
-                    "Text PHI",
-                    "PHI > LDS",
-                    "LDS",
-                    "PII But No PHI",
-                    "No PHI/PII",
-                    "Aggregate\n(Counts)",
-                    "Not Used",
-                ],
-            ],
-            body: [
-                ["2.R.1 Department Server (not managed by IT@JH)", "", "", "", "", "", "", ""],
-                ["2.R.2 Other computer(s) or Device(s) owned and managed by study team members", "", "", "", "", "", "", ""],
-                ["2.R.3 USB/Portable Data Storage Device", "", "", "", "", "", "", ""],
-                ["2.R.4 Joint High Performance Computing Exchange (JHPCE)", "", "", "", "", "", "", ""],
-                ["2.R.5 JHU ARCH (formerly MARCC)", "", "", "", "", "", "", ""],
-                ["2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)", "", "", "", "", "", "", ""],
-            ],
-        });
+doc.autoTable({
+    startY: nextY,
+    head: [
+        [
+            "Option",
+            "Text PHI",
+            "PHI > LDS",
+            "LDS",
+            "PII But No PHI",
+            "No PHI/PII",
+            "Aggregate\n(Counts)",
+            "Not Used",
+        ],
+    ],
+    body: [
+        ["2.R.1 Department Server (not managed by IT@JH)", "", "", "", "", "", "", ""],
+        ["2.R.2 Other computer(s) or Device(s) owned and managed by study team members", "", "", "", "", "", "", ""],
+        ["2.R.3 USB/Portable Data Storage Device", "", "", "", "", "", "", ""],
+        ["2.R.4 Joint High Performance Computing Exchange (JHPCE)", "", "", "", "", "", "", ""],
+        ["2.R.5 JHU ARCH (formerly MARCC)", "", "", "", "", "", "", ""],
+        ["2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)", "", "", "", "", "", "", ""],
+    ],
+});
 
-        nextY = doc.lastAutoTable.finalY + 10;
+nextY = doc.lastAutoTable.finalY + 20;
 
         // Save and open in a new window
         const pdfBlob = doc.output("blob");
