@@ -379,7 +379,6 @@ C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\createdump.exe
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\hostfxr.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\hostpolicy.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore.dll
-C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.824.36612.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordbi.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscorrc.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\msquic.dll
@@ -396,3 +395,4 @@ C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\Serilog.Setting
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\Serilog.Sinks.Console.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\Serilog.Sinks.Debug.dll
 C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\Serilog.Sinks.File.dll
+C:\Users\lelliot1\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1124.51707.dll

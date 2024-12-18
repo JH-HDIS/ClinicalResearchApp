@@ -597,6 +597,8 @@
    var globalsection1C = "";
    var globalsection1D = "";
    var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
+   var globalDataLeavingJHM = ""; // Declare a global variable for data leaving JHM
+
    
     document.addEventListener("DOMContentLoaded", function () {
         // References to Data Table radio buttons
@@ -682,6 +684,20 @@
 
             globalOraJhuraAnswer = oraJhuraAnswer; // Store the value in a global variable
             return oraJhuraAnswer;
+        }
+
+
+    function collectDataLeavingJHM() {
+            let humanDataSharingLevel = null;
+
+            if (HumanDataSharingLevel < 6) {
+                humanDataSharingLevel = 'Yes';
+            }  else {
+                humanDataSharingLevel = 'No';
+            }
+
+            globalDataLeavingJHM = humanDataSharingLevel; // Store the value in a global variable
+            return humanDataSharingLevel;
         }
 
         // Main function to send parameters and array to the calculation function
