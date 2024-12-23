@@ -1379,11 +1379,24 @@ doc.text("IRB Application Number: ", 10, nextY + 10);
 doc.setTextColor(0, 102, 204);
 doc.text(irbApplicationNumber, 70, nextY + 10);
 
+// Define the maximum width for the Study Name text
+const maxWidth = 80; // Adjust this value to control the wrapping width
+
+// Split the Study Name text to fit within the defined width
+const wrappedStudyName = doc.splitTextToSize(studyName, maxWidth);
+
+// Set text color and render the label
 doc.setTextColor(0, 0, 0);
 doc.text("Study Name: ", 150, nextY + 10); // Align Study Name to the right of IRB Application Number
-doc.setTextColor(0, 102, 204);
-doc.text(studyName, 210, nextY + 10);
 
+// Set text color for the Study Name and render the wrapped text
+doc.setTextColor(0, 102, 204);
+wrappedStudyName.forEach((line, index) => {
+    doc.text(line, 210, nextY + 10 + (index * 6)); // Adjust line spacing as needed (6 is the line height)
+});
+
+// Adjust nextY to account for the height of the wrapped text
+nextY += 10 + (wrappedStudyName.length * 6);
 // Increment nextY for the next section
 nextY += 20;
 
