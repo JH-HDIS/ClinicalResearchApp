@@ -1297,7 +1297,10 @@ doc.autoTable({
         ["2.R.5 JHU ARCH (formerly MARCC)", "", "", "", "", "", "", ""],
         ["2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)", "", "", "", "", "", "", ""],
     ],
-});
+            columnStyles: {
+                0: { cellWidth: 60 }, // Adjust Option column width
+            },
+        });
 
 nextY = doc.lastAutoTable.finalY + 20;
 
