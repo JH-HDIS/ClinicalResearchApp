@@ -158,6 +158,43 @@ namespace ClinicalResearchApp.Controllers
             return RedirectToAction("Index", new { role = "Normal" });
         }
 
+        [HttpPost]
+        public IActionResult SearchByIRB(string irbSearch)
+        {
+
+            // Retrieve the username and jhed value
+                string userName = User.Identity.IsAuthenticated 
+                    ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
+                    : "Guest";
+                ViewBag.Username = userName;
+                ViewBag.jhed = User.Identity.IsAuthenticated 
+                    ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
+                    : "Guest";
+            if (string.IsNullOrWhiteSpace(irbSearch))
+            {
+                ViewBag.SearchPerformed = false;
+                ViewBag.Admin = "Non-Admin";
+                return View("Index");
+            }
+
+            // Example logic to check if the IRB number exists
+            bool irbFound = CheckIfIrbExists(irbSearch);
+
+            ViewBag.SearchPerformed = true;
+            ViewBag.IrbFound = irbFound;
+            ViewBag.IrbNumber = irbSearch;
+            ViewBag.Admin = "Non-Admin";
+
+            return View("Index");
+        }
+
+        private bool CheckIfIrbExists(string irbSearch)
+        {
+            // Replace with your actual logic to verify the IRB number
+            var data = _repository.GetUserResponseDetails(irbSearch);
+            var irbFound = data != null;
+            return irbFound; // Example: assume IRB "12345" exists
+        }
 
         [HttpPost]
         public IActionResult SaveDataClassifications(IFormCollection form)

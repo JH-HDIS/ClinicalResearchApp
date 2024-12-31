@@ -63,7 +63,60 @@ else
     }
 </style>
 </head>
+<!-- IRB Search Section -->
+@if (ViewBag.Admin == "Non-Admin")
+{
+    <form method="post" asp-action="SearchByIRB">
+        <label for="irbSearch">Enter IRB Number:</label>
+        <input type="text" id="irbSearch" name="irbSearch" placeholder="Enter IRB Number" required />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 
+    @if (ViewBag.SearchPerformed != null && (bool)ViewBag.SearchPerformed)
+    {
+        if ((bool)ViewBag.IrbFound)
+        {
+            <p>IRB Number found. Redirecting to the Edit view...</p>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    postAction('@ViewBag.IrbNumber', false);
+                });
+
+                function postAction(id, viewOnly) {
+                    const form = document.createElement('form');
+                    form.method = 'post';
+                    form.action = '/Research/Edit'; // Use the appropriate controller action URL
+
+                    const idField = document.createElement('input');
+                    idField.type = 'hidden';
+                    idField.name = 'id';
+                    idField.value = id;
+
+                    const viewOnlyField = document.createElement('input');
+                    viewOnlyField.type = 'hidden';
+                    viewOnlyField.name = 'viewOnly';
+                    viewOnlyField.value = viewOnly;
+
+                    form.appendChild(idField);
+                    form.appendChild(viewOnlyField);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            </script>
+        }
+        else
+        {
+            <p>IRB Number not found. Do you want to create a new Risk Tiers calculator?</p>
+            <form method="post" asp-action="CreateNew">
+                <button type="submit" name="createNew" value="yes" class="btn btn-primary">Yes</button>
+                <button type="button" onclick="window.location.reload();" class="btn btn-secondary">No</button>
+            </form>
+        }
+    }
+}
+
+@if (ViewBag.Admin == "Admin")
+{
 <!-- Filtering Form -->
 <form method="get" asp-action="Index">
     <table class="table table-striped styled-table">
@@ -193,6 +246,7 @@ else
             }
         </tbody>
     </table>
+
    <script>
     function postEdit(id) {
         const form = document.createElement('form');
@@ -230,3 +284,4 @@ else
     }
 </script>
 </form>
+}

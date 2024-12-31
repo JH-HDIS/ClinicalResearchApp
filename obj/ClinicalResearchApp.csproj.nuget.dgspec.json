@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
+    "C:\\Users\\lelliot1\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
+    "C:\\Users\\lelliot1\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "projectUniqueName": "C:\\Users\\lelliot1\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
         "projectName": "ClinicalResearchApp",
-        "projectPath": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
-        "packagesPath": "C:\\Users\\bsharm12\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bsharm12\\AppData\\Local\\GitHubDesktop\\app-3.4.9\\ClinicalResearchApp\\obj\\",
+        "projectPath": "C:\\Users\\lelliot1\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
+        "packagesPath": "C:\\Users\\lelliot1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lelliot1\\Documents\\GitHub\\ClinicalResearchApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bsharm12\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lelliot1\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
