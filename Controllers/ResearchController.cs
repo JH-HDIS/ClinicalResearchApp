@@ -130,7 +130,7 @@ namespace ClinicalResearchApp.Controllers
 }
 
         [HttpPost]
-        public IActionResult Edit(string id, bool viewOnly)
+        public IActionResult Edit(string id, bool viewOnly, string createNewFlag)
         {
             //var data = _repository.GetResearchData("Normal").FirstOrDefault(x => x.Id == id);
            // var data = _repository.GetResearchDataDetails(id);
@@ -140,14 +140,11 @@ namespace ClinicalResearchApp.Controllers
             {
                 ViewBag.ViewOnly = true;
             }
+            if (createNewFlag == "Y")
+            {
+                data.Id = id;
+            }
             return View(data);
-        }
-
-        // This action returns the dynamic message as plain text
-        public JsonResult GetDynamicMessage()
-        {
-            string message = "This is a dynamic message that appears on scroll!";
-            return Json(message);
         }
 
 
@@ -192,7 +189,15 @@ namespace ClinicalResearchApp.Controllers
         {
             // Replace with your actual logic to verify the IRB number
             var data = _repository.GetUserResponseDetails(irbSearch);
-            var irbFound = data != null;
+            var irbFound = data.Id != null;
+            if (data.Id == null)
+            {
+                irbFound = false;
+            } else {
+                irbFound = true;
+            }
+            Log.Logger.Information($"In CheckIfIrbExists.....data.Id is: {data.Id}");
+            Log.Logger.Information($"In CheckIfIrbExists.....irbFound is: {irbFound}");
             return irbFound; // Example: assume IRB "12345" exists
         }
 

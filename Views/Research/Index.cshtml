@@ -107,7 +107,9 @@ else
         else
         {
             <p>IRB Number not found. Do you want to create a new Risk Tiers calculator?</p>
-            <form method="post" asp-action="CreateNew">
+            <form method="post" asp-action="Edit">
+                <input type="hidden" name="id" value="@ViewBag.IrbNumber" />
+                <input type="hidden" name="createNewFlag" value="Y" />
                 <button type="submit" name="createNew" value="yes" class="btn btn-primary">Yes</button>
                 <button type="button" onclick="window.location.reload();" class="btn btn-secondary">No</button>
             </form>
