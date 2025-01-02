@@ -1191,6 +1191,9 @@ nextY += 5; // Add a small padding (e.g., 10 units)
                 ["2.P.8 Enterprise Network Storage (NAS)", "", "", "", "", "", "", ""],
                 ["2.P.9 IT@JH RIT-managed system for PHI (e.g., Azure or AWS)", "", "", "", "", "", "", ""],
             ],
+            columnStyles: {
+                0: { cellWidth: 80 }, // Adjust Option column width
+            },
         });
 
         nextY = doc.lastAutoTable.finalY + 20;
@@ -1223,6 +1226,9 @@ nextY += 5; // Add a small padding (e.g., 10 units)
                 ["2.J.1 JH OneDrive / SharePoint / Teams", "", "", "", "", "", "", ""],
                 ["2.J.2 Local Computer (JH-owned and IT@JH managed)", "", "", "", "", "", "", ""],
             ],
+            columnStyles: {
+                0: { cellWidth: 80 }, // Adjust Option column width
+            },
         });
 
         nextY = doc.lastAutoTable.finalY + 20;
@@ -1251,6 +1257,9 @@ nextY += 5; // Add a small padding (e.g., 10 units)
                 ["2.E.1 Non-JHU REDCap", "", "", "", "", "", "", ""],
                 ["2.E.2 Non-JHU System (e.g., Velos, Medidata RAVE, etc.)", "", "", "", "", "", "", ""],
             ],
+            columnStyles: {
+                0: { cellWidth: 80 }, // Adjust Option column width
+            },
         });
 
         nextY = doc.lastAutoTable.finalY + 20;
@@ -1298,7 +1307,7 @@ doc.autoTable({
         ["2.R.6 Other solution not managed by IT@JH, such as cloud storage (Box, Dropbox, etc.)", "", "", "", "", "", "", ""],
     ],
             columnStyles: {
-                0: { cellWidth: 60 }, // Adjust Option column width
+                0: { cellWidth: 80 }, // Adjust Option column width
             },
         });
 
