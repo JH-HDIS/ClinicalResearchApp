@@ -59,11 +59,16 @@ namespace ClinicalResearchApp.Data
                     
                         // Calculate Tier for the row
                         if ((toolType == "P") && (colPos != "C7")) 
-                        {   if (hDataSharingLevel == "4") 
+                        {   if (hDataSharingLevel != "4")
                             {
+                                if (consent == "Y") {
                                 tiers.Add("Tier A");
+                                }
+                                else {
+                                tiers.Add("Tier C");
+                                }
                             }
-                            else
+                            else 
                             {
                                 if (colPos == "1" || colPos == "2") 
                                 {
