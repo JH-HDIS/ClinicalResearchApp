@@ -68,7 +68,7 @@
         bottom: 0;
         left: 0;
         width: 100%; /* Full width across the page */
-        background-color: #5a9ee2; /* Dark blue background */
+        background-color: #0c3275; /* Dark blue background */
         text-align: center; /* Center the text */
         padding: 10px;
         font-size: 20px;
@@ -617,6 +617,31 @@
         // ORA/JHURA conditional question references
         const oraJhuraYes = document.getElementById('DataSharingYes');
         const oraJhuraNo = document.getElementById('DataSharingNo');
+
+        // Reference to the "Generate PDF" button
+        const generatePdfButton = document.getElementById("generatePdfButton");
+
+        // Disable the "Generate PDF" button initially
+        generatePdfButton.disabled = true;
+        
+        // Validation logic for Section 1
+    function validateSection1() {
+        const is1ASelected = Array.from(section1A).some(radio => radio.checked);
+        const is1BSelected = Array.from(section1B).some(radio => radio.checked);
+        const is1CSelected = Array.from(section1C).some(radio => radio.checked);
+        const is1DSelected = Array.from(section1D).some(radio => radio.checked);
+
+        // Enable the button only if all required inputs are selected
+        generatePdfButton.disabled = !(is1ASelected && is1BSelected && is1CSelected && is1DSelected);
+           }
+
+        // Attach event listeners to inputs for real-time validation
+        [...section1A, ...section1B, ...section1C, ...section1D].forEach(input => {
+            input.addEventListener("change", validateSection1);
+        });
+
+        // Perform an initial validation check
+        validateSection1();
 
         const form = document.querySelector('form'); // Ensure 'form' is defined
         const inputs = form.querySelectorAll('input, textarea, select, button');

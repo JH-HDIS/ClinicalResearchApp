@@ -28,10 +28,17 @@ namespace ClinicalResearchApp.Models
         public string? StudyContactJHED { get; set; }
         public string? StudyContactEmailAddress { get; set; }
 
-        // Optional fields for booleans and integers
+        // Optional fields for booleans and integers -Required fields
+        [Required(ErrorMessage = "Please answer question 1A.")]
         public bool? InvolvesSensitiveHealthInfo { get; set; }
+
+        [Required(ErrorMessage = "Please answer question 1B.")]
         public int? NumberOfPeopleOrRecords { get; set; }
+
+        [Required(ErrorMessage = "Please answer question 1C.")]
         public int? HumanDataSharingLevel { get; set; }
+
+        [Required(ErrorMessage = "Please answer question 1D.")]
         public bool? AllActivitiesCoveredByConsent { get; set; }
 
          public string? Sharing_Handled_ORA_JHURA { get; set; }
