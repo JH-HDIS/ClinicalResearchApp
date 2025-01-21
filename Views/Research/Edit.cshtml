@@ -607,7 +607,7 @@
        // References to Data Table radio buttons
        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
 
-       // Add toggle functionality for "Not Used" selection
+       // Add toggle functionality for "Not Used" selection and enforce row selection
        dataTableRadioButtons.forEach(radio => {
            radio.addEventListener('click', function () {
                if (this.checked) {
@@ -629,10 +629,13 @@
                            notUsedRadio.checked = false;
                        }
                    }
+               } else {
+                   // If a selected radio button is clicked again, enforce default selection
+                   this.checked = true; // Ensure a row cannot be left blank
                }
                updateSelectedOptions(); // Trigger data collection and update
            });
-       });  
+       });
 
        // Section 1 inputs (1A-1D) references using their id's or asp-for
        const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
@@ -652,6 +655,7 @@
 
        // Validation logic for Section 1
        function validateSection1() {
+           // Check if at least one radio button is selected for each question
            const is1ASelected = Array.from(section1A).some(radio => radio.checked);
            const is1BSelected = Array.from(section1B).some(radio => radio.checked);
            const is1CSelected = Array.from(section1C).some(radio => radio.checked);
@@ -666,15 +670,18 @@
            input.addEventListener("change", validateSection1);
        });
 
-       // Perform an initial validation check
+       // Perform an initial validation check to ensure button state reflects the current input state
        validateSection1();
 
+       // Ensure "Generate PDF" button remains disabled when the form is in view-only mode
        const form = document.querySelector('form'); // Ensure 'form' is defined
        const inputs = form.querySelectorAll('input, textarea, select, button');
        const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
 
        if (isViewOnly) {
            inputs.forEach(input => input.setAttribute('disabled', true));
+           // Ensure "Generate PDF" button remains disabled in view-only mode
+           generatePdfButton.disabled = true;
        }
 
        // Function to collect Section 1 answers and return as individual parameters
@@ -742,6 +749,7 @@
            return oraJhuraAnswer;
        }
 
+       // Function to collect data leaving JHM status
        function collectDataLeavingJHM() {
            let humanDataSharingLevel = null;
 
@@ -770,10 +778,14 @@
            // Collect ORA/JHURA agreement as a parameter
            const oraJhuraAnswer = collectOraJhuraAnswer();
 
+           // Collect data leaving JHM status
+           const dataLeavingJHM = collectDataLeavingJHM();
+
            // Log the values for testing (you can see them in the browser's console)
            console.log('Section 1 Answers:', section1Answers);
            console.log('Data Table Selections (array):', dataTableSelections);
            console.log('ORA/JHURA Answer:', oraJhuraAnswer);
+           console.log('Data Leaving JHM:', dataLeavingJHM);
 
            // Send the data to your calculation function
            sendToServer(
