@@ -207,6 +207,41 @@ namespace ClinicalResearchApp.Controllers
             var updatedDataClassifications = new List<DataClassification>();
             var researchData = new ResearchData();
             
+            // Validate required fields using a flag
+            bool hasValidationErrors = false;
+            string validationErrorMessage = "";
+
+    // Check for required fields (1A-1D)
+    if (!form.ContainsKey("InvolvesSensitiveHealthInfo") || string.IsNullOrEmpty(form["InvolvesSensitiveHealthInfo"]))
+    {
+        hasValidationErrors = true;
+        validationErrorMessage += "1A: Please answer whether sensitive health info is involved.\n";
+    }
+    if (!form.ContainsKey("NumberOfPeopleOrRecords") || string.IsNullOrEmpty(form["NumberOfPeopleOrRecords"]))
+    {
+        hasValidationErrors = true;
+        validationErrorMessage += "1B: Please specify the number of people or records.\n";
+    }
+    if (!form.ContainsKey("HumanDataSharingLevel") || string.IsNullOrEmpty(form["HumanDataSharingLevel"]))
+    {
+        hasValidationErrors = true;
+        validationErrorMessage += "1C: Please select a human data sharing level.\n";
+    }
+    if (!form.ContainsKey("AllActivitiesCoveredByConsent") || string.IsNullOrEmpty(form["AllActivitiesCoveredByConsent"]))
+    {
+        hasValidationErrors = true;
+        validationErrorMessage += "1D: Please confirm whether all activities are covered by consent.\n";
+    }
+
+    // If validation fails, log errors and return to the form
+    if (hasValidationErrors)
+    {
+        Log.Logger.Error($"Validation Errors: {validationErrorMessage}");
+        TempData["ValidationErrors"] = validationErrorMessage;
+
+        // Redirect back to the form with validation errors
+        return RedirectToAction("Edit", new { id = form["IRBApplicationNumber"], viewOnly = false });
+    }
             // Loop through form keys to find selected options
             foreach (var key in form.Keys)
             {
