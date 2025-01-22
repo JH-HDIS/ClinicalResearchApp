@@ -603,308 +603,310 @@
    var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
    var globalDataLeavingJHM = ""; // Declare a global variable for data leaving JHM
 
-   document.addEventListener("DOMContentLoaded", function () {
-       // References to Data Table radio buttons
-       const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        // References to Data Table radio buttons
+        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
 
-       // Add toggle functionality for "Not Used" selection
-       dataTableRadioButtons.forEach(radio => {
-           radio.addEventListener('click', function () {
-               if (this.checked) {
-                   // Check if "Not Used" (C7) is already selected
-                   if (this.getAttribute("data-column") === "C7") {
-                       // Uncheck all other selections in the same row
-                       const row = this.closest("tr");
-                       const rowRadios = row.querySelectorAll('input[type="radio"]');
-                       rowRadios.forEach(radioInRow => {
-                           if (radioInRow !== this) {
-                               radioInRow.checked = false;
-                           }
-                       });
-                   } else {
-                       // If not "Not Used", uncheck "Not Used" in the same row
-                       const row = this.closest("tr");
-                       const notUsedRadio = row.querySelector('input[type="radio"][data-column="C7"]');
-                       if (notUsedRadio) {
-                           notUsedRadio.checked = false;
-                       }
-                   }
-               }
-               updateSelectedOptions(); // Trigger data collection and update
-           });
-       });  
+        // Add toggle functionality for "Not Used" selection
+    dataTableRadioButtons.forEach(radio => {
+        radio.addEventListener('click', function () {
+            if (this.checked) {
+                // Check if "Not Used" (C7) is already selected
+                if (this.getAttribute("data-column") === "C7") {
+                    // Uncheck all other selections in the same row
+                    const row = this.closest("tr");
+                    const rowRadios = row.querySelectorAll('input[type="radio"]');
+                    rowRadios.forEach(radioInRow => {
+                        if (radioInRow !== this) {
+                            radioInRow.checked = false;
+                        }
+                    });
+                } else {
+                    // If not "Not Used", uncheck "Not Used" in the same row
+                    const row = this.closest("tr");
+                    const notUsedRadio = row.querySelector('input[type="radio"][data-column="C7"]');
+                    if (notUsedRadio) {
+                        notUsedRadio.checked = false;
+                    }
+                }
+            }
+            updateSelectedOptions(); // Trigger data collection and update
+        });
+    });
 
-       // Section 1 inputs (1A-1D) references using their id's or asp-for
-       const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
-       const section1B = document.querySelectorAll('input[name="NumberOfPeopleOrRecords"]');
-       const section1C = document.querySelectorAll('input[name="HumanDataSharingLevel"]');
-       const section1D = document.querySelectorAll('input[name="AllActivitiesCoveredByConsent"]');
+        // Section 1 inputs (1A-1D) references using their id's or asp-for
+        const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
+        const section1B = document.querySelectorAll('input[name="NumberOfPeopleOrRecords"]');
+        const section1C = document.querySelectorAll('input[name="HumanDataSharingLevel"]');
+        const section1D = document.querySelectorAll('input[name="AllActivitiesCoveredByConsent"]');
 
-       // ORA/JHURA conditional question references
-       const oraJhuraYes = document.getElementById('DataSharingYes');
-       const oraJhuraNo = document.getElementById('DataSharingNo');
+        // ORA/JHURA conditional question references
+        const oraJhuraYes = document.getElementById('DataSharingYes');
+        const oraJhuraNo = document.getElementById('DataSharingNo');
 
-       // Reference to the "Generate PDF" button
-       const generatePdfButton = document.getElementById("generatePdfButton");
+        // Reference to the "Generate PDF" button
+        const generatePdfButton = document.getElementById("generatePdfButton");
 
-       // Disable the "Generate PDF" button initially
-       generatePdfButton.disabled = true;
+        // Disable the "Generate PDF" button initially
+        generatePdfButton.disabled = true;
+        
+        // Validation logic for Section 1
+    function validateSection1() {
+        const is1ASelected = Array.from(section1A).some(radio => radio.checked);
+        const is1BSelected = Array.from(section1B).some(radio => radio.checked);
+        const is1CSelected = Array.from(section1C).some(radio => radio.checked);
+        const is1DSelected = Array.from(section1D).some(radio => radio.checked);
 
-       // Validation logic for Section 1
-       function validateSection1() {
-           const is1ASelected = Array.from(section1A).some(radio => radio.checked);
-           const is1BSelected = Array.from(section1B).some(radio => radio.checked);
-           const is1CSelected = Array.from(section1C).some(radio => radio.checked);
-           const is1DSelected = Array.from(section1D).some(radio => radio.checked);
-
-           // Enable the button only if all required inputs are selected
-           generatePdfButton.disabled = !(is1ASelected && is1BSelected && is1CSelected && is1DSelected);
-       }
-
-       // Attach event listeners to inputs for real-time validation
-       [...section1A, ...section1B, ...section1C, ...section1D].forEach(input => {
-           input.addEventListener("change", validateSection1);
-       });
-
-       // Perform an initial validation check
-       validateSection1();
-
-       const form = document.querySelector('form'); // Ensure 'form' is defined
-       const inputs = form.querySelectorAll('input, textarea, select, button');
-       const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
-
-       if (isViewOnly) {
-           inputs.forEach(input => input.setAttribute('disabled', true));
-       }
-
-       // Function to collect Section 1 answers and return as individual parameters
-       function collectSection1Answers() {
-           let section1Answers = {};
-
-           // Get the selected answer for 1A
-           section1A.forEach(radio => {
-               if (radio.checked) {
-                   section1Answers.section1A = radio.value;
-               }
-           });
-
-           // Get the selected answer for 1B
-           section1B.forEach(radio => {
-               if (radio.checked) {
-                   section1Answers.section1B = radio.value;
-               }
-           });
-
-           // Get the selected answer for 1C
-           section1C.forEach(radio => {
-               if (radio.checked) {
-                   section1Answers.section1C = radio.value;
-               }
-           });
-
-           // Get the selected answer for 1D
-           section1D.forEach(radio => {
-               if (radio.checked) {
-                   section1Answers.section1D = radio.value;
-               }
-           });
-
-           return section1Answers;
-       }
-
-       // Function to collect Data Table radio button selections and return as an array of arrays
-       function collectDataTableSelections() {
-           let dataTableAnswers = [];
-
-           dataTableRadioButtons.forEach(radio => {
-               if (radio.checked) {
-                   dataTableAnswers.push([
-                       radio.getAttribute('data-option'),
-                       radio.getAttribute('data-column')
-                   ]);
-               }
-           });
-
-           return dataTableAnswers; // This will now return an array like [["2.P.7", "C2"], ...]
-       }
-
-       // Function to collect ORA/JHURA agreement answer
-       function collectOraJhuraAnswer() {
-           let oraJhuraAnswer = null;
-
-           if (oraJhuraYes.checked) {
-               oraJhuraAnswer = 'Yes';
-           } else if (oraJhuraNo.checked) {
-               oraJhuraAnswer = 'No';
+        // Enable the button only if all required inputs are selected
+        generatePdfButton.disabled = !(is1ASelected && is1BSelected && is1CSelected && is1DSelected);
            }
 
-           globalOraJhuraAnswer = oraJhuraAnswer; // Store the value in a global variable
-           return oraJhuraAnswer;
-       }
+        // Attach event listeners to inputs for real-time validation
+        [...section1A, ...section1B, ...section1C, ...section1D].forEach(input => {
+            input.addEventListener("change", validateSection1);
+        });
 
-       function collectDataLeavingJHM() {
-           let humanDataSharingLevel = null;
+        // Perform an initial validation check
+        validateSection1();
 
-           if (HumanDataSharingLevel < 6) {
-               humanDataSharingLevel = 'Yes';
-           } else {
-               humanDataSharingLevel = 'No';
-           }
+        const form = document.querySelector('form'); // Ensure 'form' is defined
+        const inputs = form.querySelectorAll('input, textarea, select, button');
+        const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
 
-           globalDataLeavingJHM = humanDataSharingLevel; // Store the value in a global variable
-           return humanDataSharingLevel;
-       }
+        if (isViewOnly) {
+            inputs.forEach(input => input.setAttribute('disabled', true));
+        }
+        // Function to collect Section 1 answers and return as individual parameters
+        function collectSection1Answers() {
+            let section1Answers = {};
 
-       // Main function to send parameters and array to the calculation function
-       function updateSelectedOptions() {
-           // Collect answers from Section 1 as individual parameters
-           const section1Answers = collectSection1Answers();
-           globalsection1A = section1Answers.section1A;
-           globalsection1B = section1Answers.section1B;
-           globalsection1C = section1Answers.section1C;
-           globalsection1D = section1Answers.section1D;
+            // Get the selected answer for 1A
+            section1A.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1A = radio.value;
+                }
+            });
 
-           // Collect answers from Data Table as an array of arrays
-           const dataTableSelections = collectDataTableSelections();
+            // Get the selected answer for 1B
+            section1B.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1B = radio.value;
+                }
+            });
 
-           // Collect ORA/JHURA agreement as a parameter
-           const oraJhuraAnswer = collectOraJhuraAnswer();
+            // Get the selected answer for 1C
+            section1C.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1C = radio.value;
+                }
+            });
 
-           // Log the values for testing (you can see them in the browser's console)
-           console.log('Section 1 Answers:', section1Answers);
-           console.log('Data Table Selections (array):', dataTableSelections);
-           console.log('ORA/JHURA Answer:', oraJhuraAnswer);
+            // Get the selected answer for 1D
+            section1D.forEach(radio => {
+                if (radio.checked) {
+                    section1Answers.section1D = radio.value;
+                }
+            });
 
-           // Send the data to your calculation function
-           sendToServer(
-               globalsection1A,
-               globalsection1B,
-               globalsection1C,
-               globalsection1D,
-               oraJhuraAnswer,
-               dataTableSelections
-           );
-       }
+            return section1Answers;
+        }
 
-       // Attach event listeners to Section 1 radio buttons
-       [...section1A, ...section1B, ...section1C, ...section1D].forEach(radio => {
-           radio.addEventListener('change', updateSelectedOptions);
-       });
+        // Function to collect Data Table radio button selections and return as an array of arrays
+        function collectDataTableSelections() {
+            let dataTableAnswers = [];
 
-       // Attach event listeners to all Data Table radio buttons
-       dataTableRadioButtons.forEach(radio => {
-           radio.addEventListener('change', updateSelectedOptions);
-       });
+            dataTableRadioButtons.forEach(radio => {
+                if (radio.checked) {
+                    dataTableAnswers.push([
+                        radio.getAttribute('data-option'),
+                        radio.getAttribute('data-column')
+                    ]);
+                }
+            });
 
-       // Attach event listeners to ORA/JHURA radio buttons
-       oraJhuraYes.addEventListener('change', updateSelectedOptions);
-       oraJhuraNo.addEventListener('change', updateSelectedOptions);
+            return dataTableAnswers; // This will now return an array like [["2.P.7", "C2"], ...]
+        }
 
-       // Initial check in case there are already selected radios on page load
-       updateSelectedOptions();
-   });
+        // Function to collect ORA/JHURA agreement answer
+        function collectOraJhuraAnswer() {
+            let oraJhuraAnswer = null;
 
-   async function sendToServer(
-       involvesSensitiveHealthInfo,
-       numRecords,
-       humanDataSharingLevel,
-       consentYN,
-       oraJhuraAnswer,
-       dataTableSelections
-   ) {
-       try {
-           // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.
-           involvesSensitiveHealthInfo = involvesSensitiveHealthInfo === "true" ? "Y" : "N";
-           consentYN = consentYN === "true" ? "Y" : "N";
-           oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";  // For ORA question
+            if (oraJhuraYes.checked) {
+                oraJhuraAnswer = 'Yes';
+            } else if (oraJhuraNo.checked) {
+                oraJhuraAnswer = 'No';
+            }
 
-           // Map 1B: Number of people or records
-           switch (numRecords) {
-               case "0": // 1-499
-                   numRecords = "0";  // 1-499 maps to "0"
-                   break;
-               case "1": // 500-9,999
-                   numRecords = "1";  // 500-9,999 maps to "1"
-                   break;
-               case "2": // 10,000 or more
-                   numRecords = "2";  // 10,000 or more maps to "2"
-                   break;
-               default:
-                   numRecords = "0"; // Default to 1-499 if no input is provided
-           }
+            globalOraJhuraAnswer = oraJhuraAnswer; // Store the value in a global variable
+            return oraJhuraAnswer;
+        }
 
-           // Map 1C: Human data sharing level
-           switch (humanDataSharingLevel) {
-               case "0": // "Directly identifiable data"
-                   humanDataSharingLevel = "0";  // Map to "0"
-                   break;
-               case "1": // "LDS"
-                   humanDataSharingLevel = "1";  // Map to "1"
-                   break;
-               case "2": // "Person-level data with No PHI or PII"
-                   humanDataSharingLevel = "2";  // Map to "2"
-                   break;
-               case "3": // "Aggregate (counts)"
-                   humanDataSharingLevel = "3";  // Map to "3"
-                   break;
-               case "4": // "Data will not be copied, moved, or shared"
-                   humanDataSharingLevel = "4";  // Map to "4"
-                   break;
-               default:
-                   humanDataSharingLevel = "4"; // Default to "Data will not be copied, moved, or shared"
-           }
 
-           // Send the collected data
-           const dataToSend = {
-               tierArray: dataTableSelections,  // 2D array [["2.P.7", "C2"], ...]
-               dataLeavingJHM: oraJhuraAnswer,  // "Y" or "N"
-               numRecords: numRecords,          // 0, 1, or 2
-               consentYN: consentYN,            // "Y" or "N"
-               humanDataSharingLevel: humanDataSharingLevel, // 0, 1, 2, 3, or 4
-               involvesSensitiveHealthInfo: involvesSensitiveHealthInfo, // "Y" or "N"
-               dataSharingAgreement: oraJhuraAnswer  // "Y" or "N"
-           };
+    function collectDataLeavingJHM() {
+            let humanDataSharingLevel = null;
 
-           console.log("Sending data to server:", dataToSend);
+            if (HumanDataSharingLevel < 6) {
+                humanDataSharingLevel = 'Yes';
+            }  else {
+                humanDataSharingLevel = 'No';
+            }
 
-           // Make the API call to the server
-           const response = await fetch('/Utility/GetTierLevel', {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/json',
-               },
-               body: JSON.stringify(dataToSend)
-           });
+            globalDataLeavingJHM = humanDataSharingLevel; // Store the value in a global variable
+            return humanDataSharingLevel;
+        }
 
-           if (!response.ok) {
-               throw new Error('Network response was not ok');
-           }
+        // Main function to send parameters and array to the calculation function
+        function updateSelectedOptions() {
+            // Collect answers from Section 1 as individual parameters
+            const section1Answers = collectSection1Answers();
+            globalsection1A = section1Answers.section1A;
+            globalsection1B = section1Answers.section1B;
+            globalsection1C = section1Answers.section1C;
+            globalsection1D = section1Answers.section1D;
 
-           // Handle the response from the server
-           const result = await response.text();
-           console.log('Received result from server:', result);
+            // Collect answers from Data Table as an array of arrays
+            const dataTableSelections = collectDataTableSelections();
 
-           // Display the calculated tier in the console
-           document.getElementById('hidden-risk-level').value = result;
-           document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
-       } catch (error) {
-           console.error('Error while sending data to server:', error);
-       }
-   }
+            // Collect ORA/JHURA agreement as a parameter
+            const oraJhuraAnswer = collectOraJhuraAnswer();
 
-   // Event listener to trigger risk level calculation when an input changes
-   document.querySelectorAll('input').forEach(input => {
-       input.addEventListener('change', updateSelectedOptions);
-   });
+            // Log the values for testing (you can see them in the browser's console)
+            console.log('Section 1 Answers:', section1Answers);
+            console.log('Data Table Selections (array):', dataTableSelections);
+            console.log('ORA/JHURA Answer:', oraJhuraAnswer);
 
-   // Ensure sticky note stays at the bottom of the screen when scrolling
-   window.addEventListener('scroll', function () {
-       const riskNote = document.getElementById('risk-level-note');
-       riskNote.style.position = 'fixed';
-       riskNote.style.bottom = '0';
-   });
+            // Send the data to your calculation function
+            sendToServer(
+                globalsection1A,
+                globalsection1B,
+                globalsection1C,
+                globalsection1D,
+                oraJhuraAnswer,
+                dataTableSelections
+            );
+        }
+
+        // Attach event listeners to Section 1 radio buttons
+        [...section1A, ...section1B, ...section1C, ...section1D].forEach(radio => {
+            radio.addEventListener('change', updateSelectedOptions);
+        });
+
+        // Attach event listeners to all Data Table radio buttons
+        dataTableRadioButtons.forEach(radio => {
+            radio.addEventListener('change', updateSelectedOptions);
+        });
+
+        // Attach event listeners to ORA/JHURA radio buttons
+        oraJhuraYes.addEventListener('change', updateSelectedOptions);
+        oraJhuraNo.addEventListener('change', updateSelectedOptions);
+
+        // Initial check in case there are already selected radios on page load
+        updateSelectedOptions();
+    });
+
+    async function sendToServer(
+        involvesSensitiveHealthInfo,
+        numRecords,
+        humanDataSharingLevel,
+        consentYN,
+        oraJhuraAnswer,
+        dataTableSelections
+    ) {
+        try {
+            // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.
+            involvesSensitiveHealthInfo = involvesSensitiveHealthInfo === "true" ? "Y" : "N";
+            consentYN = consentYN === "true" ? "Y" : "N";
+            oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";  // For ORA question
+
+            // Map 1B: Number of people or records
+            switch (numRecords) {
+                case "0": // 1-499
+                    numRecords = "0";  // 1-499 maps to "0"
+                    break;
+                case "1": // 500-9,999
+                    numRecords = "1";  // 500-9,999 maps to "1"
+                    break;
+                case "2": // 10,000 or more
+                    numRecords = "2";  // 10,000 or more maps to "2"
+                    break;
+                default:
+                    numRecords = "0"; // Default to 1-499 if no input is provided
+            }
+
+            // Map 1C: Human data sharing level
+            switch (humanDataSharingLevel) {
+                case "0": // "Directly identifiable data"
+                    humanDataSharingLevel = "0";  // Map to "0"
+                    break;
+                case "1": // "LDS"
+                    humanDataSharingLevel = "1";  // Map to "1"
+                    break;
+                case "2": // "Person-level data with No PHI or PII"
+                    humanDataSharingLevel = "2";  // Map to "2"
+                    break;
+                case "3": // "Aggregate (counts)"
+                    humanDataSharingLevel = "3";  // Map to "3"
+                    break;
+                case "4": // "Data will not be copied, moved, or shared"
+                    humanDataSharingLevel = "4";  // Map to "4"
+                    break;
+                default:
+                    humanDataSharingLevel = "4"; // Default to "Data will not be copied, moved, or shared"
+            }
+
+            // Send the collected data
+            const dataToSend = {
+                tierArray: dataTableSelections,  // 2D array [["2.P.7", "C2"], ...]
+                dataLeavingJHM: oraJhuraAnswer,  // "Y" or "N"
+                numRecords: numRecords,          // 0, 1, or 2
+                consentYN: consentYN,            // "Y" or "N"
+                humanDataSharingLevel: humanDataSharingLevel, // 0, 1, 2, 3, or 4
+                involvesSensitiveHealthInfo: involvesSensitiveHealthInfo, // "Y" or "N"
+                dataSharingAgreement: oraJhuraAnswer  // "Y" or "N"
+            };
+
+            console.log("Sending data to server:", dataToSend);
+
+            // Make the API call to the server
+            const response = await fetch('/Utility/GetTierLevel', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Handle the response from the server
+            const result = await response.text();
+            console.log('Received result from server:', result);
+            
+            // Display the calculated tier in the console
+            document.getElementById('hidden-risk-level').value = result;
+            document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
+            //const riskLevelNoteElement = document.getElementById('risk-level-note');
+            //riskLevelNoteElement.value = result; 
+        } catch (error) {
+            console.error('Error while sending data to server:', error);
+        }
+    }
+
+    // Event listener to trigger risk level calculation when an input changes
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', updateSelectedOptions);
+    });
+
+    // Ensure sticky note stays at the bottom of the screen when scrolling
+    window.addEventListener('scroll', function () {
+        const riskNote = document.getElementById('risk-level-note');
+        riskNote.style.position = 'fixed';
+        riskNote.style.bottom = '0';
+    });
 </script>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     const versionNumber = "Version 1.0"; // Define the version number once here
