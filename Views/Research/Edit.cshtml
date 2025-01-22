@@ -608,33 +608,6 @@
         // References to Data Table radio buttons
         const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
 
-        // Add toggle functionality for "Not Used" selection
-    dataTableRadioButtons.forEach(radio => {
-        radio.addEventListener('click', function () {
-            if (this.checked) {
-                // Check if "Not Used" (C7) is already selected
-                if (this.getAttribute("data-column") === "C7") {
-                    // Uncheck all other selections in the same row
-                    const row = this.closest("tr");
-                    const rowRadios = row.querySelectorAll('input[type="radio"]');
-                    rowRadios.forEach(radioInRow => {
-                        if (radioInRow !== this) {
-                            radioInRow.checked = false;
-                        }
-                    });
-                } else {
-                    // If not "Not Used", uncheck "Not Used" in the same row
-                    const row = this.closest("tr");
-                    const notUsedRadio = row.querySelector('input[type="radio"][data-column="C7"]');
-                    if (notUsedRadio) {
-                        notUsedRadio.checked = false;
-                    }
-                }
-            }
-            updateSelectedOptions(); // Trigger data collection and update
-        });
-    });
-
         // Section 1 inputs (1A-1D) references using their id's or asp-for
         const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
         const section1B = document.querySelectorAll('input[name="NumberOfPeopleOrRecords"]');
@@ -913,7 +886,7 @@
 
     // Display version number on the webpage
     document.getElementById("version-number").textContent = versionNumber;
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const generatePdfButton = document.getElementById("generatePdfButton");
     const sendEmailBtn = document.getElementById("sendEmailBtn");
     const skipBtn = document.getElementById("skipBtn");
