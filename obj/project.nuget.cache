@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "czBd95ZlAYs=",
+  "dgSpecHash": "GLc+9p7r5zs=",
   "success": true,
   "projectFilePath": "C:\\Users\\bsharm12\\Documents\\GitHub\\ClinicalResearchApp\\ClinicalResearchApp.csproj",
   "expectedPackageFiles": [
@@ -78,10 +78,7 @@
     "C:\\Users\\bsharm12\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
     "C:\\Users\\bsharm12\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
     "C:\\Users\\bsharm12\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
-    "C:\\Users\\bsharm12\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\bsharm12\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.12\\microsoft.netcore.app.runtime.win-x64.8.0.12.nupkg.sha512",
-    "C:\\Users\\bsharm12\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.12\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.12.nupkg.sha512",
-    "C:\\Users\\bsharm12\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.12\\microsoft.aspnetcore.app.runtime.win-x64.8.0.12.nupkg.sha512"
+    "C:\\Users\\bsharm12\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
   "logs": []
 }
