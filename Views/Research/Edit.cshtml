@@ -146,77 +146,92 @@
                 <span asp-validation-for="StudyContactEmailAddress" class="text-danger"></span>
             </div>
         
-            <div class="section-title" style="color: red; text-align: center;">
-                Section 1: Data Characteristics and Data Access
-            </div>
+            <<div class="section-title" style="color: red; text-align: center;">
+    Section 1: Data Characteristics and Data Access  
+    <br>  
+    <strong>*All Questions 1A-1D must be completed before generating a PDF.*</strong>
+</div>
 
-            <div class="form-group">
-                <label asp-for="InvolvesSensitiveHealthInfo">1A. My study will involve storage or use of sensitive health information...</label>
-                <div class="form-check">
-                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="true" id="InvolvesSensitiveHealthInfoYes" />
-                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoYes">Yes</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="false" id="InvolvesSensitiveHealthInfoNo" />
-                    <label class="form-check-label" for="InvolvesSensitiveHealthInfoNo">No</label>
-                </div>
-                <span asp-validation-for="InvolvesSensitiveHealthInfo" class="text-danger"></span>
-            </div>
+<div class="form-group">
+    <label asp-for="InvolvesSensitiveHealthInfo">
+        1A. My study will involve storage or use of sensitive health information...
+        <span style="color: red; font-size: smaller;">&#42; Required</span>
+    </label>
+    <div class="form-check">
+        <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="true" id="InvolvesSensitiveHealthInfoYes" />
+        <label class="form-check-label" for="InvolvesSensitiveHealthInfoYes">Yes</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="false" id="InvolvesSensitiveHealthInfoNo" />
+        <label class="form-check-label" for="InvolvesSensitiveHealthInfoNo">No</label>
+    </div>
+    <span asp-validation-for="InvolvesSensitiveHealthInfo" class="text-danger"></span>
+</div>
 
-            <div class="form-group">
-                <label asp-for="NumberOfPeopleOrRecords">1B. Number of people to be enrolled or records to be reviewed...</label>
-                <div class="form-check">
-                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="0" id="NumberOfPeopleOrRecords1" />
-                    <label class="form-check-label" for="NumberOfPeopleOrRecords1">1-499</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="1" id="NumberOfPeopleOrRecords2" />
-                    <label class="form-check-label" for="NumberOfPeopleOrRecords2">500-9,999</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="2" id="NumberOfPeopleOrRecords3" />
-                    <label class="form-check-label" for="NumberOfPeopleOrRecords3">10,000 or more</label>
-                </div>
-                <span asp-validation-for="NumberOfPeopleOrRecords" class="text-danger"></span>
-            </div>
+<div class="form-group">
+    <label asp-for="NumberOfPeopleOrRecords">
+        1B. Number of people to be enrolled or records to be reviewed...
+        <span style="color: red; font-size: smaller;">&#42; Required</span>
+    </label>
+    <div class="form-check">
+        <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="0" id="NumberOfPeopleOrRecords1" />
+        <label class="form-check-label" for="NumberOfPeopleOrRecords1">1-499</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="1" id="NumberOfPeopleOrRecords2" />
+        <label class="form-check-label" for="NumberOfPeopleOrRecords2">500-9,999</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="2" id="NumberOfPeopleOrRecords3" />
+        <label class="form-check-label" for="NumberOfPeopleOrRecords3">10,000 or more</label>
+    </div>
+    <span asp-validation-for="NumberOfPeopleOrRecords" class="text-danger"></span>
+</div>
 
-            <div class="form-group">
-                <label asp-for="HumanDataSharingLevel">1C. What (if any) human data will be copied, moved, or shared...</label>
-                <div class="form-check">
-                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="0" id="HumanDataSharingLevel1" />
-                    <label class="form-check-label" for="HumanDataSharingLevel1">Directly identifiable data</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="1" id="HumanDataSharingLevel2" />
-                    <label class="form-check-label" for="HumanDataSharingLevel2">LDS</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="2" id="HumanDataSharingLevel3" />
-                    <label class="form-check-label" for="HumanDataSharingLevel3">Person-level data with No PHI or PII</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="3" id="HumanDataSharingLevel4" />
-                    <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts &#41;</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="4" id="HumanDataSharingLevel5" />
-                    <label class="form-check-label" for="HumanDataSharingLevel5">Data will not be copied, moved, or shared</label>
-                </div>
-                <span asp-validation-for="HumanDataSharingLevel" class="text-danger"></span>
-            </div>
+<div class="form-group">
+    <label asp-for="HumanDataSharingLevel">
+        1C. What (if any) human data will be copied, moved, or shared...
+        <span style="color: red; font-size: smaller;">&#42; Required</span>
+    </label>
+    <div class="form-check">
+        <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="0" id="HumanDataSharingLevel1" />
+        <label class="form-check-label" for="HumanDataSharingLevel1">Directly identifiable data</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="1" id="HumanDataSharingLevel2" />
+        <label class="form-check-label" for="HumanDataSharingLevel2">LDS</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="2" id="HumanDataSharingLevel3" />
+        <label class="form-check-label" for="HumanDataSharingLevel3">Person-level data with No PHI or PII</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="3" id="HumanDataSharingLevel4" />
+        <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts &#41;</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="4" id="HumanDataSharingLevel5" />
+        <label class="form-check-label" for="HumanDataSharingLevel5">Data will not be copied, moved, or shared</label>
+    </div>
+    <span asp-validation-for="HumanDataSharingLevel" class="text-danger"></span>
+</div>
 
-            <div class="form-group">
-                <label asp-for="AllActivitiesCoveredByConsent">1D. Are all activities (including any use or disclosure) covered by consent?</label>
-                <div class="form-check">
-                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="true" id="AllActivitiesCoveredByConsentYes" />
-                    <label class="form-check-label" for="AllActivitiesCoveredByConsentYes">Yes</label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="false" id="AllActivitiesCoveredByConsentNo" />
-                    <label class="form-check-label" for="AllActivitiesCoveredByConsentNo">No</label>
-                </div>
-                <span asp-validation-for="AllActivitiesCoveredByConsent" class="text-danger"></span>
-            </div>
+<div class="form-group">
+    <label asp-for="AllActivitiesCoveredByConsent">
+        1D. Are all activities (including any use or disclosure) covered by consent?
+        <span style="color: red; font-size: smaller;">&#42; Required</span>
+    </label>
+    <div class="form-check">
+        <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="true" id="AllActivitiesCoveredByConsentYes" />
+        <label class="form-check-label" for="AllActivitiesCoveredByConsentYes">Yes</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="false" id="AllActivitiesCoveredByConsentNo" />
+        <label class="form-check-label" for="AllActivitiesCoveredByConsentNo">No</label>
+    </div>
+    <span asp-validation-for="AllActivitiesCoveredByConsent" class="text-danger"></span>
+</div>
+
             
             <div class="section-title" style="color: red; text-align: center;">
     Section 2: Data Storage
@@ -621,13 +636,14 @@
     </form>
 </div>
 <script>
-    var globalsection1A = "";
-    var globalsection1B = "";
-    var globalsection1C = "";
-    var globalsection1D = "";
-    var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
-    var globalDataLeavingJHM = ""; // Declare a global variable for data leaving JHM
+   var globalsection1A = "";
+   var globalsection1B = "";
+   var globalsection1C = "";
+   var globalsection1D = "";
+   var globalOraJhuraAnswer = ""; // Declare a global variable for ORA/JHURA
+   var globalDataLeavingJHM = ""; // Declare a global variable for data leaving JHM
 
+   
     document.addEventListener("DOMContentLoaded", function () {
         // References to Data Table radio buttons
         const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
@@ -641,49 +657,51 @@
         // ORA/JHURA conditional question references
         const oraJhuraYes = document.getElementById('DataSharingYes');
         const oraJhuraNo = document.getElementById('DataSharingNo');
-
         // Reference to the "Generate PDF" button
         const generatePdfButton = document.getElementById("generatePdfButton");
+// Track previously selected radio button
+let lastSelectedRadio = null;
 
-        // Disable the "Generate PDF" button initially
-        generatePdfButton.disabled = true;
+// Function to validate Section 1 (1A-1D)
+function validateSection1() {
+    const is1ASelected = Array.from(section1A).some(radio => radio.checked);
+    const is1BSelected = Array.from(section1B).some(radio => radio.checked);
+    const is1CSelected = Array.from(section1C).some(radio => radio.checked);
+    const is1DSelected = Array.from(section1D).some(radio => radio.checked);
 
-        /**
-         * Validation logic for Section 1:
-         * Ensures that all required questions are answered before enabling the "Generate PDF" button.
-         */
-        function validateSection1() {
-            const is1ASelected = Array.from(section1A).some(radio => radio.checked);
-            const is1BSelected = Array.from(section1B).some(radio => radio.checked);
-            const is1CSelected = Array.from(section1C).some(radio => radio.checked);
-            const is1DSelected = Array.from(section1D).some(radio => radio.checked);
+    // Enable the "Generate PDF" button only if all questions (1A-1D) are answered
+    generatePdfButton.disabled = !(is1ASelected && is1BSelected && is1CSelected && is1DSelected);
+}
 
-            // Enable the button only if all required inputs are selected
-            generatePdfButton.disabled = !(is1ASelected && is1BSelected && is1CSelected && is1DSelected);
-        }
+// Function to handle radio button clicks and allow deselection
+function handleRadioClick(event) {
+    if (lastSelectedRadio === event.target) {
+        event.target.checked = false; // Deselect if it's the same radio button
+        lastSelectedRadio = null; // Reset tracking
+    } else {
+        lastSelectedRadio = event.target; // Update last selected radio
+    }
+    validateSection1(); // Revalidate the form after changes
+}
 
-        // Attach event listeners to inputs for real-time validation
-        [...section1A, ...section1B, ...section1C, ...section1D].forEach(input => {
-            input.addEventListener("change", validateSection1);
-        });
+// Attach event listeners to Section 1 radio buttons for real-time validation and click handling
+[...section1A, ...section1B, ...section1C, ...section1D].forEach(input => {
+    input.addEventListener("change", validateSection1);
+    input.addEventListener("click", handleRadioClick); // Enable deselection
+});
 
-        // Perform an initial validation check
-        validateSection1();
+// Perform an initial validation check on page load
+validateSection1();
 
-        // Ensure 'form' exists and handle View-Only mode if applicable
+
         const form = document.querySelector('form'); // Ensure 'form' is defined
-        if (form) {
-            const inputs = form.querySelectorAll('input, textarea, select, button');
-            const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
+        const inputs = form.querySelectorAll('input, textarea, select, button');
+        const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
 
-            if (isViewOnly) {
-                inputs.forEach(input => input.setAttribute('disabled', true));
-            }
+        if (isViewOnly) {
+            inputs.forEach(input => input.setAttribute('disabled', true));
         }
-
-        /**
-         * Collect Section 1 answers and return as an object.
-         */
+        // Function to collect Section 1 answers and return as individual parameters
         function collectSection1Answers() {
             let section1Answers = {};
 
@@ -718,9 +736,7 @@
             return section1Answers;
         }
 
-        /**
-         * Collect Data Table radio button selections and return as an array of arrays.
-         */
+        // Function to collect Data Table radio button selections and return as an array of arrays
         function collectDataTableSelections() {
             let dataTableAnswers = [];
 
@@ -736,9 +752,7 @@
             return dataTableAnswers; // This will now return an array like [["2.P.7", "C2"], ...]
         }
 
-        /**
-         * Collect ORA/JHURA agreement answer
-         */
+        // Function to collect ORA/JHURA agreement answer
         function collectOraJhuraAnswer() {
             let oraJhuraAnswer = null;
 
@@ -752,15 +766,13 @@
             return oraJhuraAnswer;
         }
 
-        /**
-         * Collect Data Leaving JHM answer
-         */
-        function collectDataLeavingJHM() {
+
+    function collectDataLeavingJHM() {
             let humanDataSharingLevel = null;
 
             if (HumanDataSharingLevel < 6) {
                 humanDataSharingLevel = 'Yes';
-            } else {
+            }  else {
                 humanDataSharingLevel = 'No';
             }
 
@@ -768,9 +780,7 @@
             return humanDataSharingLevel;
         }
 
-        /**
-         * Main function to send parameters and array to the calculation function
-         */
+        // Main function to send parameters and array to the calculation function
         function updateSelectedOptions() {
             // Collect answers from Section 1 as individual parameters
             const section1Answers = collectSection1Answers();
@@ -785,7 +795,7 @@
             // Collect ORA/JHURA agreement as a parameter
             const oraJhuraAnswer = collectOraJhuraAnswer();
 
-            // Log the values for testing
+            // Log the values for testing (you can see them in the browser's console)
             console.log('Section 1 Answers:', section1Answers);
             console.log('Data Table Selections (array):', dataTableSelections);
             console.log('ORA/JHURA Answer:', oraJhuraAnswer);
@@ -819,9 +829,6 @@
         updateSelectedOptions();
     });
 
-    /**
-     * Function to send data to the server
-     */
     async function sendToServer(
         involvesSensitiveHealthInfo,
         numRecords,
@@ -831,76 +838,91 @@
         dataTableSelections
     ) {
         try {
-            // Convert boolean "true"/"false" to "Y"/"N"
+            // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.
             involvesSensitiveHealthInfo = involvesSensitiveHealthInfo === "true" ? "Y" : "N";
             consentYN = consentYN === "true" ? "Y" : "N";
-            oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";
+            oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";  // For ORA question
 
             // Map 1B: Number of people or records
             switch (numRecords) {
-                case "0":
-                    numRecords = "0";
+                case "0": // 1-499
+                    numRecords = "0";  // 1-499 maps to "0"
                     break;
-                case "1":
-                    numRecords = "1";
+                case "1": // 500-9,999
+                    numRecords = "1";  // 500-9,999 maps to "1"
                     break;
-                case "2":
-                    numRecords = "2";
+                case "2": // 10,000 or more
+                    numRecords = "2";  // 10,000 or more maps to "2"
                     break;
                 default:
-                    numRecords = "0";
+                    numRecords = "0"; // Default to 1-499 if no input is provided
             }
 
             // Map 1C: Human data sharing level
             switch (humanDataSharingLevel) {
-                case "0":
-                    humanDataSharingLevel = "0";
+                case "0": // "Directly identifiable data"
+                    humanDataSharingLevel = "0";  // Map to "0"
                     break;
-                case "1":
-                    humanDataSharingLevel = "1";
+                case "1": // "LDS"
+                    humanDataSharingLevel = "1";  // Map to "1"
                     break;
-                case "2":
-                    humanDataSharingLevel = "2";
+                case "2": // "Person-level data with No PHI or PII"
+                    humanDataSharingLevel = "2";  // Map to "2"
                     break;
-                case "3":
-                    humanDataSharingLevel = "3";
+                case "3": // "Aggregate (counts)"
+                    humanDataSharingLevel = "3";  // Map to "3"
                     break;
-                case "4":
-                    humanDataSharingLevel = "4";
+                case "4": // "Data will not be copied, moved, or shared"
+                    humanDataSharingLevel = "4";  // Map to "4"
                     break;
                 default:
-                    humanDataSharingLevel = "4";
+                    humanDataSharingLevel = "4"; // Default to "Data will not be copied, moved, or shared"
             }
 
+            // Send the collected data
             const dataToSend = {
-                tierArray: dataTableSelections,
-                dataLeavingJHM: oraJhuraAnswer,
-                numRecords: numRecords,
-                consentYN: consentYN,
-                humanDataSharingLevel: humanDataSharingLevel,
-                involvesSensitiveHealthInfo: involvesSensitiveHealthInfo,
-                dataSharingAgreement: oraJhuraAnswer
+                tierArray: dataTableSelections,  // 2D array [["2.P.7", "C2"], ...]
+                dataLeavingJHM: oraJhuraAnswer,  // "Y" or "N"
+                numRecords: numRecords,          // 0, 1, or 2
+                consentYN: consentYN,            // "Y" or "N"
+                humanDataSharingLevel: humanDataSharingLevel, // 0, 1, 2, 3, or 4
+                involvesSensitiveHealthInfo: involvesSensitiveHealthInfo, // "Y" or "N"
+                dataSharingAgreement: oraJhuraAnswer  // "Y" or "N"
             };
 
             console.log("Sending data to server:", dataToSend);
 
+            // Make the API call to the server
             const response = await fetch('/Utility/GetTierLevel', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(dataToSend)
             });
 
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
 
+            // Handle the response from the server
             const result = await response.text();
             console.log('Received result from server:', result);
-
+            
+            // Display the calculated tier in the console
             document.getElementById('hidden-risk-level').value = result;
             document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;
+            //const riskLevelNoteElement = document.getElementById('risk-level-note');
+            //riskLevelNoteElement.value = result; 
         } catch (error) {
             console.error('Error while sending data to server:', error);
         }
     }
+
+    // Event listener to trigger risk level calculation when an input changes
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', updateSelectedOptions);
+    });
 
     // Ensure sticky note stays at the bottom of the screen when scrolling
     window.addEventListener('scroll', function () {
