@@ -50,7 +50,7 @@ namespace ClinicalResearchApp.Data
                             if (adminFlag == "Y") { researchDataList.Add(researchData); }
                             else if (piJhed == userJHED) { researchDataList.Add(researchData); }
                             else if (contactJhed == userJHED) {researchDataList.Add(researchData); }
-                            Log.Logger.Information($"In SQL select....StudeName is {researchData.StudyName}");
+                            Log.Logger.Information($"In SQL select....StudyName is {researchData.StudyName}");
                 
                         }
                     }
@@ -257,6 +257,14 @@ public UserResponse GetUserResponseDetails(string irbNum)
                     }
                 }
             }
+            Log.Logger.Information($"GetUserReponseDetails....");
+
+            for (int i = 0; i < researchData.DataClassifications.Count; i++)
+                {
+                    Log.Logger.Information($"GetUserReponseDetails..DataClassificationsOption..{researchData.DataClassifications[i].Option}");
+                    Log.Logger.Information($"GetUserReponseDetails..DataClassificationsColumn..{researchData.DataClassifications[i].Column}");
+                    Log.Logger.Information($"GetUserReponseDetails..DataClassificationsSelected..{researchData.DataClassifications[i].Selected}"); 
+                }
            
            /*
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -305,7 +313,8 @@ public UserResponse GetUserResponseDetails(string irbNum)
                     cmd.Parameters.AddWithValue("@sensitive_health_information_required_yn", data.Sensitive_Health_Info);
                     cmd.Parameters.AddWithValue("@expected_enrollee_count", data.Expected_Enroll_Count);
                     cmd.Parameters.AddWithValue("@covered_by_consent_yn", data.Covered_By_Consent);
-                    cmd.Parameters.AddWithValue("@tier_calculator_completed_yn", "Y");    
+                    cmd.Parameters.AddWithValue("@tier_calculator_completed_yn", "Y");
+                    cmd.Parameters.AddWithValue("@humanSharingLevel", data.Human_data_cms);    
                     cmd.Parameters.AddWithValue("@tier", data.Tier);
                     cmd.Parameters.AddWithValue("@Study_Name", data.StudyName);
                     conn.Open();

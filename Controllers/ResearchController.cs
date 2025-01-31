@@ -216,7 +216,8 @@ namespace ClinicalResearchApp.Controllers
                     key.StartsWith("JHUQualtrics" )|| key.StartsWith("JHUACHREDCap") || key.StartsWith("SAFESTOR") ||
                     key.StartsWith("DiscoveryHPC") || key.StartsWith("EnterpriseNetworkStorageNAS") || key.StartsWith("ITJHRITManagedAzureAWS") ||
                     key.StartsWith("OneDrive") || key.StartsWith("LocalComputer") || key.StartsWith("NonJHU_REDCap") ||
-                    key.StartsWith("NonJHUSystem"))
+                    key.StartsWith("NonJHUSystem") || key.StartsWith("DepartmentServer") || key.StartsWith("OtherComputers")||
+                    key.StartsWith("USB") || key.StartsWith("JHPCE") || key.StartsWith("JHUARCH") || key.StartsWith("OtherSolutions"))
                     {
                         var selectedColumn = form[key]; // Value of the selected radio button
                         var option = key; // Option name (e.g., "SAFERorSAFEDesktop" or "JHPMAP")

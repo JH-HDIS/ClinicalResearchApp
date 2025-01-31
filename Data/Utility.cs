@@ -59,24 +59,40 @@ namespace ClinicalResearchApp.Data
                     
                         // Calculate Tier for the row
                         if ((toolType == "P") && (colPos != "C7")) 
-                        {   if (hDataSharingLevel != "4")
+                        {   if (hDataSharingLevel != "4")  // 4 is Data will not be copied, moved, or shared
                             {
                                 if (consent == "Y") {
-                                tiers.Add("Tier A");
+                                    tiers.Add("Tier A");
                                 }
                                 else {
-                                tiers.Add("Tier C");
+                                     if (colPos == "1" || colPos == "2") // 1 is Text PHI, 2 is PHI > LDS
+                                        {
+                                            tiers.Add("Tier C");
+                                        }
+                                    else
+                                        {
+                                            if (numRec == "2") // 2 is 10,000 or more
+                                            {
+                                                tiers.Add("Tier C");
+                                            }
+                                            else
+                                            {
+                                                tiers.Add("Tier B");
+                                            }
+                                        }
                                 }
                             }
                             else 
                             {
-                                if (colPos == "1" || colPos == "2") 
+                                tiers.Add("Tier A");
+                                /*
+                                if (colPos == "1" || colPos == "2") // 1 is Text PHI, 2 is PHI > LDS
                                 {
                                     tiers.Add("Tier C");
                                 }
                                 else
                                 {
-                                    if (numRec == "2") 
+                                    if (numRec == "2") // 2 is 10,000 or more
                                     {
                                         tiers.Add("Tier C");
                                     }
@@ -85,6 +101,7 @@ namespace ClinicalResearchApp.Data
                                         tiers.Add("Tier B");
                                     }
                                 }
+                                */
                             }
                         }
 
