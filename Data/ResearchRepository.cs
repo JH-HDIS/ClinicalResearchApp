@@ -209,12 +209,13 @@ public UserResponse GetUserResponseDetails(string irbNum)
                                             if (dataOption.Option == "OneDrive") { dataOption.Option = "2.J.1"; }
                                             if (dataOption.Option == "LocalComputer") { dataOption.Option = "2.J.2"; }
                                             if (dataOption.Option == "NonJHU_REDCap") { dataOption.Option = "2.E.1"; }
+                                            if (dataOption.Option == "NonJHUSystem") { dataOption.Option = "2.E.2"; }
                                             if (dataOption.Option == "DepartmentServer") { dataOption.Option = "2.R.1"; }
                                             if (dataOption.Option == "OtherComputers") { dataOption.Option = "2.R.2"; }
-                                            if (dataOption.Option == "USB") { dataOption.Option = "2.R.4"; }
+                                            if (dataOption.Option == "USB") { dataOption.Option = "2.R.3"; }
+                                            if (dataOption.Option == "JHPCE") { dataOption.Option = "2.R.4"; }
                                             if (dataOption.Option == "JHUARCH") { dataOption.Option = "2.R.5"; }
                                             if (dataOption.Option == "OtherSolutions") { dataOption.Option = "2.R.6"; }
-                                            if (dataOption.Option == "Other") { dataOption.Option = "2.R.7"; }
 
 
                                              

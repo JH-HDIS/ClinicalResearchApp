@@ -1162,7 +1162,6 @@ C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\hostfxr.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\hostpolicy.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore.dll
-C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1124.51707.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordbi.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscorrc.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\msquic.dll
@@ -1590,3 +1589,4 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ClinicalResearchApp.pdb
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ref\ClinicalResearchApp.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1224.60305.dll

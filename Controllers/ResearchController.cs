@@ -213,10 +213,10 @@ namespace ClinicalResearchApp.Controllers
                 Log.Logger.Information($"In SAVEDATACLASSIFICATIONS.....The key is: {key}");
                 // Example: Key format should be "SAFERorSAFEDesktop" or "JHPMAP"
                 if (key.StartsWith("SAFERorSAFEDesktop") || key.StartsWith("JHPMAP") || key.StartsWith("JHUOpenSpecimen") || 
-                    key.StartsWith("JHUQualtrics" )|| key.StartsWith("JHUACHREDCap") || key.StartsWith("SAFESTOR") ||
-                    key.StartsWith("DiscoveryHPC") || key.StartsWith("EnterpriseNetworkStorageNAS") || key.StartsWith("ITJHRITManagedAzureAWS") ||
-                    key.StartsWith("OneDrive") || key.StartsWith("LocalComputer") || key.StartsWith("NonJHU_REDCap") ||
-                    key.StartsWith("NonJHUSystem") || key.StartsWith("DepartmentServer") || key.StartsWith("OtherComputers")||
+                    key.StartsWith("JHUQualtrics" )|| key.StartsWith("JHUACHREDCap") || key.StartsWith("SAFESTOR") || 
+                    key.StartsWith("DiscoveryHPC") || key.StartsWith("EnterpriseNetworkStorageNAS") || key.StartsWith("ITJHRITManagedAzureAWS") || 
+                    key.StartsWith("OneDrive") || key.StartsWith("LocalComputer") || key.StartsWith("NonJHU_REDCap") || 
+                    key.StartsWith("NonJHUSystem") || key.StartsWith("DepartmentServer") || key.StartsWith("OtherComputers") || 
                     key.StartsWith("USB") || key.StartsWith("JHPCE") || key.StartsWith("JHUARCH") || key.StartsWith("OtherSolutions"))
                     {
                         var selectedColumn = form[key]; // Value of the selected radio button
