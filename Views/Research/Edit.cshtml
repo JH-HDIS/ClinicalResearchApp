@@ -146,10 +146,10 @@
                 <span asp-validation-for="StudyContactEmailAddress" class="text-danger"></span>
             </div>
         
-            <<div class="section-title" style="color: red; text-align: center;">
+             <div class="section-title" style="color: red; text-align: center;">
     Section 1: Data Characteristics and Data Access  
     <br>  
-    <strong>*All Questions 1A-1D must be completed before generating a PDF.*</strong>
+    *All Questions 1A-1D must be completed to generate a PDF.*
 </div>
 
 <div class="form-group">
@@ -1639,12 +1639,12 @@ doc.text(studyContactEmailAddress, 210, nextY);
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const dataTableRadios = document.querySelectorAll('input[type="radio"][data-option]');
         const question = document.getElementById("ora-jhura-question");
 
-        // Function to check if any radio button in Section E is selected (excluding Not Used)
+        // Function to check if any radio button in Section E is selected (excluding "Not Used" column)
         function checkSectionE() {
-            const sectionERadios = document.querySelectorAll('input[name^="NonJHU_REDCap"], input[name^="NonJHUSystem"]');
+            const sectionERadios = document.querySelectorAll('input[data-option^="2.E."]');
             let isAnySelected = false;
 
             sectionERadios.forEach(radio => {
@@ -1653,26 +1653,49 @@ doc.text(studyContactEmailAddress, 210, nextY);
                 }
             });
 
-            // Show or hide the question based on the selection
+            // Show or hide the ORA/JHURA question based on the selection in Section E
             question.style.display = isAnySelected ? "block" : "none";
         }
 
-        // Add click event listener for all radio buttons
-        radioButtons.forEach(radio => {
-            radio.addEventListener('click', function () {
-                if (this.checked) {
-                    if (this.previousValue === 'checked') {
-                        this.checked = false;  // Deselect the radio button
-                        this.previousValue = '';  // Reset previous value
-                    } else {
-                        this.previousValue = 'checked';  // Store the state as checked
-                    }
+        // Event listener for Data Table radios (Section 2 only)
+        dataTableRadios.forEach(radio => {
+            radio.addEventListener('click', function (event) {
+                const rowRadios = document.querySelectorAll(`input[data-option="${this.getAttribute('data-option')}"]`);
+                const notUsedRadio = [...rowRadios].find(r => r.getAttribute('data-column') === 'C7'); // Find "Not Used" column radio
+
+                // If clicked twice, move to "Not Used"
+                if (this.dataset.wasChecked === "true" && this.getAttribute('data-column') !== 'C7') {
+                    event.preventDefault(); // Prevent direct deselection
+                    notUsedRadio.checked = true;
+                    notUsedRadio.dataset.wasChecked = "true";
+                } else {
+                    // Normal selection: Ensure previous tracking is reset
+                    rowRadios.forEach(r => r.dataset.wasChecked = "false");
+                    this.dataset.wasChecked = "true";
                 }
-                checkSectionE(); // Check Section E after toggling
+
+                // Reset tracking after switching to "Not Used"
+                rowRadios.forEach(r => r.dataset.wasChecked = "false");
+                this.dataset.wasChecked = "true";
+
+                // Ensure users can select the same answer after moving to "Not Used"
+                rowRadios.forEach(r => {
+                    r.addEventListener("click", function () {
+                        r.dataset.wasChecked = "false";
+                    });
+                });
+
+                // If it's part of Section E, check whether to show the ORA/JHURA question
+                if (this.getAttribute("data-option")?.startsWith("2.E.")) {
+                    checkSectionE();
+                }
+
+                // Ensure change event fires immediately after a click
+                this.dispatchEvent(new Event("change", { bubbles: true }));
             });
         });
 
-        // Initial check in case there are already selected radios in Section E on page load
+        // Initial check in case Section E radios are already selected on page load
         checkSectionE();
     });
 </script>
@@ -1690,7 +1713,7 @@ doc.text(studyContactEmailAddress, 210, nextY);
             riskNote.style.position = 'fixed';
             riskNote.style.bottom = '0';
         });
-    </script>
+</script>
 
 <!-- Load jQuery first -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
