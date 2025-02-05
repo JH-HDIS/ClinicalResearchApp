@@ -21,67 +21,100 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
     <!-- Additional custom styles specific to this page -->
-    <style>
-    .form-section {
-        margin-bottom: 20px;
-    }
-
-    .form-section label {
-        font-weight: bold;
-    }
-
-    .section-title {
-        margin-top: 30px;
-        margin-bottom: 15px;
-        font-weight: bold;
-        font-size: 1.2em;
-        text-decoration: underline;
-    }
-
-    .form-check-label {
-        margin-left: 10px;
-    }
-
-    /* Added styles for wider form */
-    .form-container {
-        max-width: 90%; /* Set the form to take up 90% of the screen width */
-        margin: 0 auto; /* Center the form on the page */
-    }
-
-    /* Ensure input fields take full width of their container */
-    .form-container input,
-    .form-container select,
-    .form-container textarea {
-        width: 100%;
-        box-sizing: border-box; /* Include padding and border in the element's width */
-    }
-
-    .form-check-label {
-        display: inline-block;
-        width: auto; /* Ensures the label takes up only as much width as it needs */
-        white-space: normal; /* Allows wrapping of the text if needed */
-    }
-
-    /* Sticky note styles */
-    #risk-level-note {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%; /* Full width across the page */
-        background-color: #0c3275; /* Dark blue background */
-        text-align: center; /* Center the text */
-        padding: 10px;
-        font-size: 20px;
-        font-weight: bold; /* Make text bold */
-        color: rgb(255, 165, 0); /* Change the text color to red */
-        z-index: 1000;
-        white-space: nowrap; /* Prevents the text from wrapping onto a new line */
-        box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1); /* Optional: Adds a subtle shadow */
-    }
-    body {
-    margin-bottom: 40px; /* Adjust based on the height of the fixed bar */
+  <style>
+/* General Styles */
+.form-section {
+    margin-bottom: 20px;
 }
 
+.form-section label {
+    font-weight: bold;
+}
+
+.section-title {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: underline;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* Ensure form-check elements are properly aligned */
+.form-check {
+    display: flex;
+    align-items: center; /* Ensures vertical alignment */
+    gap: 10px; /* Adds space between number, radio, and label */
+}
+
+/* Move numbering further to the left ONLY for Section 1A - 1D */
+.section-1 .radio-number {
+    font-weight: bold;
+    font-size: 0.85em;
+    margin-right: 40px; /* Ensures space between number & radio */
+    min-width: 100px; /* Keeps consistent left alignment */
+    flex-basis: 100px; /* Ensures uniform width */
+    text-align: left; /* Aligns numbers properly */
+    margin-top: 6px; /* Slightly moves numbers up */
+}
+
+/* Ensure radio button is correctly positioned ONLY for Section 1A - 1D */
+.section-1 .form-check-input {
+    order: 0; /* Ensures radio button stays between number & text */
+    margin-right: 10px; /* Adds space between radio and label */
+}
+
+/* Ensure labels follow the radio buttons ONLY for Section 1A - 1D */
+.section-1 .form-check-label {
+    order: 1; /* Ensures label is always after the radio */
+    margin-left: -105px;
+    margin-top: 5px;
+}
+
+/* Ensure input fields take full width */
+.form-container input,
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sticky note styles */
+#risk-level-note {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0c3275;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 165, 0);
+    z-index: 1000;
+    white-space: nowrap;
+    box-shadow: 0px 4px 6px rgba(25, 5, 110, 0.1);
+}
+
+/* Prevents content from being hidden behind the fixed bar */
+body {
+    margin-bottom: 40px;
+}
+
+/* Prevent margin shifts in Section E (ORA/JHURA) */
+#ora-jhura-question .form-check-label {
+    margin-left: 0px !important;
+}
+
+/* Prevent any changes to the Data Table */
+#data-table .form-check-label {
+    margin-left: 0px !important;
+}
 </style>
 
 </head>
@@ -151,89 +184,104 @@
     <br>  
     *All Questions 1A-1D must be completed to generate a PDF.*
 </div>
-
+<div class="section-1">
+<!-- 1A -->
 <div class="form-group">
     <label asp-for="InvolvesSensitiveHealthInfo">
         1A. My study will involve storage or use of sensitive health information.
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
+        <span class="radio-number">1.A.1</span>
         <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="true" id="InvolvesSensitiveHealthInfoYes" />
         <label class="form-check-label" for="InvolvesSensitiveHealthInfoYes">Yes</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.A.2</span>
         <input asp-for="InvolvesSensitiveHealthInfo" class="form-check-input" type="radio" value="false" id="InvolvesSensitiveHealthInfoNo" />
         <label class="form-check-label" for="InvolvesSensitiveHealthInfoNo">No</label>
     </div>
     <span asp-validation-for="InvolvesSensitiveHealthInfo" class="text-danger"></span>
 </div>
 
+<!-- 1B -->
 <div class="form-group">
     <label asp-for="NumberOfPeopleOrRecords">
         1B. Number of people to be enrolled or records to be reviewed.
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
+        <span class="radio-number">1.B.1</span>
         <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="0" id="NumberOfPeopleOrRecords1" />
         <label class="form-check-label" for="NumberOfPeopleOrRecords1">1-499</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.B.2</span>
         <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="1" id="NumberOfPeopleOrRecords2" />
         <label class="form-check-label" for="NumberOfPeopleOrRecords2">500-9,999</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.B.3</span>
         <input asp-for="NumberOfPeopleOrRecords" class="form-check-input" type="radio" value="2" id="NumberOfPeopleOrRecords3" />
         <label class="form-check-label" for="NumberOfPeopleOrRecords3">10,000 or more</label>
     </div>
     <span asp-validation-for="NumberOfPeopleOrRecords" class="text-danger"></span>
 </div>
 
+<!-- 1C -->
 <div class="form-group">
     <label asp-for="HumanDataSharingLevel">
         1C. What (if any) human data will be copied, moved, or shared? See <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">Levels of Identification</a>
-
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
+        <span class="radio-number">1.C.1</span>
         <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="0" id="HumanDataSharingLevel1" />
         <label class="form-check-label" for="HumanDataSharingLevel1">Directly identifiable data</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.C.2</span>
         <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="1" id="HumanDataSharingLevel2" />
         <label class="form-check-label" for="HumanDataSharingLevel2">LDS</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.C.3</span>
         <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="2" id="HumanDataSharingLevel3" />
         <label class="form-check-label" for="HumanDataSharingLevel3">Person-level data with No PHI or PII</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.C.4</span>
         <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="3" id="HumanDataSharingLevel4" />
-        <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts &#41;</label>
+        <label class="form-check-label" for="HumanDataSharingLevel4">Aggregate (counts)</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.C.5</span>
         <input asp-for="HumanDataSharingLevel" class="form-check-input" type="radio" value="4" id="HumanDataSharingLevel5" />
         <label class="form-check-label" for="HumanDataSharingLevel5">Data will not be copied, moved, or shared</label>
     </div>
     <span asp-validation-for="HumanDataSharingLevel" class="text-danger"></span>
 </div>
 
+<!-- 1D -->
 <div class="form-group">
     <label asp-for="AllActivitiesCoveredByConsent">
         1D. Are all activities (including any use or disclosure) covered by consent?
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
+        <span class="radio-number">1.D.1</span>
         <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="true" id="AllActivitiesCoveredByConsentYes" />
         <label class="form-check-label" for="AllActivitiesCoveredByConsentYes">Yes</label>
     </div>
     <div class="form-check">
+        <span class="radio-number">1.D.2</span>
         <input asp-for="AllActivitiesCoveredByConsent" class="form-check-input" type="radio" value="false" id="AllActivitiesCoveredByConsentNo" />
         <label class="form-check-label" for="AllActivitiesCoveredByConsentNo">No</label>
     </div>
     <span asp-validation-for="AllActivitiesCoveredByConsent" class="text-danger"></span>
 </div>
-
-            
+</div>
+           
             <div class="section-title" style="color: red; text-align: center;">
     Section 2: Data Storage
 </div>
@@ -524,7 +572,6 @@
         </a>
     </td>
 </tr>
-
 <tr>
     <td>2.R.1 Department Server (not managed by IT@JH)</td>
     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
