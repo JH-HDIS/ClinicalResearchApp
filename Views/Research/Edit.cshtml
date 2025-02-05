@@ -1662,30 +1662,38 @@ doc.text(studyContactEmailAddress, 210, nextY);
     }
 
     function collectDataTableSelections() {
-        const dataTableSelections = [];
-        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+    const dataTableSelections = [];
+    const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
 
-        dataTableRadioButtons.forEach((radio) => {
-            if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
-                const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
-                const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
-                const optionDescription = radio.closest("tr").querySelector("td").textContent.trim(); // Get the description text from the first cell in the row
+    dataTableRadioButtons.forEach((radio) => {
+        if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
+            const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
+            const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
+            
+            // Get the row's first cell text and remove the option number prefix
+            let optionDescriptionElement = radio.closest("tr").querySelector("td");
+            let optionDescription = optionDescriptionElement ? optionDescriptionElement.textContent.trim() : "";
 
-                let existing = dataTableSelections.find((entry) => entry.option === option);
-                if (existing) {
-                    existing.columns.push(column);
-                } else {
-                    dataTableSelections.push({
-                        option: option,
-                        columns: [column],
-                        optionWithDescription: `${option} ${optionDescription}`, // Add both the option number and its description
-                    });
-                }
+            // Remove the leading option number if it repeats (e.g., "2.P.1 2.P.1 SAFER or SAFE Desktop")
+            if (optionDescription.startsWith(option)) {
+                optionDescription = optionDescription.replace(option, "").trim();
             }
-        });
 
-        return dataTableSelections;
-    }
+            let existing = dataTableSelections.find((entry) => entry.option === option);
+            if (existing) {
+                existing.columns.push(column);
+            } else {
+                dataTableSelections.push({
+                    option: option,
+                    columns: [column],
+                    optionWithDescription: `${option} ${optionDescription}`.trim(), // Ensure clean formatting
+                });
+            }
+        }
+    });
+
+    return dataTableSelections;
+}
 });
 </script>
 
