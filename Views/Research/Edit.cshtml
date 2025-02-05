@@ -154,7 +154,7 @@
 
 <div class="form-group">
     <label asp-for="InvolvesSensitiveHealthInfo">
-        1A. My study will involve storage or use of sensitive health information...
+        1A. My study will involve storage or use of sensitive health information.
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -170,7 +170,7 @@
 
 <div class="form-group">
     <label asp-for="NumberOfPeopleOrRecords">
-        1B. Number of people to be enrolled or records to be reviewed...
+        1B. Number of people to be enrolled or records to be reviewed.
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -190,7 +190,8 @@
 
 <div class="form-group">
     <label asp-for="HumanDataSharingLevel">
-        1C. What (if any) human data will be copied, moved, or shared...
+        1C. What (if any) human data will be copied, moved, or shared? See <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">Levels of Identification</a>
+
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -255,14 +256,14 @@
 </thead>
         <tbody>
                         <!-- (P) Preferred Data Storage Options Section -->
-                        <tr>
-                            <td colspan="8" style="font-weight: bold; text-align: left;">
-                                (P) Preferred Data Storage Options - 
-                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
-                                (Click here for more information on "Levels of Identification")
-                                </a>
-                            </td>
-                        </tr>
+        <tr>    
+               <td colspan="8" style="font-weight: bold; text-align: left;">
+                        (P) Preferred Data Storage Options - 
+                        <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">
+                        (Click here for more information on "Levels of Identification")
+                        </a>
+               </td>   
+        </tr>
         <tr>
         <td>2.P.1 <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFER</a> or <a href="https://researchit.jhu.edu/safer/" target="_blank">SAFE Desktop</a></td>
          
@@ -386,12 +387,13 @@
             <tr>
                 <td colspan="8" style="font-weight: bold; text-align: left;">
                     (J) Justifiable Data Storage Options - (Requiring JHED Authenticated Network Access)
-                    <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
+                    <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">
                     (Click here for more information on "Levels of Identification")
                     </a>
                 </td>
             </tr>
 <tr>
+
     <td>2.J.1 JH OneDrive / SharePoint / Teams</td>
      @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
         {
@@ -433,13 +435,14 @@
                         <!-- (E) External Data Storage Tools Section -->
                         <tbody>
                         <tr>
-                            <td colspan="8" style="font-weight: bold; text-align: left;">
-                                (E) External Data Storage Tools
-                                <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
-                                (Click here for more information on "Levels of Identification")
-                                </a>
-                            </td>
-                        </tr>
+    <td colspan="8" style="font-weight: bold; text-align: left;">
+        (E) External Data Storage Tools -  
+        <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">
+            (Click here for more information on "Levels of Identification")
+        </a>
+    </td>
+</tr>
+
 <tr class="section-e-option">
     <td>2.E.1 Non-JHU REDCap</td>
       @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
@@ -513,13 +516,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="8" style="font-weight: bold; text-align: left;">
-                            (R) Data Storage Options Requiring Review
-                            <a href="https://livejohnshopkins.sharepoint.com/sites/inside-data-trust/SitePages/Levels-of-Identification-of-Data.aspx" target="_blank">
-                                (Click here for more information on "Levels of Identification")
-                            </a>
-                        </td>
-                    </tr>
+    <td colspan="8" style="font-weight: bold; text-align: left;">
+        (R) Data Storage Options Requiring Review -  
+        <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" 
+           target="_blank">
+            (Click here for more information on "Levels of Identification")
+        </a>
+    </td>
+</tr>
+
 <tr>
     <td>2.R.1 Department Server (not managed by IT@JH)</td>
     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
