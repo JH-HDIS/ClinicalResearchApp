@@ -61,6 +61,28 @@ else
         margin-left: 5px;
         color: gray;
     }
+    .btn-info {
+        position: relative;
+        color: #fff;
+        padding: 6px 6px;
+        background-color: #0d6efd; /* Bootstrap Info Blue */
+        border-color: #0d6efd;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .btn-info a {
+        color: white; /* Make text white */
+        text-decoration: none; /* Remove underline */
+        display: block; /* Make link fill the button */
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-info a:hover {
+        background-color: #0056b3;
+        text-decoration: underline; /* Underline on hover */
+    }
 </style>
 </head>
 <!-- IRB Search Section -->
@@ -70,7 +92,13 @@ else
         <label for="irbSearch">Enter IRB Number:</label>
         <input type="text" id="irbSearch" name="irbSearch" placeholder="Enter IRB Number" required />
         <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+
+    <!-- Hyperlink for Tips and Info -->
+    <button type="button" class="btn btn-info" id="tipsInfoButton">
+    Tips and Info
+</button>
+
+</form>
 
     @if (ViewBag.SearchPerformed != null && (bool)ViewBag.SearchPerformed)
     {
@@ -285,5 +313,17 @@ else
         form.submit();
     }
 </script>
+
 </form>
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const button = document.getElementById("tipsInfoButton");
+
+        // Ensure the button opens the link in a new tab
+        button.addEventListener("click", function () {
+            window.open("https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data", 
+                        "_blank");
+        });
+    });
+</script>
