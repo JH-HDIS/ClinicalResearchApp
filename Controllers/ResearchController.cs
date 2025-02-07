@@ -44,6 +44,10 @@ namespace ClinicalResearchApp.Controllers
                     ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
                     : "Guest";
 
+                 ViewBag.email = User.Identity.IsAuthenticated 
+                    ? User.Claims.FirstOrDefault(c => c.Type == "email")?.Value 
+                    : "Guest";
+
                 // Handle sorting
                 ViewData["CurrentSort"] = sortOrder; // Track the current sort column
                 ViewData["IRBNumberSort"] = sortOrder == "irb" ? "irb_desc" : "irb";
@@ -143,6 +147,11 @@ namespace ClinicalResearchApp.Controllers
             if (createNewFlag == "Y")
             {
                 data.Id = id;
+                data.IRBApplicationNumber = id;
+                data.StudyContactJHED = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
+                data.StudyContactFirstName = User.Claims.FirstOrDefault(c => c.Type == "given_name")?.Value;
+                data.StudyContactLastName = User.Claims.FirstOrDefault(c => c.Type == "family_name")?.Value;
+                data.StudyContactEmailAddress = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             }
             return View(data);
         }
@@ -164,9 +173,10 @@ namespace ClinicalResearchApp.Controllers
                     ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
                     : "Guest";
                 ViewBag.Username = userName;
-                ViewBag.jhed = User.Identity.IsAuthenticated 
+             string userJHED = User.Identity.IsAuthenticated 
                     ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
                     : "Guest";
+                ViewBag.jhed = userJHED;
             if (string.IsNullOrWhiteSpace(irbSearch))
             {
                 ViewBag.SearchPerformed = false;
@@ -175,20 +185,26 @@ namespace ClinicalResearchApp.Controllers
             }
 
             // Example logic to check if the IRB number exists
-            bool irbFound = CheckIfIrbExists(irbSearch);
+            var data = _repository.GetUserResponseDetails(irbSearch);
+            bool irbFound = CheckIfIrbExists(data);
+            bool userOnStudy = false;
+            if (irbFound) {
+                userOnStudy = userJHED != null && CheckUserOnStudy(data, userJHED);
+            }
 
             ViewBag.SearchPerformed = true;
             ViewBag.IrbFound = irbFound;
+            ViewBag.UserOnStudy = userOnStudy;
             ViewBag.IrbNumber = irbSearch;
             ViewBag.Admin = "Non-Admin";
 
             return View("Index");
         }
 
-        private bool CheckIfIrbExists(string irbSearch)
+         private bool CheckIfIrbExists(UserResponse data)
         {
             // Replace with your actual logic to verify the IRB number
-            var data = _repository.GetUserResponseDetails(irbSearch);
+            //var data = _repository.GetUserResponseDetails(irbSearch);
             var irbFound = data.Id != null;
             if (data.Id == null)
             {
@@ -199,6 +215,24 @@ namespace ClinicalResearchApp.Controllers
             Log.Logger.Information($"In CheckIfIrbExists.....data.Id is: {data.Id}");
             Log.Logger.Information($"In CheckIfIrbExists.....irbFound is: {irbFound}");
             return irbFound; // Example: assume IRB "12345" exists
+        } 
+        
+    private bool CheckUserOnStudy(UserResponse data,String userJHED)
+        {
+        
+            var piJHED = data.PIJHED;
+            var studyJHED = data.StudyContactJHED; 
+            if (data.Id != null)
+            {
+                if (userJHED == piJHED || userJHED == studyJHED)
+                {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
 
         [HttpPost]

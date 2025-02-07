@@ -676,7 +676,7 @@ body {
     <input type="hidden" id="hidden-risk-level" name="riskLevel" value="">
      <button type="button" class="btn btn-primary" id="generatePdfButton">Generate PDF</button>
      <button type="button" class="btn btn-primary" id="generateTemplatePdf">Download Template PDF</button>
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary"  id="saveButton">Save</button>
        
         <div class="container"><div id="risk-level-note" class="sticky-note">Need to answer more questions to determine risk level.</div>
         
@@ -750,9 +750,22 @@ validateSection1();
         const inputs = form.querySelectorAll('input, textarea, select, button');
         const isViewOnly = @Json.Serialize(ViewBag.ViewOnly); // Convert Razor variable to JS
 
-        if (isViewOnly) {
+         if (isViewOnly) {
             inputs.forEach(input => input.setAttribute('disabled', true));
+            document.getElementById("IRBApplicationNumber").removeAttribute("disabled");
+            document.getElementById("StudyName").removeAttribute("disabled");
+            document.getElementById("PIFirstName").removeAttribute("disabled");
+            document.getElementById("PILastName").removeAttribute("disabled");
+            document.getElementById("PIJHED").removeAttribute("disabled");
+            document.getElementById("PIEmailAddress").removeAttribute("disabled");
+            document.getElementById("StudyContactFirstName").removeAttribute("disabled");
+            document.getElementById("StudyContactLastName").removeAttribute("disabled");
+            document.getElementById("StudyContactJHED").removeAttribute("disabled");
+            document.getElementById("StudyContactEmailAddress").removeAttribute("disabled");
+            document.getElementById("saveButton").disabled = false;
         }
+
+            
         // Function to collect Section 1 answers and return as individual parameters
         function collectSection1Answers() {
             let section1Answers = {};
@@ -960,7 +973,11 @@ validateSection1();
             // Handle the response from the server
             const result = await response.text();
             console.log('Received result from server:', result);
-            
+             if (result.startsWith("Tier X") || result.startsWith("Not enough information")) {
+                document.getElementById("generatePdfButton").disabled = true;
+            } else { 
+                document.getElementById("generatePdfButton").disabled = false;
+            }
             // Display the calculated tier in the console
             document.getElementById('hidden-risk-level').value = result;
             document.getElementById('risk-level-note').innerText = `Your risk level is: ${result}`;

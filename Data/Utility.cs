@@ -180,17 +180,17 @@ namespace ClinicalResearchApp.Data
                     Log.Logger.Information($"Tiers[i]: {tiers[i]}");
                    Log.Logger.Information($"Lowest Tier: {lowestTier}");
                      
-                    if ((tiers[i] == "Tier X") && (lowestTier == "Tier C" || lowestTier == "Tier B" || lowestTier == "Tier A" || lowestTier == "")) {
-                        lowestTier = "Tier X";
+                    if (tiers[i].StartsWith("Tier X") && (lowestTier.StartsWith("Tier C") || lowestTier.StartsWith("Tier B") || lowestTier.StartsWith("Tier A") || lowestTier == "")) {
+                        lowestTier = "Tier X - Prohibited; revise before submission";
                     }
-                    if ((tiers[i] == "Tier C") && (lowestTier == "Tier B" || lowestTier == "Tier A" || lowestTier == "")) {
-                        lowestTier = "Tier C";
+                    if (tiers[i].StartsWith("Tier C") && (lowestTier.StartsWith("Tier B") || lowestTier.StartsWith("Tier A") || lowestTier == "")) {
+                        lowestTier = "Tier C - Requires review";
                     }
-                    if ((tiers[i] == "Tier B") && (lowestTier == "Tier A" || lowestTier == "")) {
-                        lowestTier = "Tier B";
+                    if ((tiers[i].StartsWith("Tier B")) && (lowestTier.StartsWith("Tier A") || lowestTier == "")) {
+                        lowestTier = "Tier B - May require review";
                     }
-                    if ((tiers[i] == "Tier A") && (lowestTier == "")) {
-                        lowestTier = "Tier A";
+                    if ((tiers[i].StartsWith("Tier A")) && (lowestTier == "")) {
+                        lowestTier = "Tier A - Excellent";
                     }
                 }
             if (lowestTier == "") {

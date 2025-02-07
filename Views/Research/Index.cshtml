@@ -19,6 +19,7 @@ else
         width: 100%;
         border-collapse: collapse;
         margin: 25px 0;
+    using System.Diagnostics.Eventing.Reader;
         font-size: 14px;
         text-align: left;
     }
@@ -102,9 +103,9 @@ else
 
     @if (ViewBag.SearchPerformed != null && (bool)ViewBag.SearchPerformed)
     {
-        if ((bool)ViewBag.IrbFound)
+         if ((bool)ViewBag.IrbFound && (bool)ViewBag.UserOnStudy)
         {
-            <p>IRB Number found. Redirecting to the Edit view...</p>
+           
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     postAction('@ViewBag.IrbNumber', false);
@@ -131,16 +132,21 @@ else
                     form.submit();
                 }
             </script>
-        }
-        else
-        {
+        } else
+        { 
+           if ((bool)ViewBag.IrbFound && !(bool)ViewBag.UserOnStudy) {
+            <p>You are not listed as the PI or study contact for this IRB application. Please contact datatrust@jhmi.edu for assistance.</p>
+           }
+           else { 
             <p>IRB Number not found. Do you want to create a new Risk Tiers calculator?</p>
             <form method="post" asp-action="Edit">
                 <input type="hidden" name="id" value="@ViewBag.IrbNumber" />
                 <input type="hidden" name="createNewFlag" value="Y" />
+                <input type="hidden" name="userJHED" value="@ViewBag.jhed" />
                 <button type="submit" name="createNew" value="yes" class="btn btn-primary">Yes</button>
                 <button type="button" onclick="window.location.reload();" class="btn btn-secondary">No</button>
             </form>
+            }
         }
     }
 }
