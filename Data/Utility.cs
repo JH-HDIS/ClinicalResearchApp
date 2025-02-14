@@ -25,6 +25,12 @@ namespace ClinicalResearchApp.Data
             string hDataSharingLevel = humanDataSharingLevel;
             string involvesSensitiveHealth = involvesSensitiveHealthInfo;
             string dataSharing = dataSharingAgreement;
+            if (hDataSharingLevel == "4") // 4 is Data will not be copied, moved, or shared
+            {
+                dataLeaving = "N";
+            } else {
+                dataLeaving = "Y";
+            }
             Log.Logger.Information("In the CalculateTier function");
             Log.Logger.Information($"The dataLeavingJHM is: {dataLeaving}"); 
             Log.Logger.Information($"The involvesSensitiveHealthInfo is: {involvesSensitiveHealth}");
@@ -118,7 +124,28 @@ namespace ClinicalResearchApp.Data
                                 }
                             else
                                 {
-                                    if (colPos == "C1" || colPos == "C2")
+                                    if (colPos == "C1" || colPos == "C2" || colPos == "C3") // 1 is Text PHI, 2 is PHI > LDS, 3 is LDS
+                                    {
+                                        tiers.Add("Tier C");
+                                    }
+                                    else
+                                    {
+                                        if (numRec == "2") // 2 is 10,000 or more
+                                        {
+                                            tiers.Add("Tier C");
+                                        }
+                                        else
+                                        {
+                                            if (dataLeaving == "N") 
+                                            {
+                                                tiers.Add("Tier B");
+                                            }
+                                            else
+                                            {
+                                                tiers.Add("Tier C");
+                                            }
+                                        }
+                                    }
                                     {
                                         if (numRec == "0") {
                                             if (dataLeaving == "N") 
@@ -160,12 +187,13 @@ namespace ClinicalResearchApp.Data
                              Log.Logger.Information($"The dataSharing is: {dataSharing}"); 
                             if (dataSharing == "Y")
                             {
-                                tiers.Add("Tier C");
-                                Log.Logger.Information($"Adding Tier C to the list");
+                                // No change if covered by consent agreement
+                                //tiers.Add("Tier C");
+                                Log.Logger.Information($"No change Tool E & covered by consent agreement.");
                             }
                             else {
-                                tiers.Add("Tier X");
-                                Log.Logger.Information($"Adding Tier X to the list");
+                                tiers.Add("Tier C");
+                                Log.Logger.Information($"Adding Tier C to the list");
                                 }
 
                         }

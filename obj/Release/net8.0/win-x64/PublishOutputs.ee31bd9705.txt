@@ -1,6 +1,7 @@
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\ClinicalResearchApp.exe
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\appsettings.Development.json
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\appsettings.json
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\appsettings.QA.json
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\ClinicalResearchApp.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\ClinicalResearchApp.deps.json
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\ClinicalResearchApp.runtimeconfig.json

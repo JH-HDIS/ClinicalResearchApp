@@ -1590,3 +1590,4 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ref\ClinicalResearchApp.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1224.60305.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\appsettings.QA.json
