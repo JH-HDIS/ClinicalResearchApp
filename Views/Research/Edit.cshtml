@@ -1501,144 +1501,144 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // PDF Generation function
     function generatePdf() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
-    const tableData = collectDataTableSelections();
-    const versionNumber = "Version 1.0"; // Specify the version number here
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
+        const tableData = collectDataTableSelections();
+        const versionNumber = "Version 1.0"; // Specify the version number here
 
-    const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
-    const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
-    const piFirstName = document.getElementById("PIFirstName")?.value || "N/A";
-    const piLastName = document.getElementById("PILastName")?.value || "N/A";
-    const piJHED = document.getElementById("PIJHED")?.value || "N/A";
-    const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
-    const studyName = document.getElementById("StudyName")?.value || "N/A";
-    const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
-    const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
-    const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
-    const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
+        const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
+        const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
+        const piFirstName = document.getElementById("PIFirstName")?.value || "N/A";
+        const piLastName = document.getElementById("PILastName")?.value || "N/A";
+        const piJHED = document.getElementById("PIJHED")?.value || "N/A";
+        const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
+        const studyName = document.getElementById("StudyName")?.value || "N/A";
+        const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
+        const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
+        const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
+        const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
 
-      // Start PDF content
-doc.setFontSize(16);
-doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
+        // Start PDF content
+        doc.setFontSize(16);
+        doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
 
-// Initialize vertical position tracker
-let nextY = 20; // Start after the title
+        // Initialize vertical position tracker
+        let nextY = 20; // Start after the title
 
-// RTC and IRB Application Information
-doc.setFontSize(12);
-doc.setTextColor(0, 0, 0); // Black for labels
-doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, nextY);
-doc.setTextColor(0, 102, 204); // Blue for user data
-doc.text(rtcCompletionDate, 85, nextY);
+        // RTC and IRB Application Information
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0); // Black for labels
+        doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, nextY);
+        doc.setTextColor(0, 102, 204); // Blue for user data
+        doc.text(rtcCompletionDate, 85, nextY);
 
-doc.setTextColor(0, 0, 0);
-doc.text("IRB Application Number: ", 10, nextY + 10);
-doc.setTextColor(0, 102, 204);
-doc.text(irbApplicationNumber, 70, nextY + 10);
+        doc.setTextColor(0, 0, 0);
+        doc.text("IRB Application Number: ", 10, nextY + 10);
+        doc.setTextColor(0, 102, 204);
+        doc.text(irbApplicationNumber, 70, nextY + 10);
 
-// Define the maximum width for the Study Name text
-const maxWidth = 80; // Adjust this value to control the wrapping width
+        // Define the maximum width for the Study Name text
+        const maxWidth = 80; // Adjust this value to control the wrapping width
 
-// Split the Study Name text to fit within the defined width
-const wrappedStudyName = doc.splitTextToSize(studyName, maxWidth);
+        // Split the Study Name text to fit within the defined width
+        const wrappedStudyName = doc.splitTextToSize(studyName, maxWidth);
 
-// Set text color and render the label
-doc.setTextColor(0, 0, 0);
-doc.text("Study Name: ", 150, nextY + 10); // Align Study Name to the right of IRB Application Number
+        // Set text color and render the label
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Name: ", 150, nextY + 10); // Align Study Name to the right of IRB Application Number
 
-// Set text color for the Study Name and render the wrapped text
-doc.setTextColor(0, 102, 204);
-wrappedStudyName.forEach((line, index) => {
-    doc.text(line, 210, nextY + 10 + (index * 6)); // Adjust line spacing as needed (6 is the line height)
-});
+        // Set text color for the Study Name and render the wrapped text
+        doc.setTextColor(0, 102, 204);
+        wrappedStudyName.forEach((line, index) => {
+            doc.text(line, 210, nextY + 10 + (index * 6)); // Adjust line spacing as needed (6 is the line height)
+        });
 
-// Adjust nextY to account for the height of the wrapped text
-nextY += 10 + (wrappedStudyName.length * 6);
-// Increment nextY for the next section
-nextY += 20;
+        // Adjust nextY to account for the height of the wrapped text
+        nextY += 10 + (wrappedStudyName.length * 6);
+        // Increment nextY for the next section
+        nextY += 20;
 
-// PI and Study Contact Information (side by side)
-doc.setTextColor(0, 0, 0);
-doc.text("PI First Name: ", 10, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(piFirstName, 70, nextY);
+        // PI and Study Contact Information (side by side)
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI First Name: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piFirstName, 70, nextY);
 
-doc.setTextColor(0, 0, 0);
-doc.text("Study Contact First Name: ", 150, nextY); // Align Study Contact First Name to the right
-doc.setTextColor(0, 102, 204);
-doc.text(studyContactFirstName, 210, nextY);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact First Name: ", 150, nextY); // Align Study Contact First Name to the right
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactFirstName, 210, nextY);
 
-nextY += 10; // Increment Y for the next line
-doc.setTextColor(0, 0, 0);
-doc.text("PI Last Name: ", 10, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(piLastName, 70, nextY);
+        nextY += 10; // Increment Y for the next line
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI Last Name: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piLastName, 70, nextY);
 
-doc.setTextColor(0, 0, 0);
-doc.text("Study Contact Last Name: ", 150, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(studyContactLastName, 210, nextY);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact Last Name: ", 150, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactLastName, 210, nextY);
 
-nextY += 10; // Increment Y for the next line
-doc.setTextColor(0, 0, 0);
-doc.text("PI JHED: ", 10, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(piJHED, 70, nextY);
+        nextY += 10; // Increment Y for the next line
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI JHED: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piJHED, 70, nextY);
 
-doc.setTextColor(0, 0, 0);
-doc.text("Study Contact JHED: ", 150, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(studyContactJHED, 210, nextY);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact JHED: ", 150, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactJHED, 210, nextY);
 
-nextY += 10; // Increment Y for the next line
-doc.setTextColor(0, 0, 0);
-doc.text("PI Email Address: ", 10, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(piEmailAddress, 70, nextY);
+        nextY += 10; // Increment Y for the next line
+        doc.setTextColor(0, 0, 0);
+        doc.text("PI Email Address: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(piEmailAddress, 70, nextY);
 
-doc.setTextColor(0, 0, 0);
-doc.text("Study Contact Email Address: ", 150, nextY);
-doc.setTextColor(0, 102, 204);
-doc.text(studyContactEmailAddress, 210, nextY);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Study Contact Email Address: ", 150, nextY);
+        doc.setTextColor(0, 102, 204);
+        doc.text(studyContactEmailAddress, 210, nextY);
 
-    // Section 1: Data Characteristics and Data Access
-    nextY += 15; // Small spacing before Section 1
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0); // Black for the section header
-    doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
+        // Section 1: Data Characteristics and Data Access
+        nextY += 15; // Small spacing before Section 1
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0); // Black for the section header
+        doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
 
-  nextY += 10;
-    doc.setFontSize(12);
-    doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
-    doc.text(involvesSensitiveHealthInfo, 120, nextY);
+        nextY += 10;
+        doc.setFontSize(12);
+        doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(involvesSensitiveHealthInfo, 120, nextY);
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("1B. Number of People/Records: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
-    doc.text(numberOfPeopleOrRecords, 120, nextY);
+        nextY += 10;
+        doc.setTextColor(0, 0, 0);
+        doc.text("1B. Number of People/Records: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(numberOfPeopleOrRecords, 120, nextY);
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("1C. Human Data Sharing Level: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
-    doc.text(humanDataSharingLevel, 120, nextY);
+        nextY += 10;
+        doc.setTextColor(0, 0, 0);
+        doc.text("1C. Human Data Sharing Level: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(humanDataSharingLevel, 120, nextY);
 
-    nextY += 10;
-    doc.setTextColor(0, 0, 0);
-    doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
-    doc.setTextColor(0, 102, 204);
-    const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
-    doc.text(allActivitiesCoveredByConsent, 120, nextY);
+        nextY += 10;
+        doc.setTextColor(0, 0, 0);
+        doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
+        doc.setTextColor(0, 102, 204);
+        const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
+        doc.text(allActivitiesCoveredByConsent, 120, nextY);
 
         // Start new page for Section 2
         doc.addPage();
-        doc.setTextColor(0, 0, 0); 
+        doc.setTextColor(0, 0, 0);
         doc.setFontSize(14);
         doc.text("Section 2: Data Storage", 10, 10);
 
@@ -1657,12 +1657,23 @@ doc.text(studyContactEmailAddress, 210, nextY);
             startY: 20,
         });
 
-        // Add the ORA/JHURA question and risk level below the table, in light blue for user response
-        doc.setTextColor(0, 0, 0);  // Set black for label
-        doc.text("Is data sharing covered by an ORA/JHURA agreement: ", 10, doc.lastAutoTable.finalY + 10);
-        doc.setTextColor(0, 102, 204);  // Set light blue for the user response
-        const dataSharingAgreement = document.querySelector('input[name="DataSharingAgreement"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(dataSharingAgreement, 140, doc.lastAutoTable.finalY + 10); // User response in light blue
+        // Check if all Section E rows are "Not Used"
+        const sectionERadios = document.querySelectorAll('input[data-option^="2.E."]');
+        let isSectionEAllNotUsed = true;
+        sectionERadios.forEach(radio => {
+            if (radio.checked && radio.getAttribute("data-column") !== "C7") {
+                isSectionEAllNotUsed = false;
+            }
+        });
+
+        // Add the ORA/JHURA question and risk level only if Section E is not all "Not Used"
+        if (!isSectionEAllNotUsed) {
+            doc.setTextColor(0, 0, 0);  // Set black for label
+            doc.text("Is data sharing covered by an ORA/JHURA agreement: ", 10, doc.lastAutoTable.finalY + 10);
+            doc.setTextColor(0, 102, 204);  // Set light blue for the user response
+            const dataSharingAgreement = document.querySelector('input[name="DataSharingAgreement"]:checked')?.nextElementSibling.textContent || "N/A";
+            doc.text(dataSharingAgreement, 140, doc.lastAutoTable.finalY + 10); // User response in light blue
+        }
 
         // Add Risk Level below ORA/JHURA
         doc.setTextColor(0, 0, 0);
@@ -1679,38 +1690,38 @@ doc.text(studyContactEmailAddress, 210, nextY);
     }
 
     function collectDataTableSelections() {
-    const dataTableSelections = [];
-    const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
+        const dataTableSelections = [];
+        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
 
-    dataTableRadioButtons.forEach((radio) => {
-        if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
-            const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
-            const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
-            
-            // Get the row's first cell text and remove the option number prefix
-            let optionDescriptionElement = radio.closest("tr").querySelector("td");
-            let optionDescription = optionDescriptionElement ? optionDescriptionElement.textContent.trim() : "";
+        dataTableRadioButtons.forEach((radio) => {
+            if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
+                const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
+                const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
 
-            // Remove the leading option number if it repeats (e.g., "2.P.1 2.P.1 SAFER or SAFE Desktop")
-            if (optionDescription.startsWith(option)) {
-                optionDescription = optionDescription.replace(option, "").trim();
+                // Get the row's first cell text and remove the option number prefix
+                let optionDescriptionElement = radio.closest("tr").querySelector("td");
+                let optionDescription = optionDescriptionElement ? optionDescriptionElement.textContent.trim() : "";
+
+                // Remove the leading option number if it repeats (e.g., "2.P.1 2.P.1 SAFER or SAFE Desktop")
+                if (optionDescription.startsWith(option)) {
+                    optionDescription = optionDescription.replace(option, "").trim();
+                }
+
+                let existing = dataTableSelections.find((entry) => entry.option === option);
+                if (existing) {
+                    existing.columns.push(column);
+                } else {
+                    dataTableSelections.push({
+                        option: option,
+                        columns: [column],
+                        optionWithDescription: `${option} ${optionDescription}`.trim(), // Ensure clean formatting
+                    });
+                }
             }
+        });
 
-            let existing = dataTableSelections.find((entry) => entry.option === option);
-            if (existing) {
-                existing.columns.push(column);
-            } else {
-                dataTableSelections.push({
-                    option: option,
-                    columns: [column],
-                    optionWithDescription: `${option} ${optionDescription}`.trim(), // Ensure clean formatting
-                });
-            }
-        }
-    });
-
-    return dataTableSelections;
-}
+        return dataTableSelections;
+    }
 });
 </script>
 
