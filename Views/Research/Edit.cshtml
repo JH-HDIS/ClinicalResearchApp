@@ -1475,6 +1475,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const skipBtn = document.getElementById("skipBtn");
     const userEmailInput = document.getElementById("userEmail");
 
+    // Function to fetch and populate user's email
+    async function fetchUserEmail() {
+        try {
+            const response = await fetch('/Home/GetUserEmail'); // Call API
+            const data = await response.json(); // Parse JSON response
+            
+            if (data.success && data.email) {
+                userEmailInput.value = data.email; // Populate email input
+            }
+        } catch (error) {
+            console.error("Error fetching user email:", error);
+        }
+    }
+
     // Handle the case where the user skips the email
     skipBtn.addEventListener("click", function () {
         const doc = generatePdf();
@@ -1496,6 +1510,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     generatePdfButton.addEventListener("click", function () {
+        fetchUserEmail(); // Fetch email before showing modal
         $("#emailModal").modal("show");
     });
 
