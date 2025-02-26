@@ -324,13 +324,15 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\hostfxr.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\hostpolicy.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore_amd64_amd64_8.0.1224.60305.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore_amd64_amd64_8.0.1325.6609.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordbi.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscorrc.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\msquic.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\aspnetcorev2_inprocess.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Azure.Core.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Azure.Identity.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\BouncyCastle.Cryptography.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\MailKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.Data.SqlClient.dll
@@ -344,6 +346,7 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.IdentityModel.Tokens.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.SqlServer.Server.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\MimeKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.AspNetCore.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.Extensions.Hosting.dll

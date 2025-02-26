@@ -371,3 +371,8 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\Clinical
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MailKit.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MimeKit.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

@@ -188,7 +188,8 @@ body {
 <!-- 1A -->
 <div class="form-group">
     <label asp-for="InvolvesSensitiveHealthInfo">
-        1A. My study will involve storage or use of sensitive health information.
+        1A. My study will involve storage or use of sensitive health information (defined as Psychiatry, Psychology, or Substance Abuse notes or diagnoses, diagnoses or test results explicitly related to HIV,  
+or whole exome/genome sequencing data).
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -207,7 +208,7 @@ body {
 <!-- 1B -->
 <div class="form-group">
     <label asp-for="NumberOfPeopleOrRecords">
-        1B. Number of people to be enrolled or records to be reviewed.
+        1B. Number of people to be enrolled or records to be reviewed (largest applicable number).
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -231,7 +232,11 @@ body {
 <!-- 1C -->
 <div class="form-group">
     <label asp-for="HumanDataSharingLevel">
-        1C. What (if any) human data will be copied, moved, or shared? See <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">Levels of Identification</a>
+        1C. What (if any) human data will be copied, moved, or shared with, published, or viewable by people outside the 
+        <a href="https://livejohnshopkins.sharepoint.com/sites/inside-privacy-office/SitePages/about-hipaa/Index.aspx?xsdata=MDV8MDJ8YnNoYXJtMTJAamhtaS5lZHV8ZWE0NTQwZTkyZTI4NDA3YmMyZGEwOGRkNTEyZDNkN2F8OWZhNGY0MzhiMWU2NDczYjgwM2Y4NmY4YWVkZjBkZWN8MHwwfDYzODc1NTk3Njk0NTkxMjI0NnxVbmtub3dufFRXRnBiR1pzYjNkOGV5SkZiWEIwZVUxaGNHa2lPblJ5ZFdVc0lsWWlPaUl3TGpBdU1EQXdNQ0lzSWxBaU9pSlhhVzR6TWlJc0lrRk9Jam9pVFdGcGJDSXNJbGRVSWpveWZRPT18MHx8fA%3d%3d&sdata=em5XL3hWSlhtbFhZdVpxc3h0OE1WQU9ERGs5WFYwUnFiVWdsUk90SEdxaz0%3d" 
+           target="_blank">JHM Covered Entity</a>? 
+        Consider collaboration and sharing with or as required by a sponsor or publisher. 
+        See <a href="https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data" target="_blank">Levels of Identification of Data</a> for information on responses.
         <span style="color: red; font-size: smaller;">&#42; Required</span>
     </label>
     <div class="form-check">
@@ -359,7 +364,7 @@ body {
         }
 </tr>
 <tr>
-    <td>2.P.5 <a href="https://redcap.jhu.edu/" target="_blank">JHU/ACH REDCap</a></td>
+    <td>2.P.5 <a href="https://redcap.jhu.edu/" target="_blank">JHU</a>/<a href="https://www.hopkinsmedicine.org/all-childrens-hospital/academics/research/institute-for-clinical-and-translational-research/data-coordinating-center/database-design-and-data-management" target="_blank">ACH</a> REDCap</td>
     @foreach (var column in new[] { "C1", "C2", "C3", "C4", "C5", "C6", "C7" })
         {
             <td>
