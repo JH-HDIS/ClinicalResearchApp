@@ -288,8 +288,10 @@ C:\Users\bsharm12\AppData\Local\GitHubDesktop\app-3.4.9\ClinicalResearchApp\obj\
 C:\Users\bsharm12\AppData\Local\GitHubDesktop\app-3.4.9\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.pdb
 C:\Users\bsharm12\AppData\Local\GitHubDesktop\app-3.4.9\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\bsharm12\AppData\Local\GitHubDesktop\app-3.4.9\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.json
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\ClinicalResearchApp.staticwebassets.runtime.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\ClinicalResearchApp.exe
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\ClinicalResearchApp.deps.json
@@ -298,6 +300,8 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Clinical
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\ClinicalResearchApp.pdb
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MailKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
@@ -311,6 +315,7 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsof
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MimeKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Serilog.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Serilog.AspNetCore.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
@@ -325,6 +330,7 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.C
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Memory.Data.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\de\Microsoft.Data.SqlClient.resources.dll
@@ -344,6 +350,7 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.csproj.AssemblyReference.cache
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.AssemblyInfoInputs.cache
@@ -369,10 +376,3 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\refint\C
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.pdb
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Debug\net8.0\ref\ClinicalResearchApp.dll
-C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\appsettings.QA.json
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MailKit.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\MimeKit.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

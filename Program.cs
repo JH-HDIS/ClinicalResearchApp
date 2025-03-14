@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.File("Logs/myapp.log", rollingInterval: RollingInterval.Day)  // Log to a file with daily rolling
     .CreateLogger();
@@ -23,9 +22,9 @@ builder.Host.UseSerilog();  // Integrate Serilog with the ASP.NET Core logging s
 ServicePointManager.ServerCertificateValidationCallback = 
         (sender, certificate, chain, sslPolicyErrors) => true;
 
-
 // Bind OpenIdConnect configuration from appsettings.json
 var openIdConnectSettings = builder.Configuration.GetSection("OpenIdConnect");
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureApplicationCookie(options =>
@@ -33,6 +32,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.None; // Allows cross-origin cookies
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Requires HTTPS
 });
+
+// Register EmailService for Dependency Injection
+builder.Services.AddSingleton<EmailService>();
 
 builder.Services.AddLogging(builder =>
 {
@@ -65,7 +67,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         ValidIssuer = "https://login.jh.edu/idp/shibboleth"
     };
-    //options.MetadataAddress = "https://login.jh.edu/idp/shibboleth/.well-known/openid-configuration";
+
     options.Scope.Clear();
     options.Scope.Add("openid");
     options.Scope.Add("profile");
@@ -73,30 +75,27 @@ builder.Services.AddAuthentication(options =>
 
     options.CallbackPath = openIdConnectSettings["CallbackPath"];
 
-
     // Use JWT Bearer for token validation
-
     options.Events = new OpenIdConnectEvents
     {
         OnAuthorizationCodeReceived = context =>
-            {
-                Console.WriteLine($"Authorization code received: {context.ProtocolMessage.Code}");
-                Log.Information("OnAuthorizationCodeReceived Event!! ProtocolMessage Code: ", context.ProtocolMessage?.Code);
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                logger.LogDebug("Authorization code received:");
-                logger.LogDebug(context.ProtocolMessage?.Code);
-                return Task.CompletedTask;
-            },
+        {
+            Console.WriteLine($"Authorization code received: {context.ProtocolMessage.Code}");
+            Log.Information("OnAuthorizationCodeReceived Event!! ProtocolMessage Code: ", context.ProtocolMessage?.Code);
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+            logger.LogDebug("Authorization code received:");
+            logger.LogDebug(context.ProtocolMessage?.Code);
+            return Task.CompletedTask;
+        },
         OnMessageReceived = context =>
-            {
-                Log.Information("OnMessageReceived Event!! ProtocolMessage: ", context.ProtocolMessage?.ToString());
-
-                Console.WriteLine(context.ProtocolMessage?.ToString());
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                logger.LogDebug("Message received from Identity Provider:");
-                logger.LogDebug(context.ProtocolMessage?.ToString());
-                return Task.CompletedTask;
-            },
+        {
+            Log.Information("OnMessageReceived Event!! ProtocolMessage: ", context.ProtocolMessage?.ToString());
+            Console.WriteLine(context.ProtocolMessage?.ToString());
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+            logger.LogDebug("Message received from Identity Provider:");
+            logger.LogDebug(context.ProtocolMessage?.ToString());
+            return Task.CompletedTask;
+        },
         OnRedirectToIdentityProvider = context =>
         {
             Log.Information("OnRedirectToIdentity Provider Event!! Redirecting to Identity Provider. Request: {RequestUri}", context.ProtocolMessage.CreateAuthenticationRequestUrl());
@@ -115,17 +114,15 @@ builder.Services.AddAuthentication(options =>
         },
         OnRemoteFailure = context =>
         {
-           Log.Error("OnRemoteFailure Event! Remote Failure in OIDC: {ErrorMessage}. Exception: {Exception}",
+            Log.Error("OnRemoteFailure Event! Remote Failure in OIDC: {ErrorMessage}. Exception: {Exception}",
                 context.Failure?.Message,
                 context.Failure);
-            // Redirect to custom error page
             context.Response.Redirect("/Home/Error");
             context.HandleResponse(); // Suppress default error handling
             return Task.CompletedTask;
         },
-       OnAuthenticationFailed = context =>
+        OnAuthenticationFailed = context =>
         {
-            // Capture detailed error message
             Log.Error("OnAuthenticationFailed Event! Remote Failure in OIDC: {ErrorMessage}. Exception: {Exception}",
                 context.Exception?.Message,
                 context.Exception?.StackTrace);
@@ -134,11 +131,8 @@ builder.Services.AddAuthentication(options =>
             var contextMsg = context.ProtocolMessage?.ToString() ?? "No ProtocolMessage available";
             var requestURI = context.ProtocolMessage?.RequestUri;
             context.HttpContext.Items["RequestURI"] = requestURI;
-            // Pass error details to the error page (via query string or context items)
             context.HttpContext.Items["ErrorMessage"] = errorMessage;
             context.HttpContext.Items["ErrorDetails"] = errorDetails + contextMsg + requestURI;
-
-            // Redirect to custom error page
             context.Response.Redirect("/Home/Error");
             context.HandleResponse(); // Suppress default error handling
             return Task.CompletedTask;
@@ -148,12 +142,10 @@ builder.Services.AddAuthentication(options =>
             var idToken = context.SecurityToken as JwtSecurityToken;
             Console.WriteLine($"ID Token: {idToken.RawData}");
             Log.Information("OnTokenValidated Event!!", idToken.ToString);
-            // Optionally decode and log claims
             foreach (var claim in idToken.Claims)
             {
                 Log.Information($"Claim Type: {claim.Type}, Value: {claim.Value}");
             }
-
             return Task.CompletedTask;
         }
     };
@@ -170,17 +162,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 // Enable authentication and authorization middleware
-app.UseAuthentication(); // This adds authentication to the middleware pipeline
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 app.MapDefaultControllerRoute();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Research}/{action=Index}/{id?}");
 
 app.Run();
-

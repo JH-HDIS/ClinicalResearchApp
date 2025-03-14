@@ -9,7 +9,7 @@
     -->
     
     <!-- Link to your custom styles.css file -->
-    <link rel="stylesheet" href="styles.css">
+    
 
     <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -671,7 +671,7 @@ or whole exome/genome sequencing data).
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="skipBtn">Display PDF</button>
         <button type="button" class="btn btn-primary" id="sendEmailBtn">Yes, I'd like a copy</button>
       </div>
-
+      <p id="emailResponse" class="mt-2 text-center"></p> 
     </div>
   </div>
       <!-- Hidden input for risk-level-note 
@@ -692,6 +692,7 @@ or whole exome/genome sequencing data).
         
     </form>
 </div>
+
 <script>
    var globalsection1A = "";
    var globalsection1B = "";
@@ -1822,6 +1823,60 @@ document.addEventListener("DOMContentLoaded", function () {
             riskNote.style.bottom = '0';
         });
 </script>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const sendEmailBtn = document.getElementById("sendEmailBtn");
+        const userEmailInput = document.getElementById("userEmail");
+        const responseText = document.getElementById("emailResponse"); // ✅ Ensuring this exists
+
+        if (!sendEmailBtn || !userEmailInput || !responseText) {
+            console.error("❌ Missing elements in the DOM. Ensure 'emailResponse' exists.");
+            return;
+        }
+
+        sendEmailBtn.addEventListener("click", async function () {
+            const recipientEmail = userEmailInput.value.trim(); // Trim spaces
+
+            if (!recipientEmail) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            responseText.innerText = "⏳ Sending email..."; // ✅ Ensures response is shown
+
+            // Prepare request body
+            const bodyData = JSON.stringify({
+                recipientEmail: recipientEmail,
+                subject: "Your Requested Document",
+                body: "Please find your requested document attached."
+            });
+
+            try {
+                const response = await fetch("/api/email/send", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Content-Length": bodyData.length.toString() // ✅ Fix for HTTP 411
+                    },
+                    body: bodyData
+                });
+
+                if (!response.ok) {
+                    const errorMessage = `❌ Error ${response.status}: ${response.statusText}`;
+                    responseText.innerText = errorMessage;
+                    console.error("Email API Error:", errorMessage);
+                    return;
+                }
+
+                const data = await response.json();
+                responseText.innerText = "✅ Email sent successfully!";
+            } catch (error) {
+                responseText.innerText = "❌ Error sending email. Please try again.";
+                console.error("Email Error:", error);
+            }
+        });
+    });
+</script>
 
 <!-- Load jQuery first -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -1829,11 +1884,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- Load Bootstrap JS -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Load your custom JavaScript last -->
-<script src="~/js/logic.js"></script>
-@section Scripts {
-    <script src="~/logic.js"></script>
-}
+
 
 </body>
 </html>
