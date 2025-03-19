@@ -772,40 +772,44 @@ validateSection1();
         }
 
             
-        // Function to collect Section 1 answers and return as individual parameters
-        function collectSection1Answers() {
-            let section1Answers = {};
+       // Function to collect Section 1 answers and return as individual parameters
+function collectSection1Answers() {
+    let section1Answers = {};
 
-            // Get the selected answer for 1A
-            section1A.forEach(radio => {
-                if (radio.checked) {
-                    section1Answers.section1A = radio.value;
-                }
-            });
-
-            // Get the selected answer for 1B
-            section1B.forEach(radio => {
-                if (radio.checked) {
-                    section1Answers.section1B = radio.value;
-                }
-            });
-
-            // Get the selected answer for 1C
-            section1C.forEach(radio => {
-                if (radio.checked) {
-                    section1Answers.section1C = radio.value;
-                }
-            });
-
-            // Get the selected answer for 1D
-            section1D.forEach(radio => {
-                if (radio.checked) {
-                    section1Answers.section1D = radio.value;
-                }
-            });
-
-            return section1Answers;
+    // Get the selected answer for 1A
+    section1A.forEach(radio => {
+        if (radio.checked) {
+            // Retrieve the full text of the selected option (e.g., "1.A.1 Yes")
+            section1Answers.section1A = radio.parentElement.textContent.trim();
         }
+    });
+
+    // Get the selected answer for 1B
+    section1B.forEach(radio => {
+        if (radio.checked) {
+            // Retrieve the full text of the selected option (e.g., "1.B.1 1-499")
+            section1Answers.section1B = radio.parentElement.textContent.trim();
+        }
+    });
+
+    // Get the selected answer for 1C
+    section1C.forEach(radio => {
+        if (radio.checked) {
+            // Retrieve the full text of the selected option (e.g., "1.C.2 LDS")
+            section1Answers.section1C = radio.parentElement.textContent.trim();
+        }
+    });
+
+    // Get the selected answer for 1D
+    section1D.forEach(radio => {
+        if (radio.checked) {
+            // Retrieve the full text of the selected option (e.g., "1.D.2 No")
+            section1Answers.section1D = radio.parentElement.textContent.trim();
+        }
+    });
+
+    return section1Answers;
+}
 
         // Function to collect Data Table radio button selections and return as an array of arrays
         function collectDataTableSelections() {
@@ -1007,222 +1011,6 @@ validateSection1();
     });
 </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const versionNumber = "Version 1.0"; // Define the version number once here
-
-    // Display version number on the webpage
-    document.getElementById("version-number").textContent = versionNumber;
-document.addEventListener("DOMContentLoaded", function () {
-    const generatePdfButton = document.getElementById("generatePdfButton");
-    const sendEmailBtn = document.getElementById("sendEmailBtn");
-    const skipBtn = document.getElementById("skipBtn");
-    const userEmailInput = document.getElementById("userEmail");
-
-    // Handle the case where the user skips the email
-    skipBtn.addEventListener("click", function () {
-        const doc = generatePdf();
-        const pdfBlob = doc.output("blob");
-        const blobUrl = URL.createObjectURL(pdfBlob);
-        window.open(blobUrl, "_blank");
-        $("#emailModal").modal("hide");
-    });
-
-    sendEmailBtn.addEventListener("click", function () {
-        const email = userEmailInput.value;
-        if (email) {
-            console.log("Send PDF to email:", email);
-            alert("A copy of the PDF will be sent to " + email);
-            $("#emailModal").modal("hide");
-        } else {
-            alert("Please enter a valid email address.");
-        }
-    });
-
-    generatePdfButton.addEventListener("click", function () {
-        $("#emailModal").modal("show");
-    });
-
-    // PDF Generation function
-    function generatePdf() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
-        const tableData = collectDataTableSelections();
-        const versionNumber = "1.0"; // Specify the version number here
-
-        const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
-        const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
-        const piFirstName = document.getElementById("PIFirstName")?.value || "N/A";
-        const piLastName = document.getElementById("PILastName")?.value || "N/A";
-        const piJHED = document.getElementById("PIJHED")?.value || "N/A";
-        const piEmailAddress = document.getElementById("PIEmailAddress")?.value || "N/A";
-        const studyName = document.getElementById("StudyName")?.value || "N/A";
-        const studyContactFirstName = document.getElementById("StudyContactFirstName")?.value || "N/A";
-        const studyContactLastName = document.getElementById("StudyContactLastName")?.value || "N/A";
-        const studyContactJHED = document.getElementById("StudyContactJHED")?.value || "N/A";
-        const studyContactEmailAddress = document.getElementById("StudyContactEmailAddress")?.value || "N/A";
-
-        doc.setFontSize(16);
-        doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
-
-        // Set the color of the user responses to blue
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);  // Labels remain black
-        doc.text("RTC Completion Date (yyyy-mm-dd): ", 10, 20);
-        doc.setTextColor(0, 102, 204);  // Change the color to blue for responses
-        doc.text(rtcCompletionDate, 70, 20);  // User response
-        doc.setTextColor(0, 0, 0); // Switch back to black for labels
-        doc.text("IRB Application Number: ", 10, 30);
-        doc.setTextColor(0, 102, 204);  // Change the color to blue for responses
-        doc.text(irbApplicationNumber, 70, 30);  // User response
-        doc.setTextColor(0, 0, 0); 
-        doc.text("PI First Name: ", 10, 40);
-        doc.setTextColor(0, 102, 204);
-        doc.text(piFirstName, 70, 40); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("PI Last Name: ", 10, 50);
-        doc.setTextColor(0, 102, 204);
-        doc.text(piLastName, 70, 50); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("PI JHED: ", 10, 60);
-        doc.setTextColor(0, 102, 204);
-        doc.text(piJHED, 70, 60); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("PI Email Address: ", 10, 70);
-        doc.setTextColor(0, 102, 204);
-        doc.text(piEmailAddress, 70, 70);
-
-        // Study Contact Info Section
-       // Study Name Wrapping Logic
-    let nextY = 80; // Start Y-position for Study Name
-    doc.setTextColor(0, 0, 0);
-    doc.text("Study Name: ", 10, nextY); // Label position
-
-    doc.setTextColor(0, 102, 204);
-    const studyNameWrapped = doc.splitTextToSize(studyName, 150);
-    doc.text(studyNameWrapped, 70, nextY);
-
-    const lineHeight = 6;
-    const studyNameHeight = studyNameWrapped.length * lineHeight;
-    nextY += studyNameHeight + 5;
-        doc.text("Study Contact First Name: ", 10, 80);
-        doc.setTextColor(0, 102, 204);
-        doc.text(studyContactFirstName, 70, 80); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("Study Contact Last Name: ", 10, 90);
-        doc.setTextColor(0, 102, 204);
-        doc.text(studyContactLastName, 70, 90); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("Study Contact JHED: ", 10, 100);
-        doc.setTextColor(0, 102, 204);
-        doc.text(studyContactJHED, 70, 100); 
-        doc.setTextColor(0, 0, 0);
-        doc.text("Study Contact Email Address: ", 10, 110);
-        doc.setTextColor(0, 102, 204);
-        doc.text(studyContactEmailAddress, 70, 110);
-
-// Calculate dynamic position for Section 1
-let nextY = 70; // Last line of Study Contact section
-nextY += 5; // Add a small padding (e.g., 10 units)
-        
-        // Section 1: Data Characteristics and Data Access
-        doc.setFontSize(14);
-        doc.setTextColor(0, 0, 0);  // Black for the section header
-        doc.text("Section 1: Data Characteristics and Data Access", 10, 115);
-        doc.setFontSize(12);
-
-        doc.text("1A. Involves Sensitive Health Info: ", 10, 130);
-        doc.setTextColor(0, 102, 204);
-        const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(involvesSensitiveHealthInfo, 120, 130); 
-
-        doc.setTextColor(0, 0, 0); 
-        doc.text("1B. Number of People/Records: ", 10, 140);
-        doc.setTextColor(0, 102, 204);
-        const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(numberOfPeopleOrRecords, 120, 140);  
-
-        doc.setTextColor(0, 0, 0); 
-        doc.text("1C. Human Data Sharing Level: ", 10, 150);
-        doc.setTextColor(0, 102, 204);
-        const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(humanDataSharingLevel, 120, 150); 
-
-        doc.setTextColor(0, 0, 0); 
-        doc.text("1D. All Activities Covered By Consent: ", 10, 160);
-        doc.setTextColor(0, 102, 204);
-        const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(allActivitiesCoveredByConsent, 120, 160);
-
-        // Start new page for Section 2
-        doc.addPage();
-        doc.setTextColor(0, 0, 0); 
-        doc.setFontSize(14);
-        doc.text("Section 2: Data Storage", 10, 10);
-
-        // Add the Data Table
-        doc.autoTable({
-            head: [["Option", "Text PHI", "PHI > LDS", "LDS", "PII But No PHI", "No PHI/PII", "Aggregate (Counts)", "Not Used"]],
-            body: tableData.map((row) => [
-                row.optionWithDescription,  // Include the option with its description
-                row.columns.includes("C1") ? "x" : "",
-                row.columns.includes("C2") ? "x" : "",
-                row.columns.includes("C3") ? "x" : "",
-                row.columns.includes("C4") ? "x" : "",
-                row.columns.includes("C5") ? "x" : "",
-                row.columns.includes("C6") ? "x" : "",
-            ]),
-            startY: 20,
-        });
-
-        // Add the ORA/JHURA question and risk level below the table, in light blue for user response
-        doc.setTextColor(0, 0, 0);  // Set black for label
-        doc.text("Is data sharing covered by an ORA/JHURA agreement: ", 10, doc.lastAutoTable.finalY + 10);
-        doc.setTextColor(0, 102, 204);  // Set light blue for the user response
-        const dataSharingAgreement = document.querySelector('input[name="DataSharingAgreement"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(dataSharingAgreement, 140, doc.lastAutoTable.finalY + 10); // User response in light blue
-
-        // Add Risk Level below ORA/JHURA
-        doc.setTextColor(0, 0, 0);
-        doc.text("Risk Level: ", 10, doc.lastAutoTable.finalY + 20);
-        doc.setTextColor(0, 102, 204);
-        const riskLevel = document.getElementById('risk-level-note').innerText || "Risk level not calculated";
-        doc.text(riskLevel, 60, doc.lastAutoTable.finalY + 20);  // Response in light blue
-
-        // Add version number below Risk Level
-        doc.setTextColor(0, 0, 0);  // Back to black for the version number
-        doc.text("Version: " + versionNumber, 10, doc.lastAutoTable.finalY + 30);  // Version number at the bottom
-
-        return doc;
-    }
-
-    function collectDataTableSelections() {
-        const dataTableSelections = [];
-        const dataTableRadioButtons = document.querySelectorAll('input[type="radio"][data-option]');
-
-        dataTableRadioButtons.forEach((radio) => {
-            if (radio.checked && radio.getAttribute("data-column") !== "C7") { // Exclude "Not Used" (C7)
-                const option = radio.getAttribute("data-option"); // Get the option number (e.g., "2.P.1")
-                const column = radio.getAttribute("data-column"); // Get the column where the radio button was selected
-                const optionDescription = radio.closest("tr").querySelector("td").textContent.trim(); // Get the description text from the first cell in the row
-
-                let existing = dataTableSelections.find((entry) => entry.option === option);
-                if (existing) {
-                    existing.columns.push(column);
-                } else {
-                    dataTableSelections.push({
-                        option: option,
-                        columns: [column],
-                        optionWithDescription: `${option} ${optionDescription}`, // Add both the option number and its description
-                    });
-                }
-            }
-        });
-
-        return dataTableSelections;
-    }
-});
-</script>
 <script>
     document.getElementById("generateTemplatePdf").addEventListener("click", function () {
         const { jsPDF } = window.jspdf;
@@ -1476,10 +1264,60 @@ nextY = doc.lastAutoTable.finalY + 20;
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    const versionNumber = "Version 1.0"; // Define the version number once here
+
+    // Display version number on the webpage
+    document.getElementById("version-number").textContent = versionNumber;
+
     const generatePdfButton = document.getElementById("generatePdfButton");
     const sendEmailBtn = document.getElementById("sendEmailBtn");
     const skipBtn = document.getElementById("skipBtn");
     const userEmailInput = document.getElementById("userEmail");
+
+    // Define the radio button collections for Section 1
+    const section1A = document.querySelectorAll('input[name="InvolvesSensitiveHealthInfo"]');
+    const section1B = document.querySelectorAll('input[name="NumberOfPeopleOrRecords"]');
+    const section1C = document.querySelectorAll('input[name="HumanDataSharingLevel"]');
+    const section1D = document.querySelectorAll('input[name="AllActivitiesCoveredByConsent"]');
+
+    // Function to collect Section 1 answers and return as individual parameters
+    function collectSection1Answers() {
+        let section1Answers = {};
+
+        // Get the selected answer for 1A
+        section1A.forEach(radio => {
+            if (radio.checked) {
+                // Retrieve the full text of the selected option (e.g., "1.A.1 Yes")
+                section1Answers.section1A = radio.parentElement.textContent.trim();
+            }
+        });
+
+        // Get the selected answer for 1B
+        section1B.forEach(radio => {
+            if (radio.checked) {
+                // Retrieve the full text of the selected option (e.g., "1.B.1 1-499")
+                section1Answers.section1B = radio.parentElement.textContent.trim();
+            }
+        });
+
+        // Get the selected answer for 1C
+        section1C.forEach(radio => {
+            if (radio.checked) {
+                // Retrieve the full text of the selected option (e.g., "1.C.2 LDS")
+                section1Answers.section1C = radio.parentElement.textContent.trim();
+            }
+        });
+
+        // Get the selected answer for 1D
+        section1D.forEach(radio => {
+            if (radio.checked) {
+                // Retrieve the full text of the selected option (e.g., "1.D.2 No")
+                section1Answers.section1D = radio.parentElement.textContent.trim();
+            }
+        });
+
+        return section1Answers;
+    }
 
     // Function to fetch and populate user's email
     async function fetchUserEmail() {
@@ -1525,7 +1363,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: 'landscape' }); // Set to landscape mode
         const tableData = collectDataTableSelections();
-        const versionNumber = "Version 1.0"; // Specify the version number here
 
         const rtcCompletionDate = document.getElementById("RTCCompletionDate")?.value || "N/A";
         const irbApplicationNumber = document.getElementById("IRBApplicationNumber")?.value || "N/A";
@@ -1623,39 +1460,56 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.setTextColor(0, 102, 204);
         doc.text(studyContactEmailAddress, 210, nextY);
 
-        // Section 1: Data Characteristics and Data Access
-        nextY += 15; // Small spacing before Section 1
-        doc.setFontSize(14);
-        doc.setTextColor(0, 0, 0); // Black for the section header
-        doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
+// Section 1: Data Characteristics and Data Access
+nextY += 15; // Small spacing before Section 1
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0); // Black for the section header
+doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
 
-        nextY += 10;
-        doc.setFontSize(12);
-        doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
-        doc.setTextColor(0, 102, 204);
-        const involvesSensitiveHealthInfo = document.querySelector('input[name="InvolvesSensitiveHealthInfo"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(involvesSensitiveHealthInfo, 120, nextY);
+// Collect Section 1 answers
+const section1Answers = collectSection1Answers();
 
-        nextY += 10;
-        doc.setTextColor(0, 0, 0);
-        doc.text("1B. Number of People/Records: ", 10, nextY);
-        doc.setTextColor(0, 102, 204);
-        const numberOfPeopleOrRecords = document.querySelector('input[name="NumberOfPeopleOrRecords"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(numberOfPeopleOrRecords, 120, nextY);
+nextY += 10;
+doc.setFontSize(12);
 
-        nextY += 10;
-        doc.setTextColor(0, 0, 0);
-        doc.text("1C. Human Data Sharing Level: ", 10, nextY);
-        doc.setTextColor(0, 102, 204);
-        const humanDataSharingLevel = document.querySelector('input[name="HumanDataSharingLevel"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(humanDataSharingLevel, 120, nextY);
+// Define the X-coordinate for the answers (aligned properly)
+const answerX = 120; // Adjust this value if needed
 
-        nextY += 10;
-        doc.setTextColor(0, 0, 0);
-        doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
-        doc.setTextColor(0, 102, 204);
-        const allActivitiesCoveredByConsent = document.querySelector('input[name="AllActivitiesCoveredByConsent"]:checked')?.nextElementSibling.textContent || "N/A";
-        doc.text(allActivitiesCoveredByConsent, 120, nextY);
+// Ensure answers are properly formatted with labels
+const formatted1A = (section1Answers.section1A || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
+const formatted1B = (section1Answers.section1B || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
+const formatted1C = (section1Answers.section1C || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
+const formatted1D = (section1Answers.section1D || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
+
+// 1A. Involves Sensitive Health Info
+doc.setTextColor(0, 0, 0);
+doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(formatted1A, answerX, nextY);
+
+nextY += 10;
+
+// 1B. Number of People/Records
+doc.setTextColor(0, 0, 0);
+doc.text("1B. Number of People/Records: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(formatted1B, answerX, nextY);
+
+nextY += 10;
+
+// 1C. Human Data Sharing Level
+doc.setTextColor(0, 0, 0);
+doc.text("1C. Human Data Sharing Level: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(formatted1C, answerX, nextY);
+
+nextY += 10;
+
+// 1D. All Activities Covered By Consent
+doc.setTextColor(0, 0, 0);
+doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
+doc.setTextColor(0, 102, 204);
+doc.text(formatted1D, answerX, nextY);
 
         // Start new page for Section 2
         doc.addPage();

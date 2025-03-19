@@ -1594,4 +1594,4 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\BouncyCastle.Cryptography.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MailKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MimeKit.dll
-C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1325.6609.dll
+C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1425.11118.dll
