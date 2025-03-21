@@ -1690,57 +1690,76 @@ nextY += 20; // Extra spacing before Section 2
 </script>
 <script>
    document.addEventListener("DOMContentLoaded", function () {
-        const sendEmailBtn = document.getElementById("sendEmailBtn");
-        const userEmailInput = document.getElementById("userEmail");
-        const responseText = document.getElementById("emailResponse"); // ✅ Ensuring this exists
+    const sendEmailBtn = document.getElementById("sendEmailBtn");
+    const userEmailInput = document.getElementById("userEmail");
+    const responseText = document.getElementById("emailResponse");
 
-        if (!sendEmailBtn || !userEmailInput || !responseText) {
-            console.error("❌ Missing elements in the DOM. Ensure 'emailResponse' exists.");
+    if (!sendEmailBtn || !userEmailInput || !responseText) {
+        console.error("❌ Missing elements in the DOM. Ensure 'emailResponse' exists.");
+        return;
+    }
+
+    sendEmailBtn.addEventListener("click", async function () {
+        const recipientEmail = userEmailInput.value.trim();
+
+        if (!recipientEmail) {
+            alert("Please enter a valid email address.");
             return;
         }
 
-        sendEmailBtn.addEventListener("click", async function () {
-            const recipientEmail = userEmailInput.value.trim(); // Trim spaces
+        responseText.innerText = "⏳ Generating PDF...";
 
-            if (!recipientEmail) {
-                alert("Please enter a valid email address.");
-                return;
-            }
+        // Generate PDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "landscape" });
 
-            responseText.innerText = "⏳ Sending email..."; // ✅ Ensures response is shown
+        doc.setFontSize(16);
+        doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
+        doc.setFontSize(12);
+        doc.text("This is an automatically generated PDF.", 10, 20);
 
-            // Prepare request body
-            const bodyData = JSON.stringify({
-                recipientEmail: recipientEmail,
-                subject: "Your Requested Document",
-                body: "Please find your requested document attached."
+        // Convert PDF to Base64
+        const pdfBlob = doc.output("blob");
+        const base64Pdf = await blobToBase64(pdfBlob);
+
+        responseText.innerText = "⏳ Sending email...";
+
+        // Prepare email request
+        const emailData = {
+            recipientEmail: recipientEmail,
+            subject: "Your Requested PDF Document",
+            body: "Please find the attached PDF.",
+            attachmentBase64: base64Pdf,  // Attach encoded PDF
+            attachmentFilename: "GeneratedDocument.pdf"
+        };
+
+        try {
+            const response = await fetch("/api/email/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(emailData),
             });
 
-            try {
-                const response = await fetch("/api/email/send", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Content-Length": bodyData.length.toString() // ✅ Fix for HTTP 411
-                    },
-                    body: bodyData
-                });
+            if (!response.ok) throw new Error("Failed to send email.");
 
-                if (!response.ok) {
-                    const errorMessage = `❌ Error ${response.status}: ${response.statusText}`;
-                    responseText.innerText = errorMessage;
-                    console.error("Email API Error:", errorMessage);
-                    return;
-                }
-
-                const data = await response.json();
-                responseText.innerText = "✅ Email sent successfully!";
-            } catch (error) {
-                responseText.innerText = "❌ Error sending email. Please try again.";
-                console.error("Email Error:", error);
-            }
-        });
+            responseText.innerText = "✅ Email sent successfully with the PDF attachment.";
+        } catch (error) {
+            responseText.innerText = "❌ Error sending email. Please try again.";
+            console.error("Email sending error:", error);
+        }
     });
+
+    // Helper function: Convert Blob to Base64
+    function blobToBase64(blob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result.split(",")[1]); // Remove "data:application/pdf;base64,"
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    }
+});
+
 </script>
 
 <!-- Load jQuery first -->

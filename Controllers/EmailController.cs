@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 [Route("api/email")]
@@ -22,25 +24,45 @@ public class EmailController : ControllerBase
 
         try
         {
+            byte[] attachmentBytes = null;
+
+            // Decode Base64 PDF if provided
+            if (!string.IsNullOrEmpty(request.AttachmentBase64))
+            {
+                try
+                {
+                    attachmentBytes = Convert.FromBase64String(request.AttachmentBase64);
+                }
+                catch (FormatException)
+                {
+                    return BadRequest(new { message = "Invalid Base64 PDF format." });
+                }
+            }
+
+            // Send email with or without attachment
             await _emailService.SendEmailAsync(
                 recipientEmail: request.RecipientEmail,
                 subject: request.Subject ?? "No Subject",
-                body: request.Body ?? "No Body"
+                body: request.Body ?? "No Body",
+                attachmentBytes: attachmentBytes,
+                attachmentFilename: request.AttachmentFilename ?? "Document.pdf"
             );
 
             return Ok(new { message = "✅ Email sent successfully!" });
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             return StatusCode(500, new { message = "❌ Failed to send email.", error = ex.Message });
         }
     }
 }
 
-// Helper class to map JSON request payload
+// ✅ Updated Helper Class to Accept PDF Attachments
 public class EmailRequest
 {
     public string RecipientEmail { get; set; }
     public string Subject { get; set; }
     public string Body { get; set; }
+    public string AttachmentBase64 { get; set; } // Base64-encoded PDF
+    public string AttachmentFilename { get; set; } // Optional filename for the PDF
 }
