@@ -1280,44 +1280,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const section1C = document.querySelectorAll('input[name="HumanDataSharingLevel"]');
     const section1D = document.querySelectorAll('input[name="AllActivitiesCoveredByConsent"]');
 
-    // Function to collect Section 1 answers and return as individual parameters
     function collectSection1Answers() {
-        let section1Answers = {};
+    let section1Answers = {};
 
-        // Get the selected answer for 1A
-        section1A.forEach(radio => {
-            if (radio.checked) {
-                // Retrieve the full text of the selected option (e.g., "1.A.1 Yes")
-                section1Answers.section1A = radio.parentElement.textContent.trim();
-            }
-        });
+    // 1A
+    const selected1A = Array.from(section1A).find(radio => radio.checked);
+    section1Answers.section1A = {
+        value: selected1A ? selected1A.value : "", // Default to empty string if not selected
+        label: selected1A ? selected1A.closest('.form-check').querySelector('.radio-number').textContent.trim() : "1.A"
+    };
 
-        // Get the selected answer for 1B
-        section1B.forEach(radio => {
-            if (radio.checked) {
-                // Retrieve the full text of the selected option (e.g., "1.B.1 1-499")
-                section1Answers.section1B = radio.parentElement.textContent.trim();
-            }
-        });
+    // 1B
+    const selected1B = Array.from(section1B).find(radio => radio.checked);
+    section1Answers.section1B = {
+        value: selected1B ? selected1B.value : "",
+        label: selected1B ? selected1B.closest('.form-check').querySelector('.radio-number').textContent.trim() : "1.B"
+    };
 
-        // Get the selected answer for 1C
-        section1C.forEach(radio => {
-            if (radio.checked) {
-                // Retrieve the full text of the selected option (e.g., "1.C.2 LDS")
-                section1Answers.section1C = radio.parentElement.textContent.trim();
-            }
-        });
+    // 1C
+    const selected1C = Array.from(section1C).find(radio => radio.checked);
+    section1Answers.section1C = {
+        value: selected1C ? selected1C.value : "",
+        label: selected1C ? selected1C.closest('.form-check').querySelector('.radio-number').textContent.trim() : "1.C"
+    };
 
-        // Get the selected answer for 1D
-        section1D.forEach(radio => {
-            if (radio.checked) {
-                // Retrieve the full text of the selected option (e.g., "1.D.2 No")
-                section1Answers.section1D = radio.parentElement.textContent.trim();
-            }
-        });
+    // 1D
+    const selected1D = Array.from(section1D).find(radio => radio.checked);
+    section1Answers.section1D = {
+        value: selected1D ? selected1D.value : "",
+        label: selected1D ? selected1D.closest('.form-check').querySelector('.radio-number').textContent.trim() : "1.D"
+    };
 
-        return section1Answers;
-    }
+    console.log("Collected Section 1 Answers:", section1Answers); // Debug
+    return section1Answers;
+}
 
     // Function to fetch and populate user's email
     async function fetchUserEmail() {
@@ -1466,50 +1462,65 @@ doc.setFontSize(14);
 doc.setTextColor(0, 0, 0); // Black for the section header
 doc.text("Section 1: Data Characteristics and Data Access", 10, nextY);
 
-// Collect Section 1 answers
 const section1Answers = collectSection1Answers();
 
 nextY += 10;
 doc.setFontSize(12);
 
-// Define the X-coordinate for the answers (aligned properly)
-const answerX = 120; // Adjust this value if needed
-
-// Ensure answers are properly formatted with labels
-const formatted1A = (section1Answers.section1A || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
-const formatted1B = (section1Answers.section1B || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
-const formatted1C = (section1Answers.section1C || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
-const formatted1D = (section1Answers.section1D || "N/A").replace(/(\d+\.\w+\.\d+)/, "$1 - ");
+// Define the X-coordinates for the question labels and answers
+const labelX = 10; // Starting position for the question labels (e.g., "1A. Involves...")
+const numberLabelX = 120; // Starting position for the number labels (e.g., "1.A.1")
+const answerX = 130; // Starting position for the answers (e.g., "Yes")
 
 // 1A. Involves Sensitive Health Info
 doc.setTextColor(0, 0, 0);
-doc.text("1A. Involves Sensitive Health Info: ", 10, nextY);
+doc.text("1A. Involves Sensitive Health Info: ", labelX, nextY);
 doc.setTextColor(0, 102, 204);
-doc.text(formatted1A, answerX, nextY);
-
+const label1A = section1Answers.section1A?.label || "1.A"; // Fallback if undefined
+const answer1A = section1Answers.section1A?.value ? (section1Answers.section1A.value === "true" ? "Yes" : "No") : "N/A";
+doc.text(label1A, numberLabelX, nextY); // Display the label (e.g., "1.A.1")
+doc.text(answer1A, answerX, nextY); // Display the answer (e.g., "Yes") on the same line
 nextY += 10;
 
 // 1B. Number of People/Records
 doc.setTextColor(0, 0, 0);
-doc.text("1B. Number of People/Records: ", 10, nextY);
+doc.text("1B. Number of People/Records: ", labelX, nextY);
 doc.setTextColor(0, 102, 204);
-doc.text(formatted1B, answerX, nextY);
-
+const label1B = section1Answers.section1B?.label || "1.B";
+const answer1B = section1Answers.section1B?.value ? ({
+    "0": "1-499",
+    "1": "500-9,999",
+    "2": "10,000 or more"
+}[section1Answers.section1B.value] || "Unknown") : "N/A";
+doc.text(label1B, numberLabelX, nextY);
+doc.text(answer1B, answerX, nextY);
 nextY += 10;
 
 // 1C. Human Data Sharing Level
 doc.setTextColor(0, 0, 0);
-doc.text("1C. Human Data Sharing Level: ", 10, nextY);
+doc.text("1C. Human Data Sharing Level: ", labelX, nextY);
 doc.setTextColor(0, 102, 204);
-doc.text(formatted1C, answerX, nextY);
-
+const label1C = section1Answers.section1C?.label || "1.C";
+const answer1C = section1Answers.section1C?.value ? ({
+    "0": "Directly identifiable data",
+    "1": "LDS",
+    "2": "Person-level data with No PHI or PII",
+    "3": "Aggregate (counts)",
+    "4": "Data will not be copied, moved, or shared"
+}[section1Answers.section1C.value] || "Unknown") : "N/A";
+doc.text(label1C, numberLabelX, nextY);
+doc.text(answer1C, answerX, nextY);
 nextY += 10;
 
 // 1D. All Activities Covered By Consent
 doc.setTextColor(0, 0, 0);
-doc.text("1D. All Activities Covered By Consent: ", 10, nextY);
+doc.text("1D. All Activities Covered By Consent: ", labelX, nextY);
 doc.setTextColor(0, 102, 204);
-doc.text(formatted1D, answerX, nextY);
+const label1D = section1Answers.section1D?.label || "1.D";
+const answer1D = section1Answers.section1D?.value ? (section1Answers.section1D.value === "true" ? "Yes" : "No") : "N/A";
+doc.text(label1D, numberLabelX, nextY);
+doc.text(answer1D, answerX, nextY);
+nextY += 20; // Extra spacing before Section 2
 
         // Start new page for Section 2
         doc.addPage();
