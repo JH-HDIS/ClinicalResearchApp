@@ -1693,23 +1693,15 @@ nextY += 20; // Extra spacing before Section 2
     const sendEmailBtn = document.getElementById("sendEmailBtn");
     const userEmailInput = document.getElementById("userEmail");
     const responseText = document.getElementById("emailResponse");
+    let generatedPdfBase64 = ""; // Store the generated PDF Base64
 
     if (!sendEmailBtn || !userEmailInput || !responseText) {
         console.error("❌ Missing elements in the DOM. Ensure 'emailResponse' exists.");
         return;
     }
 
-    sendEmailBtn.addEventListener("click", async function () {
-        const recipientEmail = userEmailInput.value.trim();
-
-        if (!recipientEmail) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        responseText.innerText = "⏳ Generating PDF...";
-
-        // Generate PDF
+    // Function to generate the PDF and store it in Base64 format
+    function generatePdf() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ orientation: "landscape" });
 
@@ -1718,9 +1710,38 @@ nextY += 20; // Extra spacing before Section 2
         doc.setFontSize(12);
         doc.text("This is an automatically generated PDF.", 10, 20);
 
-        // Convert PDF to Base64
+        // Convert PDF to Blob and Base64
         const pdfBlob = doc.output("blob");
-        const base64Pdf = await blobToBase64(pdfBlob);
+
+        blobToBase64(pdfBlob).then(base64String => {
+            generatedPdfBase64 = base64String; // Store Base64 version of PDF
+        });
+
+        return doc;
+    }
+
+    // Generate and display the PDF when "Skip" is clicked
+    document.getElementById("skipBtn").addEventListener("click", function () {
+        const doc = generatePdf();
+        const pdfBlob = doc.output("blob");
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        window.open(blobUrl, "_blank");
+        $("#emailModal").modal("hide");
+    });
+
+    // Send email with the already generated PDF
+    sendEmailBtn.addEventListener("click", async function () {
+        const recipientEmail = userEmailInput.value.trim();
+
+        if (!recipientEmail) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!generatedPdfBase64) {
+            responseText.innerText = "❌ No PDF available. Generate the PDF first.";
+            return;
+        }
 
         responseText.innerText = "⏳ Sending email...";
 
@@ -1729,7 +1750,7 @@ nextY += 20; // Extra spacing before Section 2
             recipientEmail: recipientEmail,
             subject: "Your Requested PDF Document",
             body: "Please find the attached PDF.",
-            attachmentBase64: base64Pdf,  // Attach encoded PDF
+            attachmentBase64: generatedPdfBase64,  // Attach generated PDF
             attachmentFilename: "GeneratedDocument.pdf"
         };
 
@@ -1758,6 +1779,12 @@ nextY += 20; // Extra spacing before Section 2
             reader.readAsDataURL(blob);
         });
     }
+
+    // Generate the PDF when modal opens (so it's available before sending)
+    document.getElementById("generatePdfButton").addEventListener("click", function () {
+        generatePdf();
+        $("#emailModal").modal("show");
+    });
 });
 
 </script>
