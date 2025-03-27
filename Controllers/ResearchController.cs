@@ -24,138 +24,143 @@ namespace ClinicalResearchApp.Controllers
         }
 
         [Authorize]
-    public IActionResult Index(
-    string role, 
-    string sortOrder, 
-    string irbFilter, 
-    string studyFilter,
-    string investigatorFilter, 
-    string statusFilter, 
-    string dateFilter, 
-    string tierFilter)
+        public IActionResult Index(
+            string role,
+            string sortOrder,
+            string irbFilter,
+            string studyFilter,
+            string investigatorFilter,
+            string statusFilter,
+            string dateFilter,
+            string tierFilter)
+        {
+            // Retrieve the username and jhed value
+            string userName = User.Identity.IsAuthenticated
+                ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value
+                : "Guest";
+            ViewBag.Username = userName;
+            ViewBag.jhed = User.Identity.IsAuthenticated
+                ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value
+                : "Guest";
+
+            ViewBag.email = User.Identity.IsAuthenticated
+                ? User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+                : "Guest";
+
+            // Handle sorting
+            ViewData["CurrentSort"] = sortOrder; // Track the current sort column
+            ViewData["IRBNumberSort"] = sortOrder == "irb" ? "irb_desc" : "irb";
+            ViewData["StudyNameSort"] = sortOrder == "study" ? "study_desc" : "study";
+            ViewData["InvestigatorSort"] = sortOrder == "investigator" ? "investigator_desc" : "investigator";
+            ViewData["StatusSort"] = sortOrder == "status" ? "status_desc" : "status";
+            ViewData["UpdatedSort"] = sortOrder == "updated" ? "updated_desc" : "updated";
+            ViewData["TierSort"] = sortOrder == "tier" ? "tier_desc" : "tier";
+
+            // Preserve filter values for the view
+            ViewData["IRBFilter"] = irbFilter;
+            ViewData["StudyFilter"] = studyFilter;
+            ViewData["InvestigatorFilter"] = investigatorFilter;
+            ViewData["StatusFilter"] = statusFilter;
+            ViewData["DateFilter"] = dateFilter;
+            ViewData["TierFilter"] = tierFilter;
+
+            // Get data from repository
+            IEnumerable<ResearchData> data = _repository.GetResearchData(ViewBag.jhed);
+
+            Log.Logger.Information($"In RESEARCHCONTROLLER Index..");
+            foreach (var item in data)
             {
+                Log.Logger.Information($"The IRB Number is: {item.Id}");
+                Log.Logger.Information($"The Study Name is: {item.StudyName}");
+                Log.Logger.Information($"The Principal Investigator is: {item.PrincipalInvestigator}");
+                Log.Logger.Information($"The Status is: {item.Status}");
+                Log.Logger.Information($"The Start Date is: {item.StartDate}");
+                Log.Logger.Information($"The Tier is: {item.Tier}");
+            }
 
-                // Retrieve the username and jhed value
-                string userName = User.Identity.IsAuthenticated 
-                    ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
-                    : "Guest";
-                ViewBag.Username = userName;
-                ViewBag.jhed = User.Identity.IsAuthenticated 
-                    ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
-                    : "Guest";
+            // Apply filters
+            if (!string.IsNullOrEmpty(irbFilter))
+            {
+                data = data.Where(r => r.Id != null && r.Id.Contains(irbFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(studyFilter))
+            {
+                data = data.Where(r => r.StudyName != null && r.StudyName.Contains(studyFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(investigatorFilter))
+            {
+                data = data.Where(r => r.PrincipalInvestigator != null && r.PrincipalInvestigator.Contains(investigatorFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(statusFilter))
+            {
+                data = data.Where(r => r.Status != null && r.Status.Contains(statusFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(dateFilter) && DateTime.TryParse(dateFilter, out var parsedDate))
+            {
+                data = data.Where(r => r.StartDate != null && r.StartDate.Date == parsedDate.Date).ToList();
+            }
+            if (!string.IsNullOrEmpty(tierFilter))
+            {
+                data = data.Where(r => r.Tier != null && r.Tier.Contains(tierFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
 
-                 ViewBag.email = User.Identity.IsAuthenticated 
-                    ? User.Claims.FirstOrDefault(c => c.Type == "email")?.Value 
-                    : "Guest";
+            // Apply sorting
+            data = sortOrder switch
+            {
+                "irb" => data.OrderBy(r => r.Id).ToList(),
+                "irb_desc" => data.OrderByDescending(r => r.Id).ToList(),
+                "study" => data.OrderBy(r => r.StudyName).ToList(),
+                "study_desc" => data.OrderByDescending(r => r.StudyName).ToList(),
+                "investigator" => data.OrderBy(r => r.PrincipalInvestigator).ToList(),
+                "investigator_desc" => data.OrderByDescending(r => r.PrincipalInvestigator).ToList(),
+                "status" => data.OrderBy(r => r.Status).ToList(),
+                "status_desc" => data.OrderByDescending(r => r.Status).ToList(),
+                "updated" => data.OrderBy(r => r.StartDate).ToList(),
+                "updated_desc" => data.OrderByDescending(r => r.StartDate).ToList(),
+                "tier" => data.OrderBy(r => r.Tier).ToList(),
+                "tier_desc" => data.OrderByDescending(r => r.Tier).ToList(),
+                _ => data.OrderBy(r => r.Id).ToList() // Default sort
+            };
 
-                // Handle sorting
-                ViewData["CurrentSort"] = sortOrder; // Track the current sort column
-                ViewData["IRBNumberSort"] = sortOrder == "irb" ? "irb_desc" : "irb";
-                ViewData["StudyNameSort"] = sortOrder == "study" ? "study_desc" : "study";
-                ViewData["InvestigatorSort"] = sortOrder == "investigator" ? "investigator_desc" : "investigator";
-                ViewData["StatusSort"] = sortOrder == "status" ? "status_desc" : "status";
-                ViewData["UpdatedSort"] = sortOrder == "updated" ? "updated_desc" : "updated";
-                ViewData["TierSort"] = sortOrder == "tier" ? "tier_desc" : "tier";
+            string adminFlag = data.FirstOrDefault()?.AdminFlag.ToString();
+            if (adminFlag == "Y")
+            {
+                ViewBag.Admin = "Admin";
+            }
+            else
+            {
+                ViewBag.Admin = "Non-Admin";
+            }
 
-                // Preserve filter values for the view
-                ViewData["IRBFilter"] = irbFilter;
-                ViewData["StudyFilter"] = studyFilter;
-                ViewData["InvestigatorFilter"] = investigatorFilter;
-                ViewData["StatusFilter"] = statusFilter;
-                ViewData["DateFilter"] = dateFilter;
-                ViewData["TierFilter"] = tierFilter;
-
-                // Get data from repository
-                IEnumerable<ResearchData> data = _repository.GetResearchData(ViewBag.jhed);
-                
-                 Log.Logger.Information($"In RESEARCHCONTROLLER Index..");
-                 foreach (var item in data) {
-                        Log.Logger.Information($"The IRB Number is: {item.Id}");
-                        Log.Logger.Information($"The Study Name is: {item.StudyName}");
-                        Log.Logger.Information($"The Principal Investigator is: {item.PrincipalInvestigator}");
-                        Log.Logger.Information($"The Status is: {item.Status}");
-                        Log.Logger.Information($"The Start Date is: {item.StartDate}");
-                        Log.Logger.Information($"The Tier is: {item.Tier}");
-                 }
-                // Apply filters
-                if (!string.IsNullOrEmpty(irbFilter))
-                {
-                    data = data.Where(r => r.Id != null && r.Id.Contains(irbFilter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                 if (!string.IsNullOrEmpty(studyFilter))
-                {
-                    data = data.Where(r => r.StudyName != null && r.StudyName.Contains(studyFilter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                if (!string.IsNullOrEmpty(investigatorFilter))
-                {
-                    data = data.Where(r => r.PrincipalInvestigator != null && r.PrincipalInvestigator.Contains(investigatorFilter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                if (!string.IsNullOrEmpty(statusFilter))
-                {
-                    data = data.Where(r => r.Status != null && r.Status.Contains(statusFilter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-                if (!string.IsNullOrEmpty(dateFilter) && DateTime.TryParse(dateFilter, out var parsedDate))
-                {
-                    data = data.Where(r => r.StartDate != null && r.StartDate.Date == parsedDate.Date).ToList();
-                }
-                if (!string.IsNullOrEmpty(tierFilter))
-                {
-                    data = data.Where(r => r.Tier != null && r.Tier.Contains(tierFilter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
-
-                // Apply sorting
-                data = sortOrder switch
-                {
-                    "irb" => data.OrderBy(r => r.Id).ToList(),
-                    "irb_desc" => data.OrderByDescending(r => r.Id).ToList(),
-                     "study" => data.OrderBy(r => r.StudyName).ToList(),
-                    "study_desc" => data.OrderByDescending(r => r.StudyName).ToList(),
-                    "investigator" => data.OrderBy(r => r.PrincipalInvestigator).ToList(),
-                    "investigator_desc" => data.OrderByDescending(r => r.PrincipalInvestigator).ToList(),
-                    "status" => data.OrderBy(r => r.Status).ToList(),
-                    "status_desc" => data.OrderByDescending(r => r.Status).ToList(),
-                    "updated" => data.OrderBy(r => r.StartDate).ToList(),
-                    "updated_desc" => data.OrderByDescending(r => r.StartDate).ToList(),
-                    "tier" => data.OrderBy(r => r.Tier).ToList(),
-                    "tier_desc" => data.OrderByDescending(r => r.Tier).ToList(),
-                    _ => data.OrderBy(r => r.Id).ToList() // Default sort
-                };
-
-            
-                string adminFlag = data.FirstOrDefault()?.AdminFlag.ToString();
-                if (adminFlag == "Y") {
-                    ViewBag.Admin = "Admin";
-                } else {
-                    ViewBag.Admin = "Non-Admin";
-                }
-                
-                // Return the view with the sorted and filtered data
-                return View(data);
-}
+            // Return the view with the sorted and filtered data
+            return View(data);
+        }
 
         [HttpPost]
         public IActionResult Edit(string id, bool viewOnly, string createNewFlag)
         {
-            //var data = _repository.GetResearchData("Normal").FirstOrDefault(x => x.Id == id);
-           // var data = _repository.GetResearchDataDetails(id);
-    
             var data = _repository.GetUserResponseDetails(id);
-             if (viewOnly)
+            if (viewOnly)
             {
                 ViewBag.ViewOnly = true;
             }
-            if (createNewFlag == "Y")
+            if (createNewFlag == "Y" && data.Id == null) // Only set for new IRB
             {
-                data.Id = id;
-                data.IRBApplicationNumber = id;
-                data.StudyContactJHED = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value;
-                data.StudyContactFirstName = User.Claims.FirstOrDefault(c => c.Type == "given_name")?.Value;
-                data.StudyContactLastName = User.Claims.FirstOrDefault(c => c.Type == "family_name")?.Value;
-                data.StudyContactEmailAddress = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+                data = new UserResponse
+                {
+                    Id = id,
+                    IRBApplicationNumber = id,
+                    StudyContactJHED = User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value,
+                    StudyContactFirstName = User.Claims.FirstOrDefault(c => c.Type == "given_name")?.Value,
+                    StudyContactLastName = User.Claims.FirstOrDefault(c => c.Type == "family_name")?.Value,
+                    StudyContactEmailAddress = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value,
+                    RTCCompletionDate = DateTime.Today // Sets to current date (e.g., 2025-03-27)
+                };
+                Log.Logger.Information($"New IRB created with ID {id}, RTCCompletionDate set to {data.RTCCompletionDate}");
             }
+
             return View(data);
         }
-
 
         [HttpPost]
         public IActionResult Update(ResearchData researchData)
@@ -167,16 +172,15 @@ namespace ClinicalResearchApp.Controllers
         [HttpPost]
         public IActionResult SearchByIRB(string irbSearch)
         {
-
             // Retrieve the username and jhed value
-                string userName = User.Identity.IsAuthenticated 
-                    ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
-                    : "Guest";
-                ViewBag.Username = userName;
-             string userJHED = User.Identity.IsAuthenticated 
-                    ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value 
-                    : "Guest";
-                ViewBag.jhed = userJHED;
+            string userName = User.Identity.IsAuthenticated
+                ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value
+                : "Guest";
+            ViewBag.Username = userName;
+            string userJHED = User.Identity.IsAuthenticated
+                ? User.Claims.FirstOrDefault(c => c.Type == "uid")?.Value
+                : "Guest";
+            ViewBag.jhed = userJHED;
             if (string.IsNullOrWhiteSpace(irbSearch))
             {
                 ViewBag.SearchPerformed = false;
@@ -188,7 +192,8 @@ namespace ClinicalResearchApp.Controllers
             var data = _repository.GetUserResponseDetails(irbSearch);
             bool irbFound = CheckIfIrbExists(data);
             bool userOnStudy = false;
-            if (irbFound) {
+            if (irbFound)
+            {
                 userOnStudy = userJHED != null && CheckUserOnStudy(data, userJHED);
             }
 
@@ -201,36 +206,40 @@ namespace ClinicalResearchApp.Controllers
             return View("Index");
         }
 
-         private bool CheckIfIrbExists(UserResponse data)
+        private bool CheckIfIrbExists(UserResponse data)
         {
             // Replace with your actual logic to verify the IRB number
-            //var data = _repository.GetUserResponseDetails(irbSearch);
             var irbFound = data.Id != null;
             if (data.Id == null)
             {
                 irbFound = false;
-            } else {
+            }
+            else
+            {
                 irbFound = true;
             }
             Log.Logger.Information($"In CheckIfIrbExists.....data.Id is: {data.Id}");
             Log.Logger.Information($"In CheckIfIrbExists.....irbFound is: {irbFound}");
             return irbFound; // Example: assume IRB "12345" exists
-        } 
-        
-    private bool CheckUserOnStudy(UserResponse data,String userJHED)
+        }
+
+        private bool CheckUserOnStudy(UserResponse data, String userJHED)
         {
-        
             var piJHED = data.PIJHED;
-            var studyJHED = data.StudyContactJHED; 
+            var studyJHED = data.StudyContactJHED;
             if (data.Id != null)
             {
                 if (userJHED == piJHED || userJHED == studyJHED)
                 {
                     return true;
-                } else {
+                }
+                else
+                {
                     return false;
                 }
-            } else {
+            }
+            else
+            {
                 return true;
             }
         }
@@ -240,50 +249,42 @@ namespace ClinicalResearchApp.Controllers
         {
             var updatedDataClassifications = new List<DataClassification>();
             var researchData = new ResearchData();
-            
+
             // Loop through form keys to find selected options
             foreach (var key in form.Keys)
             {
                 Log.Logger.Information($"In SAVEDATACLASSIFICATIONS.....The key is: {key}");
                 // Example: Key format should be "SAFERorSAFEDesktop" or "JHPMAP"
-                if (key.StartsWith("SAFERorSAFEDesktop") || key.StartsWith("JHPMAP") || key.StartsWith("JHUOpenSpecimen") || 
-                    key.StartsWith("JHUQualtrics" )|| key.StartsWith("JHUACHREDCap") || key.StartsWith("SAFESTOR") || 
-                    key.StartsWith("DiscoveryHPC") || key.StartsWith("EnterpriseNetworkStorageNAS") || key.StartsWith("ITJHRITManagedAzureAWS") || 
-                    key.StartsWith("OneDrive") || key.StartsWith("LocalComputer") || key.StartsWith("NonJHU_REDCap") || 
-                    key.StartsWith("NonJHUSystem") || key.StartsWith("DepartmentServer") || key.StartsWith("OtherComputers") || 
+                if (key.StartsWith("SAFERorSAFEDesktop") || key.StartsWith("JHPMAP") || key.StartsWith("JHUOpenSpecimen") ||
+                    key.StartsWith("JHUQualtrics") || key.StartsWith("JHUACHREDCap") || key.StartsWith("SAFESTOR") ||
+                    key.StartsWith("DiscoveryHPC") || key.StartsWith("EnterpriseNetworkStorageNAS") || key.StartsWith("ITJHRITManagedAzureAWS") ||
+                    key.StartsWith("OneDrive") || key.StartsWith("LocalComputer") || key.StartsWith("NonJHU_REDCap") ||
+                    key.StartsWith("NonJHUSystem") || key.StartsWith("DepartmentServer") || key.StartsWith("OtherComputers") ||
                     key.StartsWith("USB") || key.StartsWith("JHPCE") || key.StartsWith("JHUARCH") || key.StartsWith("OtherSolutions"))
+                {
+                    var selectedColumn = form[key]; // Value of the selected radio button
+                    var option = key; // Option name (e.g., "SAFERorSAFEDesktop" or "JHPMAP")
+                    updatedDataClassifications.Add(new DataClassification
                     {
-                        var selectedColumn = form[key]; // Value of the selected radio button
-                        var option = key; // Option name (e.g., "SAFERorSAFEDesktop" or "JHPMAP")
-                        //updatedDataClassifications.RemoveAll(dc => dc.Column == "C7");
-                        //if (selectedColumn != "C7") {
-                            // Map to your DataClassification model
-                            updatedDataClassifications.Add(new DataClassification
-                            {
-                                Option = option,
-                                Column = selectedColumn,
-                                Selected = true // This is the selected radio button
-                            });
-                        //} 
-                    }
-                else {
+                        Option = option,
+                        Column = selectedColumn,
+                        Selected = true // This is the selected radio button
+                    });
+                }
+                else
+                {
                     researchData.Id = form["IRBApplicationNumber"];
                     researchData.StudyName = form["StudyName"];
                     researchData.PrincipalInvestigator = form["PrincipalInvestigator"];
                     researchData.PI_First_Name = form["PIFirstName"];
                     researchData.PI_Last_Name = form["PILastName"];
-                    //researchData.Status = form["Status"];
-                    //researchData.StartDate = Convert.ToDateTime(form["StartDate"]);
-                    //researchData.EndDate = Convert.ToDateTime(form["EndDate"]);
                     researchData.PI_JHED = form["PIJHED"];
                     researchData.PI_Email_Address = form["PIEmailAddress"];
                     researchData.Study_Contact_First_Name = form["StudyContactFirstName"];
                     researchData.Study_Contact_Last_name = form["StudyContactLastName"];
                     researchData.Study_Contact_JHED = form["StudyContactJHED"];
                     researchData.Study_Contact_Email_Address = form["StudyContactEmailAddress"];
-                    //researchData.Sensitive_Health_Info = form["InvolvesSensitiveHealthInfo"];
                     researchData.Sensitive_Health_Info = form["InvolvesSensitiveHealthInfo"] == "true" ? "Y" : "N";
-                    //researchData.Expected_Enroll_Count = form["NumberOfPeopleOrRecords"];
                     switch (form["NumberOfPeopleOrRecords"])
                     {
                         case "0":
@@ -299,7 +300,6 @@ namespace ClinicalResearchApp.Controllers
                             researchData.Expected_Enroll_Count = "Unknown"; // Optional default value
                             break;
                     }
-                    //researchData.Human_data_cms = form["HumanDataSharingLevel"];
                     switch (form["HumanDataSharingLevel"])
                     {
                         case "0":
@@ -311,10 +311,10 @@ namespace ClinicalResearchApp.Controllers
                         case "2":
                             researchData.Human_data_cms = "Person-level data with No PHI or PII";
                             break;
-                        case "3":    
+                        case "3":
                             researchData.Human_data_cms = "Aggregate (counts)";
-                            break;  
-                        case "4":        
+                            break;
+                        case "4":
                             researchData.Human_data_cms = "Data will not be copied, moved, or shared";
                             break;
                         default:
@@ -323,26 +323,21 @@ namespace ClinicalResearchApp.Controllers
                     }
                     researchData.Covered_By_Consent = form["AllActivitiesCoveredByConsent"] == "true" ? "Y" : "N";
                     researchData.Sharing_Handled_ORA_JHURA = form["DataSharingAgreement"] == "Yes" ? "Y" : "N";
-
-                    //riskTier = form["risk-level-note"];
                     researchData.Tier = form["riskLevel"];
-
-                    
                 }
             }
 
             // Call a method to save to the database
             _repository.UpdateResearchData(researchData);
-           Log.Logger.Information("In the SaveDataClassifications function");
+            Log.Logger.Information("In the SaveDataClassifications function");
             Log.Logger.Information("After the UpdateResearchData funtion and Before the UpdateDataStorage function");
             for (int i = 0; i < updatedDataClassifications.Count; i++)
-                    {
-                        Log.Logger.Information($"The data option is: {updatedDataClassifications[i].Option}");
-                        Log.Logger.Information($"The data column is: {updatedDataClassifications[i].Column}");
-                        Log.Logger.Information($"The data selected is: {updatedDataClassifications[i].Selected}");
-                    }
-            _repository.UpdateDataStorage(researchData.Id,researchData.Covered_By_Consent,researchData.Sharing_Handled_ORA_JHURA,updatedDataClassifications);
-
+            {
+                Log.Logger.Information($"The data option is: {updatedDataClassifications[i].Option}");
+                Log.Logger.Information($"The data column is: {updatedDataClassifications[i].Column}");
+                Log.Logger.Information($"The data selected is: {updatedDataClassifications[i].Selected}");
+            }
+            _repository.UpdateDataStorage(researchData.Id, researchData.Covered_By_Consent, researchData.Sharing_Handled_ORA_JHURA, updatedDataClassifications);
 
             // Redirect or return a view
             return RedirectToAction("Index"); // Or wherever you want to navigate after saving

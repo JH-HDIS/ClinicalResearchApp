@@ -9,6 +9,7 @@ namespace ClinicalResearchApp.Models
         public string? Id { get; set; }
 
         // RTCCompletionDate is not required
+        // Note: Pre-populated with DateTime.Today (e.g., 2025-03-27) in ResearchController.Edit for new IRBs
         public DateTime? RTCCompletionDate { get; set; }
 
         // Only the IRBApplicationNumber is required
@@ -28,7 +29,7 @@ namespace ClinicalResearchApp.Models
         public string? StudyContactJHED { get; set; }
         public string? StudyContactEmailAddress { get; set; }
 
-        // Optional fields for booleans and integers -Required fields
+        // Optional fields for booleans and integers - Required fields
         [Required(ErrorMessage = "Please answer question 1A.")]
         public bool? InvolvesSensitiveHealthInfo { get; set; }
 
@@ -41,9 +42,9 @@ namespace ClinicalResearchApp.Models
         [Required(ErrorMessage = "Please answer question 1D.")]
         public bool? AllActivitiesCoveredByConsent { get; set; }
 
-         public string? Sharing_Handled_ORA_JHURA { get; set; }
+        public string? Sharing_Handled_ORA_JHURA { get; set; }
 
-         public string? Tier { get; set; }
+        public string? Tier { get; set; }
 
         // List of DataClassifications (not required)
         public List<DataClassification> DataClassifications { get; set; } = new List<DataClassification>();
