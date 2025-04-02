@@ -33,7 +33,7 @@ namespace ClinicalResearchApp.Models
 
         public string? AdminFlag { get; set; }
     }
-
+    
     public class ResearchTableData {
         public string? IRBNumber { get; set; } 
         public string? Storage_Location { get; set; }

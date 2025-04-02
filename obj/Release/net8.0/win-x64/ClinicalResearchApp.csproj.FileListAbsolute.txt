@@ -1588,10 +1588,15 @@ C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x6
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ClinicalResearchApp.pdb
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ClinicalResearchApp.genruntimeconfig.cache
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\obj\Release\net8.0\win-x64\ref\ClinicalResearchApp.dll
-C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1224.60305.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\appsettings.QA.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\appsettings.QA.json
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\BouncyCastle.Cryptography.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MailKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MimeKit.dll
 C:\Users\bsharm12\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1425.11118.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\BouncyCastle.Cryptography.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MailKit.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\MimeKit.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\System.Data.SqlClient.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\sni.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\mscordaccore_amd64_amd64_8.0.1425.11118.dll

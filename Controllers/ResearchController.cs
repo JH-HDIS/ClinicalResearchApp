@@ -328,6 +328,12 @@ namespace ClinicalResearchApp.Controllers
             }
 
             // Call a method to save to the database
+            if (researchData.Tier == null)
+            {
+                researchData.Tier = form["riskLevel"]; 
+            }
+            Log.Logger.Information("In the SaveDataClassifications...before the UpdateResearchData function");
+            Log.Logger.Information($"The researchData.Tier is: {researchData.Tier}");
             _repository.UpdateResearchData(researchData);
             Log.Logger.Information("In the SaveDataClassifications function");
             Log.Logger.Information("After the UpdateResearchData funtion and Before the UpdateDataStorage function");

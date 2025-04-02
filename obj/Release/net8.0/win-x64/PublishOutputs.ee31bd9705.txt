@@ -324,13 +324,15 @@ C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\hostfxr.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\hostpolicy.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore.dll
-C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore_amd64_amd64_8.0.1224.60305.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordaccore_amd64_amd64_8.0.1425.11118.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscordbi.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\mscorrc.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\msquic.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\aspnetcorev2_inprocess.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Azure.Core.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Azure.Identity.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\BouncyCastle.Cryptography.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\MailKit.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.Data.SqlClient.dll
@@ -344,6 +346,7 @@ C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.IdentityModel.Tokens.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.SqlServer.Server.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\MimeKit.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.AspNetCore.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.Extensions.Hosting.dll
@@ -355,6 +358,7 @@ C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Serilog.Sinks.File.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.ClientModel.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.Configuration.ConfigurationManager.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.Data.SqlClient.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.Memory.Data.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\System.Runtime.Caching.dll
@@ -371,3 +375,4 @@ C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x6
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\lelliot1\Documents\GitHub\ClinicalResearchApp\bin\Release\net8.0\win-x64\publish\sni.dll

@@ -320,10 +320,15 @@ else
     }
 </script>
 
+
+
 </form>
 }
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+    if (document.getElementById("tipsInfoButton")) {
         const button = document.getElementById("tipsInfoButton");
 
         // Ensure the button opens the link in a new tab
@@ -331,5 +336,31 @@ else
             window.open("https://www.hopkinsmedicine.org/institutional-review-board/guidelines-policies/guidelines/levels-of-identification-of-data", 
                         "_blank");
         });
+
+    }
+    document.addEventListener("keydown", function (event) {
+    console.log(`Key pressed: ${event.code}, Ctrl: ${event.ctrlKey}, Shift: ${event.shiftKey}`);
+    if (event.altKey && event.code === "KeyT") { // Example: Alt + T
+        event.preventDefault(); // Prevent any default action
+        event.stopPropagation()
+        executeStoredProcedure();
+    }
+});
+
+function executeStoredProcedure() {
+    fetch('/api/execute-stored-procedure', { // Adjust URL as needed
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jhedId: "@ViewBag.jhed" }) // Pass the JHED ID if needed
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success/failure message
+        if (data.message.includes("success")) { 
+            window.location.reload(true); // Reload the page
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
     });
 </script>

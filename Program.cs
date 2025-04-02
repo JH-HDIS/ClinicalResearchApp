@@ -8,7 +8,11 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Microsoft.Extensions.Options;
+using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Authentication;
+using Azure.Core;
+using ClinicalResearchApp.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,8 @@ builder.Host.UseSerilog();  // Integrate Serilog with the ASP.NET Core logging s
 // Bypass certificate - temporary for testing only
 ServicePointManager.ServerCertificateValidationCallback = 
         (sender, certificate, chain, sslPolicyErrors) => true;
+
+
 
 // Bind OpenIdConnect configuration from appsettings.json
 var openIdConnectSettings = builder.Configuration.GetSection("OpenIdConnect");
@@ -151,6 +157,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -170,4 +177,32 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapDefaultControllerRoute();
 
+app.MapPost("/api/execute-stored-procedure", async (HttpContext context, IConfiguration config) =>
+{
+    try
+    {
+        var request = await context.Request.ReadFromJsonAsync<StoredProcedureRequest>();
+        if (request == null || request.jhedId == null)
+        {
+            return Results.Json(new { message = "Invalid input" }, statusCode: 400);
+        }
+
+        var connectionString = config.GetConnectionString("DefaultConnection");
+        using var connection = new SqlConnection(connectionString);
+        using var command = new SqlCommand("usp_Toggle_UserRole", connection);
+        command.CommandType = System.Data.CommandType.StoredProcedure;
+        
+        // Add parameter
+        command.Parameters.AddWithValue("@jhedId", request.jhedId);
+
+        await connection.OpenAsync();
+        await command.ExecuteNonQueryAsync();
+
+        return Results.Json(new { message = "User role successfully updated" });
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new { message = "Error updating user role", error = ex.Message }, statusCode: 500);
+    }
+});
 app.Run();
