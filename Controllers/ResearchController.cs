@@ -65,7 +65,7 @@ namespace ClinicalResearchApp.Controllers
             ViewData["TierFilter"] = tierFilter;
 
             // Get data from repository
-            IEnumerable<ResearchData> data = _repository.GetResearchData(ViewBag.jhed);
+            IEnumerable<ResearchData> data = _repository.GetResearchData(ViewBag.jhed,ViewBag.Username);
 
             Log.Logger.Information($"In RESEARCHCONTROLLER Index..");
             foreach (var item in data)

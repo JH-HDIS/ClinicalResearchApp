@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
 using Serilog;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace ClinicalResearchApp.Data
 {
@@ -15,12 +16,12 @@ namespace ClinicalResearchApp.Data
             _connectionString = connectionString;
         }
 
-        public List<ResearchData> GetResearchData(string userJHED)
+        public List<ResearchData> GetResearchData(string userJHED, string userName)
         {
             List<ResearchData> researchDataList = new();
             string piJhed = "";
             string contactJhed = "";
-            string adminFlag = GetUserRole(userJHED);
+            string adminFlag = GetUserRole(userJHED, userName);
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -59,7 +60,7 @@ namespace ClinicalResearchApp.Data
             return researchDataList;
         }
         
-        private string GetUserRole(string userJHED)
+        private string GetUserRole(string userJHED, string userName)
         {
            string adminFlag = "N";
            string role = "";
@@ -75,14 +76,35 @@ namespace ClinicalResearchApp.Data
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            role = reader["Role"].ToString();
-                            defaultView = reader["DefaultView"].ToString();
-                            if (role == "Admin") { adminFlag = "Y"; }
-                            else { adminFlag = "N"; }
+                            while (reader.Read())
+                            {
+                                role = reader["Role"].ToString();
+                                defaultView = reader["DefaultView"].ToString();
+                                if (role == "Admin") { adminFlag = "Y"; }
+                                else { adminFlag = "N"; }
+                            }
+                        }
+                        else
+                        {
+                            reader.Close();
+                            // If no rows are returned, set default values and insert a new record
+                            using (SqlCommand insertCmd = new SqlCommand("usp_insert_user_role", conn))
+                            {
+                                insertCmd.CommandType = CommandType.StoredProcedure;
+                                insertCmd.Parameters.AddWithValue("@jhed", userJHED);
+                                insertCmd.Parameters.AddWithValue("@name", userName);
+                                insertCmd.Parameters.AddWithValue("@Role", "Non-Admin");
+                                insertCmd.Parameters.AddWithValue("@DefaultView", "" );                              
+                                insertCmd.ExecuteNonQuery();
+                                
+                            }
+                            adminFlag = "N";
+                            role = "Non-ADmin";
+                            defaultView = "";
+                        }
                         
-                        };
                             
                 
                     }
