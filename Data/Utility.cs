@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
 using Serilog;
+using System.Runtime.CompilerServices;
 
 namespace ClinicalResearchApp.Data
 {
@@ -59,40 +60,22 @@ namespace ClinicalResearchApp.Data
                         rowId = array[i, j];
                         Log.Logger.Information($"The toolType is: {toolType}");
                     }
-                    if (j == 1) {
+                    if (j == 1)
+                    {
                         colPos = array[i, j]; // Add the element to the row sum
                         Log.Logger.Information($"The colPos is: {colPos}");
-                    
+
                         // Calculate Tier for the row
-                        if ((toolType == "P") && (colPos != "C7")) 
-                        {   if (hDataSharingLevel != "4")  // 4 is Data will not be copied, moved, or shared
-                            {
-                                if (consent == "Y") {
-                                    tiers.Add("Tier A");
-                                }
-                                else {
-                                     if (colPos == "1" || colPos == "2") // 1 is Text PHI, 2 is PHI > LDS
-                                        {
-                                            tiers.Add("Tier C");
-                                        }
-                                    else
-                                        {
-                                            if (numRec == "2") // 2 is 10,000 or more
-                                            {
-                                                tiers.Add("Tier C");
-                                            }
-                                            else
-                                            {
-                                                tiers.Add("Tier B");
-                                            }
-                                        }
-                                }
-                            }
-                            else 
+                        if ((toolType == "P") && (colPos != "C7"))
+                        {
+                            if ((hDataSharingLevel == "4") && (consent == "Y")) // 4 is Data will not be copied, moved, or shared
                             {
                                 tiers.Add("Tier A");
-                                /*
-                                if (colPos == "1" || colPos == "2") // 1 is Text PHI, 2 is PHI > LDS
+                            }
+
+                            else
+                            {
+                                if ((colPos == "C1" || colPos == "C2") && (hDataSharingLevel != "4"))// 1 is Text PHI, 2 is PHI > LDS
                                 {
                                     tiers.Add("Tier C");
                                 }
@@ -107,36 +90,43 @@ namespace ClinicalResearchApp.Data
                                         tiers.Add("Tier B");
                                     }
                                 }
-                                */
                             }
                         }
 
-                        if ((toolType == "J") && (colPos != "C7")) 
-                        {   if ((colPos ==  "C4" || colPos == "C5" || colPos == "C6") && involvesSensitiveHealth == "N")
+
+                        if ((toolType == "J") && (colPos != "C7"))
+                        {
+                            Log.Logger.Information($"In toolType J, colPos: {colPos}");
+                            Log.Logger.Information($"In toolType J, involvesSensitiveHealth: {involvesSensitiveHealth}");
+                            Log.Logger.Information($"In toolType J, consent: {consent}");
+
+                            if ((colPos == "C6" || colPos == "C5") && involvesSensitiveHealth == "N")
                             {
-                            tiers.Add("Tier A");
-                            }
-                            else
-                            {
-                            if (consent == "Y") 
-                                {
+                                Log.Logger.Information($"In toolType J, adding Tier A");
                                 tiers.Add("Tier A");
-                                }
+                            }
+
                             else
+                            {
+                                if (consent == "Y")
                                 {
-                                    if (colPos == "C1" || colPos == "C2" || colPos == "C3") // 1 is Text PHI, 2 is PHI > LDS, 3 is LDS
+                                    tiers.Add("Tier A");
+                                }
+                                else
+                                {
+                                    if (colPos == "C3" || colPos == "C4" || colPos == "C5" || colPos == "C6")
                                     {
-                                        tiers.Add("Tier C");
+                                        tiers.Add("Tier B");
                                     }
-                                    else
+                                    else   // 1 is Text PHI, 2 is PHI > LDS
                                     {
-                                        if (numRec == "2") // 2 is 10,000 or more
+                                        if (numRec == "1" || numRec == "2") // 2 is 10,000 or more
                                         {
                                             tiers.Add("Tier C");
                                         }
                                         else
                                         {
-                                            if (dataLeaving == "N") 
+                                            if (dataLeaving == "N")
                                             {
                                                 tiers.Add("Tier B");
                                             }
@@ -144,59 +134,45 @@ namespace ClinicalResearchApp.Data
                                             {
                                                 tiers.Add("Tier C");
                                             }
-                                        }
-                                    }
-                                    {
-                                        if (numRec == "0") {
-                                            if (dataLeaving == "N") 
-                                            {
-                                                tiers.Add("Tier B");
-                                            }
-                                            else
-                                            {
-                                                tiers.Add("Tier C");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            tiers.Add("Tier C");
                                         }
                                     }
                                 }
                             }
                         }
-                        if ((toolType == "R") && (colPos != "C7")) 
-                        {   
-                            if ((colPos ==  "C4" || colPos == "C5" || colPos == "C6") && involvesSensitiveHealth == "N")
+                        if ((toolType == "R") && (colPos != "C7"))
+                        {
+                            if ((colPos == "C3" || colPos == "C4" || colPos == "C5" || colPos == "C6") && involvesSensitiveHealth == "N")
                             {
-                            tiers.Add("Tier B");
+                                tiers.Add("Tier B");
                             }
                             else
                             {
-                                if (rowId == "2.R.2") {
-                                    tiers.Add("Tier X");
-                                }
-                                else {
-                                    tiers.Add("Tier C");
-                                }
+                                tiers.Add("Tier C");
                             }
                         }
-                        if ((toolType == "E") && (colPos != "C7")) 
-                        {  
-                            Log.Logger.Information($"ToolType is E"); 
-                             Log.Logger.Information($"The dataSharing is: {dataSharing}"); 
+                        if ((toolType == "E") && (colPos != "C7"))
+                        {
+                            Log.Logger.Information($"ToolType is E");
+                            Log.Logger.Information($"The dataSharing is: {dataSharing}");
                             if (dataSharing == "Y")
                             {
                                 // No change if covered by consent agreement
                                 //tiers.Add("Tier C");
                                 Log.Logger.Information($"No change Tool E & covered by consent agreement.");
                             }
-                            else {
+                            else
+                            {
                                 tiers.Add("Tier C");
                                 Log.Logger.Information($"Adding Tier C to the list");
-                                }
+                            }
 
                         }
+                        // other conditions
+                        if ((colPos == "C1" || colPos == "C2" || colPos == "C3" || colPos == "C4") && (rowId == "2.R.2"))
+                        {
+                            tiers.Add("Tier X");
+                        }
+
                     }
                 }
             } // End of loop over each row
@@ -224,6 +200,11 @@ namespace ClinicalResearchApp.Data
             if (lowestTier == "") {
                 lowestTier = "Not enough information provided to calculate Tier";
             }
+            if (lowestTier.StartsWith("Tier B") && (numRec == "2"))
+            {
+                lowestTier = "Tier C - Requires review";
+            }
+            
             return lowestTier; // Return the lowest score found
         } 
     }

@@ -844,7 +844,7 @@ function collectSection1Answers() {
     function collectDataLeavingJHM() {
             let humanDataSharingLevel = null;
 
-            if (HumanDataSharingLevel < 6) {
+            if (HumanDataSharingLevel < 4) {
                 humanDataSharingLevel = 'Yes';
             }  else {
                 humanDataSharingLevel = 'No';
@@ -906,18 +906,36 @@ function collectSection1Answers() {
     async function sendToServer(
         involvesSensitiveHealthInfo,
         numRecords,
-        humanDataSharingLevel,
+        HumanDataSharingLevel,
         consentYN,
         oraJhuraAnswer,
         dataTableSelections
     ) {
         try {
-            // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.
-            involvesSensitiveHealthInfo = involvesSensitiveHealthInfo === "true" ? "Y" : "N";
-            consentYN = consentYN === "true" ? "Y" : "N";
+            // Convert boolean "true"/"false" to "Y"/"N" for involvesSensitiveHealthInfo, consentYN, ORA question, etc.'
+            if (involvesSensitiveHealthInfo.startsWith("1.A.1")) {
+                involvesSensitiveHealthInfo = "Y"; // Yes
+            } else if (involvesSensitiveHealthInfo.startsWith("1.A.2")) {
+                involvesSensitiveHealthInfo = "N"; // No
+            }
+            if (consentYN.startsWith("1.D.1")) {
+                consentYN = "Y"; // Yes
+            } else if (consentYN.startsWith("1.D.2")) {
+                consentYN = "N"; // No
+            }
             oraJhuraAnswer = oraJhuraAnswer === "Yes" ? "Y" : "N";  // For ORA question
-
+            console.log('numRecords:', numRecords);
             // Map 1B: Number of people or records
+            if (numRecords.startsWith("1.B.1")) {
+                numRecords = "0"; 
+            }
+             if (numRecords.startsWith("1.B.2")) {
+                numRecords = "1"; 
+            }
+            if (numRecords.startsWith("1.B.3")) {
+                numRecords = "2"; 
+            }
+            /*
             switch (numRecords) {
                 case "0": // 1-499
                     numRecords = "0";  // 1-499 maps to "0"
@@ -931,9 +949,27 @@ function collectSection1Answers() {
                 default:
                     numRecords = "0"; // Default to 1-499 if no input is provided
             }
-
+            */
+            console.log('numRecords:', numRecords);
+            console.log('HumanDataSharingLevel:', HumanDataSharingLevel);
             // Map 1C: Human data sharing level
-            switch (humanDataSharingLevel) {
+            if (HumanDataSharingLevel.startsWith("1.C.1")) {
+                HumanDataSharingLevel = "0"; 
+            }
+             if (HumanDataSharingLevel.startsWith("1.C.2")) {
+                HumanDataSharingLevel = "1"; 
+            }
+            if (HumanDataSharingLevel.startsWith("1.C.3")) {
+                HumanDataSharingLevel = "2"; 
+            }
+            if (HumanDataSharingLevel.startsWith("1.C.4")) {
+                HumanDataSharingLevel = "3"; 
+            }
+            if (HumanDataSharingLevel.startsWith("1.C.5")) {
+                HumanDataSharingLevel = "4"; 
+            }
+            /*
+            switch (HumanDataSharingLevel) {
                 case "0": // "Directly identifiable data"
                     humanDataSharingLevel = "0";  // Map to "0"
                     break;
@@ -952,14 +988,18 @@ function collectSection1Answers() {
                 default:
                     humanDataSharingLevel = "4"; // Default to "Data will not be copied, moved, or shared"
             }
-
+            */
+            console.log('HumanDataSharingLevel:', HumanDataSharingLevel);
+            console.log('involvesSensitiveHealthInfo:', involvesSensitiveHealthInfo);
+            console.log('consentYN:', consentYN);
+            console.log('dataLeavingJHM:', oraJhuraAnswer);
             // Send the collected data
             const dataToSend = {
                 tierArray: dataTableSelections,  // 2D array [["2.P.7", "C2"], ...]
                 dataLeavingJHM: oraJhuraAnswer,  // "Y" or "N"
                 numRecords: numRecords,          // 0, 1, or 2
                 consentYN: consentYN,            // "Y" or "N"
-                humanDataSharingLevel: humanDataSharingLevel, // 0, 1, 2, 3, or 4
+                humanDataSharingLevel: HumanDataSharingLevel, // 0, 1, 2, 3, or 4
                 involvesSensitiveHealthInfo: involvesSensitiveHealthInfo, // "Y" or "N"
                 dataSharingAgreement: oraJhuraAnswer  // "Y" or "N"
             };
