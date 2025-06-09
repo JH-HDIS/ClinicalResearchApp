@@ -68,16 +68,16 @@ namespace ClinicalResearchApp.Data
                         // Calculate Tier for the row
                         if ((toolType == "P") && (colPos != "C7"))
                         {
-                            if ((hDataSharingLevel == "4") && (consent == "Y")) // 4 is Data will not be copied, moved, or shared
+                            if ((hDataSharingLevel == "4") || ((hDataSharingLevel != "4" && consent == "Y"))) // 4 is Data will not be copied, moved, or shared
                             {
                                 tiers.Add("Tier A");
                             }
 
                             else
                             {
-                                if ((colPos == "C1" || colPos == "C2") && (hDataSharingLevel != "4"))// 1 is Text PHI, 2 is PHI > LDS
+                                if ((colPos == "C1" || colPos == "C2") && (consent=="N") && (hDataSharingLevel == "1" || humanDataSharingLevel == "2" ))// 1 is Text PHI, 2 is PHI > LDS
                                 {
-                                    tiers.Add("Tier C");
+                                    tiers.Add("Tier B");
                                 }
                                 else
                                 {
@@ -141,7 +141,7 @@ namespace ClinicalResearchApp.Data
                         }
                         if ((toolType == "R") && (colPos != "C7"))
                         {
-                            if ((colPos == "C3" || colPos == "C4" || colPos == "C5" || colPos == "C6") && involvesSensitiveHealth == "N")
+                            if ((colPos == "C5" || colPos == "C6") && involvesSensitiveHealth == "N")
                             {
                                 tiers.Add("Tier B");
                             }
@@ -158,7 +158,49 @@ namespace ClinicalResearchApp.Data
                             {
                                 // No change if covered by consent agreement
                                 //tiers.Add("Tier C");
-                                Log.Logger.Information($"No change Tool E & covered by consent agreement.");
+                                //****
+                                if ((colPos == "C6" || colPos == "C5") && involvesSensitiveHealth == "N")
+                                {
+                                    Log.Logger.Information($"In toolType J, adding Tier A");
+                                    tiers.Add("Tier A");
+                                }
+
+                                else
+                                {
+                                    if (consent == "Y")
+                                    {
+                                        tiers.Add("Tier A");
+                                    }
+                                    else
+                                    {
+                                        if (colPos == "C3" || colPos == "C4" || colPos == "C5" || colPos == "C6")
+                                        {
+                                            tiers.Add("Tier B");
+                                        }
+                                        else   // 1 is Text PHI, 2 is PHI > LDS
+                                        {
+                                            if (numRec == "1" || numRec == "2") // 2 is 10,000 or more
+                                            {
+                                                tiers.Add("Tier C");
+                                            }
+                                            else
+                                            {
+                                                if (dataLeaving == "N")
+                                                {
+                                                    tiers.Add("Tier B");
+                                                }
+                                                else
+                                                {
+                                                    tiers.Add("Tier C");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                Log.Logger.Information($"No change Tool E & covered by consent agreement - follow justifiable logic");
+                                
+                                //****
                             }
                             else
                             {
