@@ -12,7 +12,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Authentication;
 using Azure.Core;
 using ClinicalResearchApp.Models;
-
+using ClinicalResearchApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,8 @@ builder.Host.UseSerilog();  // Integrate Serilog with the ASP.NET Core logging s
 ServicePointManager.ServerCertificateValidationCallback = 
         (sender, certificate, chain, sslPolicyErrors) => true;
 
-
+builder.Services.Configure<TestTimeframeSettings>(
+    builder.Configuration.GetSection("TestTimeframe"));
 
 // Bind OpenIdConnect configuration from appsettings.json
 var openIdConnectSettings = builder.Configuration.GetSection("OpenIdConnect");

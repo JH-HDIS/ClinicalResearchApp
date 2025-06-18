@@ -5,17 +5,19 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ClinicalResearchApp.Models;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using System.Security.Claims; // Required for ClaimTypes
+using System.Security.Claims;
+using Microsoft.Extensions.Options; // Required for ClaimTypes
 
 
 namespace ClinicalResearchApp.Controllers;
 
 
 public class HomeController : Controller
-{
+{   
     [Authorize]
     public IActionResult Index()
     {
+
         string userName = User.Identity.IsAuthenticated 
             ? User.Claims.FirstOrDefault(c => c.Type == "name")?.Value 
             : "Guest";

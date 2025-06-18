@@ -3,6 +3,19 @@
 <!-- Banner Section -->
 <p>Welcome, @ViewBag.UserName (@ViewBag.jhed) Role: (@ViewBag.Admin)</p>
 
+@{
+    bool showTestMessage = ViewBag.ShowTestMessage ?? false;
+    string? testMessage = ViewBag.TestMessage as string;
+}
+
+@if (showTestMessage && !string.IsNullOrEmpty(testMessage))
+{
+    <div class="alert alert-warning">
+        @testMessage
+    </div>
+}
+
+
 @if (User.Identity.IsAuthenticated)
 {
     <!-- Add authenticated user actions here if needed -->

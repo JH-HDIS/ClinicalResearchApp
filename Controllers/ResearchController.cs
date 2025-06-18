@@ -12,15 +12,20 @@ namespace ClinicalResearchApp.Controllers
     public class ResearchController : Controller
     {
         private readonly ResearchRepository _repository;
+        private readonly TestTimeframeSettings? _timeframeSettings;
+        private readonly IWebHostEnvironment _env;
 
-        public ResearchController(IConfiguration configuration)
+        public ResearchController(IConfiguration configuration, IWebHostEnvironment env)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null or empty.");
             }
+
             _repository = new ResearchRepository(connectionString);
+            _timeframeSettings = configuration.GetSection("TestTimeframe").Get<TestTimeframeSettings>();
+            _env = env;
         }
 
         [Authorize]
@@ -46,6 +51,17 @@ namespace ClinicalResearchApp.Controllers
             ViewBag.email = User.Identity.IsAuthenticated
                 ? User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
                 : "Guest";
+
+        
+            var now = DateTime.Now;
+            bool inTimeframe = _timeframeSettings != null && now >= _timeframeSettings.Start && now <= _timeframeSettings.End;
+            bool isProduction = _env.IsProduction();
+
+            bool showMessage = inTimeframe && isProduction;
+
+            ViewBag.ShowTestMessage = showMessage;
+            ViewBag.TestMessage = _timeframeSettings != null ? _timeframeSettings.Message : string.Empty;
+
 
             // Handle sorting
             ViewData["CurrentSort"] = sortOrder; // Track the current sort column
@@ -140,6 +156,13 @@ namespace ClinicalResearchApp.Controllers
         public IActionResult Edit(string id, bool viewOnly, string createNewFlag)
         {
             var data = _repository.GetUserResponseDetails(id);
+            var now = DateTime.Now;
+            bool inTimeframe = _timeframeSettings != null && now >= _timeframeSettings.Start && now <= _timeframeSettings.End;
+            bool isProduction = _env.IsProduction();
+
+            bool showMessage = inTimeframe && isProduction;
+
+            ViewBag.ShowTestMessage = showMessage;
             if (viewOnly)
             {
                 ViewBag.ViewOnly = true;

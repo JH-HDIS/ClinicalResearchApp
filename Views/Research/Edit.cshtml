@@ -1,4 +1,11 @@
 @model ClinicalResearchApp.Models.UserResponse
+@using System.Text.Json
+
+@{
+    bool showTestMessage = ViewBag.ShowTestMessage ?? false;
+    string? testMessage = ViewBag.TestMessage as string;
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -1450,7 +1457,22 @@ document.addEventListener("DOMContentLoaded", function () {
         doc.text("Risk Tiers Calculator - PDF Summary", 10, 10);
 
         // Initialize vertical position tracker
-        let nextY = 20; // Start after the title
+        let nextY = 20;
+        
+        //check to see if we are in the testing period and if so, add a note to the PDF
+        const isTestingPeriod =  @Html.Raw(JsonSerializer.Serialize<bool>((bool)ViewBag.ShowTestMessage));
+        if (isTestingPeriod) {
+            // readjust next veritcal position to add traning period text
+           
+            doc.setFontSize(12);
+            doc.setTextColor(255, 0, 0); // Red color for testing message
+            doc.text("This PDF is being generated during our training period. Do not use for production purposes.", 10, 15);
+            doc.setTextColor(0, 0, 0); // Reset to black for subsequent text
+
+            let nextY = 40; // Adjust nextY to account for the height of the message
+            }
+        // Initialize vertical position tracker
+        //let nextY = 20; // Start after the title
 
         // RTC and IRB Application Information
         doc.setFontSize(12);
