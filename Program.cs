@@ -14,6 +14,7 @@ using Azure.Core;
 using ClinicalResearchApp.Models;
 using ClinicalResearchApp.Data;
 
+//Adding comment to check automatic deployment - L. Moore 07/17/2025
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
