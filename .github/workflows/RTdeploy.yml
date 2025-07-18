@@ -46,7 +46,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: ./publish.zip
-          remote: '${{ secrets.DEV_IIS_PATH }}/publish.zip'
-          host: ${{ secrets.DEV_HOST }}
-          username: ${{ secrets.DEV_USERNAME }}
+          remote: 'E:/inetpub/wwwroot/RiskTiersAutoDeploy/publish.zip'
+          host: 10.173.247.136
+          username: WIN\\SC-lelliot1
           password: Inh@le&Exh@le24
