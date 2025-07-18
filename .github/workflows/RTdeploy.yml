@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '8.0.300'
 
       - name: Restore dependencies
-        run: dotnet restore ClinicalResearchApp.csproj
+        run: dotnet restore ClinicalResearchApp.csproj --runtime win-x64
 
       - name: Build project
         run: dotnet build ClinicalResearchApp.csproj --configuration Release --no-restore
