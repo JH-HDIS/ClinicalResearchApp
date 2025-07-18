@@ -34,18 +34,25 @@ jobs:
         run: Compress-Archive -Path ./publish/* -DestinationPath ./publish.zip
         shell: pwsh
 
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-zip
+          path: ./publish.zip
+
   deploy-dev:
     needs: build
     runs-on: windows-latest
     if: startsWith(github.ref, 'refs/tags/dev-')
     steps:
-      - name: Download code
-        uses: actions/checkout@v3
+      - name: Download publish artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: publish-zip
 
       - name: Copy to DEVELOPMENT IIS directory (SMB)
         uses: garygrossgarten/github-action-scp@release
-        with:
-          local: ./publish.zip
+        with:  
           remote: 'E:/inetpub/wwwroot/RiskTiersAutoDeploy/publish.zip'
           host: 10.173.247.136
           username: WIN\\SC-lelliot1
