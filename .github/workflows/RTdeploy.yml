@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.118'
+          dotnet-version: '8.0.300'
 
       - name: Restore dependencies
         run: dotnet restore ClinicalResearchApp.csproj
